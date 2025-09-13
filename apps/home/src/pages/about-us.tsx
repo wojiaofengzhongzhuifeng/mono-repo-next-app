@@ -34,6 +34,12 @@ const AboutUsPage: NextPage = () => {
                   >
                     About Us
                   </a>
+                  <a
+                    href="/count-number"
+                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  >
+                    Count Number
+                  </a>
                 </nav>
               </div>
               <div className="flex items-center">
@@ -160,6 +166,7 @@ const AboutUsPage: NextPage = () => {
                 <ul className="space-y-2 text-sm">
                   <li><a href="/" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
                   <li><a href="/about-us" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="/count-number" className="text-gray-300 hover:text-white transition-colors">Count Number</a></li>
                 </ul>
               </div>
               <div>

@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
 
-const HomePage: NextPage = () => {
+const CountNumberPage: NextPage = () => {
   const [count, setCount] = useState(0)
   const increment = () => setCount(c => c + 1)
   const decrement = () => setCount(c => c - 1)
@@ -11,8 +11,8 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Home - Next.js Monorepo Template</title>
-        <meta name="description" content="Welcome to our Next.js monorepo template" />
+        <title>Count Number - Next.js Monorepo Template</title>
+        <meta name="description" content="Interactive counter demonstration with state management" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,7 +30,7 @@ const HomePage: NextPage = () => {
                 <nav className="ml-6 flex space-x-8">
                   <a
                     href="/"
-                    className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-gray-900"
+                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   >
                     Home
                   </a>
@@ -42,7 +42,7 @@ const HomePage: NextPage = () => {
                   </a>
                   <a
                     href="/count-number"
-                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-gray-900"
                   >
                     Count Number
                   </a>
@@ -50,7 +50,7 @@ const HomePage: NextPage = () => {
               </div>
               <div className="flex items-center">
                 <div className="text-sm text-gray-600">
-                  Welcome to our app
+                  Interactive Counter
                 </div>
               </div>
             </div>
@@ -63,75 +63,85 @@ const HomePage: NextPage = () => {
             <div className="px-4 py-6 sm:px-0">
               <div className="text-center">
                 <h1 className="text-4xl font-bold text-gray-900 mb-8">
-                  Welcome to Our App
+                  Count Number Demo
                 </h1>
                 
                 <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-                  This is a modern Next.js application built with TypeScript, Tailwind CSS, 
-                  and many other modern tools.
+                  This interactive counter demonstrates React state management with increment, 
+                  decrement, and reset functionality.
                 </p>
 
                 <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto mb-8">
                   <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Counter Demo
+                    Counter
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    This counter demonstrates state management.
+                    Use the buttons below to interact with the counter.
                   </p>
                   
-                  <div className="text-6xl font-bold text-blue-600 mb-6">
+                  <div className="text-8xl font-bold text-blue-600 mb-8">
                     {count}
                   </div>
                   
                   <div className="flex justify-center space-x-4">
                     <button
                       onClick={decrement}
-                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition-colors transform hover:scale-105"
                     >
-                      -
+                      <span className="text-2xl">-</span>
                     </button>
                     <button
                       onClick={reset}
-                      className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                      className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors transform hover:scale-105"
                     >
                       Reset
                     </button>
                     <button
                       onClick={increment}
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors transform hover:scale-105"
                     >
-                      +
+                      <span className="text-2xl">+</span>
                     </button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
                   <div className="bg-white rounded-lg shadow-md p-6">
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                      Next.js 14
+                      Increment
                     </h3>
                     <p className="text-gray-600">
-                      Modern React framework with Pages Router
+                      Increases the counter value by 1 each time
                     </p>
                   </div>
                   
                   <div className="bg-white rounded-lg shadow-md p-6">
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                      TypeScript
+                      Decrement
                     </h3>
                     <p className="text-gray-600">
-                      Type-safe JavaScript development
+                      Decreases the counter value by 1 each time
                     </p>
                   </div>
                   
                   <div className="bg-white rounded-lg shadow-md p-6">
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                      Tailwind CSS
+                      Reset
                     </h3>
                     <p className="text-gray-600">
-                      Utility-first CSS framework
+                      Resets the counter back to zero
                     </p>
                   </div>
+                </div>
+
+                <div className="bg-blue-50 rounded-lg p-6 max-w-2xl mx-auto">
+                  <h3 className="text-lg font-semibold text-blue-800 mb-3">
+                    State Management
+                  </h3>
+                  <p className="text-blue-700">
+                    This counter uses React's built-in useState hook for state management. 
+                    The state is preserved during navigation within the single page application.
+                  </p>
                 </div>
               </div>
             </div>
@@ -174,4 +184,4 @@ const HomePage: NextPage = () => {
   )
 }
 
-export default HomePage
+export default CountNumberPage
