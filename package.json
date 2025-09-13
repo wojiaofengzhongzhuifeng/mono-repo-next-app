@@ -1,0 +1,29 @@
+{
+  "name": "mono-repo-next-template",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "build:ui": "turbo run ui:build",
+    "dev": "turbo run dev",
+    "dev:home": "cd apps/home && pnpm dev",
+    "dev:about-us": "cd apps/about-us && pnpm dev",
+    "dev:all": "concurrently \"pnpm dev:home\" \"pnpm dev:about-us\"",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "3.4.2",
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "zustand": "^4.5.0"
+  }
+}
