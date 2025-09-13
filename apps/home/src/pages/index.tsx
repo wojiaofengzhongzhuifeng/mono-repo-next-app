@@ -35,13 +35,13 @@ const HomePage: NextPage = () => {
                     Home
                   </a>
                   <a
-                    href="/about-us"
+                    href="http://localhost:3001"
                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   >
                     About Us
                   </a>
                   <a
-                    href="/count-number"
+                    href="http://localhost:3002"
                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   >
                     Count Number
@@ -152,8 +152,8 @@ const HomePage: NextPage = () => {
                 <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul className="space-y-2 text-sm">
                   <li><a href="/" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
-                  <li><a href="/about-us" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-                  <li><a href="/count-number" className="text-gray-300 hover:text-white transition-colors">Count Number</a></li>
+                  <li><a href="http://localhost:3001" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="http://localhost:3002" className="text-gray-300 hover:text-white transition-colors">Count Number</a></li>
                 </ul>
               </div>
               <div>
