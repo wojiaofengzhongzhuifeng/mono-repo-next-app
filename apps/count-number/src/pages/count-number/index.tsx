@@ -1,5 +1,5 @@
 import type { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType } from 'next'
-import Home from './../../source/page'
+import Home from '@/source/page'
 
 interface PageProps {
   test: number

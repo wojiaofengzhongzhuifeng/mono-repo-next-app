@@ -1,4 +1,4 @@
-import NumberAction from './_components/number-action'
+import NumberAction from '@/source/_components/number-action'
 
 function Page ({ test }: { test: number }) {
   return (
