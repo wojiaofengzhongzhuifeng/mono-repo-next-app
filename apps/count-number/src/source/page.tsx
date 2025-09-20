@@ -1,3 +1,4 @@
+import React from 'react'
 import NumberAction from '@/source/_components/number-action'
 
 function Page ({ test }: { test: number }) {
