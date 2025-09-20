@@ -1,5 +1,6 @@
 import type { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType } from 'next'
 import Home from '@/source/page'
+import { get } from '@mono-repo/utils'
 
 interface PageProps {
   test: number
@@ -7,9 +8,25 @@ interface PageProps {
 
 // SSR implementation
 export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
-  return {
-    props: {
-      test: 1
+  try {
+    const response = await get<{ count: number }>({
+      url: '/get-count'
+    })
+
+    console.log('response', response)
+    
+    return {
+      props: {
+        test: response.data?.count || 2222
+      }
+    }
+  } catch (error) {
+
+    console.log('error', error)
+    return {
+      props: {
+        test: 1
+      }
     }
   }
 }

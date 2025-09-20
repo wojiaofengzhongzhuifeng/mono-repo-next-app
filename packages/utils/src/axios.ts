@@ -1,100 +1,63 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios'
 
-export interface ApiResponse<T = any> {
-  data: T;
-  message?: string;
-  code?: number;
+interface IServiceObject<T> {
+  code: number
+  data: T
+  message?: string
 }
 
-export interface ApiError {
-  message: string;
-  code?: number;
-  details?: any;
+const opt: AxiosRequestConfig = {
+  timeout: 20000,
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+}
+export type requestOpt = {
+  /**
+   * 接口请求地址
+   */
+  url: string
+  /**
+   * url地址中的参数对象
+   */
+  params?: { [key: string]: any }
+  /**
+   * 请求体中的数据对象
+   */
+  data?: { [key: string]: any }
+  /**
+   * 是否需要使用凭证
+   */
+  withCredentials?: boolean
+  /**
+   * 请求header信息
+   */
+  headers?: any
 }
 
-class HttpClient {
-  private instance: AxiosInstance;
+const instance = axios.create(opt)
 
-  constructor(baseConfig: AxiosRequestConfig = {}) {
-    this.instance = axios.create({
-      timeout: 10000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      ...baseConfig,
-    });
-
-    this.setupInterceptors();
-  }
-
-  private setupInterceptors() {
-    this.instance.interceptors.request.use(
-      (config) => {
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
-
-    this.instance.interceptors.response.use(
-      (response: AxiosResponse<ApiResponse>) => {
-        return response;
-      },
-      (error) => {
-        const apiError: ApiError = {
-          message: error.response?.data?.message || error.message || 'Request failed',
-          code: error.response?.status,
-          details: error.response?.data,
-        };
-        
-        return Promise.reject(apiError);
-      }
-    );
-  }
-
-  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.instance.get<ApiResponse<T>>(url, config);
-    return response.data.data;
-  }
-
-  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.instance.post<ApiResponse<T>>(url, data, config);
-    return response.data.data;
-  }
-
-  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.instance.put<ApiResponse<T>>(url, data, config);
-    return response.data.data;
-  }
-
-  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.instance.patch<ApiResponse<T>>(url, data, config);
-    return response.data.data;
-  }
-
-  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.instance.delete<ApiResponse<T>>(url, config);
-    return response.data.data;
-  }
-
-  setBaseURL(baseURL: string) {
-    this.instance.defaults.baseURL = baseURL;
-  }
-
-  setHeader(key: string, value: string) {
-    this.instance.defaults.headers[key] = value;
-  }
-
-  removeHeader(key: string) {
-    delete this.instance.defaults.headers[key];
+export const get = async <T>(opt: requestOpt) => {
+  try {
+    const ret = await instance.get<IServiceObject<T>>(opt.url, opt)
+    return ret.data
+  } catch (e) {
+    throw '请求数据报错，请稍后'
   }
 }
 
-export const createHttpClient = (baseConfig?: AxiosRequestConfig) => {
-  return new HttpClient(baseConfig);
-};
+export const post = async <T>(opt: Pick<requestOpt, 'url' | 'data' | 'headers'>) => {
+  try {
+    const params = new URLSearchParams()
+    for (const k in opt.data) {
+      params.append(k, opt.data[k])
+    }
+    const headers: AxiosRequestConfig['headers'] = Object.assign({}, opt.headers)
 
-export const http = createHttpClient();
+    const ret = await instance.post<IServiceObject<T>>(opt.url, params, { headers })
+    return ret.data
+  } catch (e) {
+    throw '请求数据报错，请稍后'
+  }
+}
 
-export * from 'axios';
+export default instance
