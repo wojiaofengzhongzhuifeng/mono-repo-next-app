@@ -11,15 +11,15 @@ interface PageProps {
 // SSR implementation
 export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
   try {
-    const response = await get<{ count: number }>({
-      url: '/api/get-count'
+    const response = await get<{ number: number, id: number, testList: number[] }>({
+      url: 'http:localhost:3000/get-count'
     })
 
     console.log('response', response)
     
     return {
       props: {
-        test: response.data?.count || 0
+        test: response.data?.number || 0
       }
     }
   } catch (error) {

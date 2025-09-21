@@ -1,4 +1,4 @@
-import { http } from '@mono-repo/utils'
+import { get } from '@mono-repo/utils'
 
 /**
  * 0. 定义请求与响应的数据结构
@@ -24,8 +24,8 @@ const GET_COUNT_NUMBER_MOCK_DATA = {
  * 1. 配置请求代码
  */
 const API_CONFIG = {
-    url: '/api-test/v1/count-success',
-    useMock: true,
+    url: '/api/get-count',
+    useMock: false,
     mockData: GET_COUNT_NUMBER_MOCK_DATA,
 }
 
@@ -33,13 +33,18 @@ const API_CONFIG = {
 /**
  * 2. 请求代码 + 通用逻辑 + 错误处理
  */
-export const getCountNumber = async (): Promise<GetCountNumberResponseData> => {
+export const
+    getCountNumber = async (): Promise<GetCountNumberResponseData> => {
     try {
         if (API_CONFIG.useMock) {
             return API_CONFIG.mockData.data
         }
+        let result = await get<GetCountNumberResponseData>({
+            url: API_CONFIG.url
+        })
+        console.log(result)
+        return result.data
 
-        return await http.get<GetCountNumberResponseData>(API_CONFIG.url)
     } catch (error) {
         // 获取数据失败： httpcode 非200
         throw new Error('获取数据失败： httpcode 非200')
