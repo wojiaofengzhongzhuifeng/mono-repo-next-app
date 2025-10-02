@@ -1,4 +1,4 @@
-import { http } from '@mono-repo/utils'
+import { post } from '@mono-repo/utils'
 
 /**
  * 0. 定义请求与响应的数据结构
@@ -44,7 +44,8 @@ export const submitCountNumber = async (
             return API_CONFIG.mockData.data
         }
 
-        return await http.post<SubmitCountNumberResponseData>(API_CONFIG.url, requestData)
+        const result = await post<SubmitCountNumberResponseData>({ url: API_CONFIG.url, data: requestData })
+        return result.data
     } catch (error) {
         // 提交数据失败： httpcode 非200
         throw new Error('提交数据失败： httpcode 非200')
