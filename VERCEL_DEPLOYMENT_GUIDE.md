@@ -13,16 +13,18 @@
 #### 部署 ai-todo
 1. 在 Vercel 中创建新项目
 2. 连接到你的 GitHub 仓库
-3. **Root Directory** 设置为：`apps/ai-todo`
-4. Vercel 会自动读取 `apps/ai-todo/vercel.json` 配置
-5. 点击 Deploy
+3. **Root Directory** 设置为：`apps`
+4. **Build Command** 设置为：`cd .. && turbo run build --filter=ai-todo`
+5. **Install Command** 设置为：`cd .. && pnpm install`
+6. 点击 Deploy
 
 #### 部署 ai-count-number
 1. 在 Vercel 中创建另一个新项目
 2. 连接到同一个 GitHub 仓库
-3. **Root Directory** 设置为：`apps/ai-count-number`
-4. Vercel 会自动读取 `apps/ai-count-number/vercel.json` 配置
-5. 点击 Deploy
+3. **Root Directory** 设置为：`apps`
+4. **Build Command** 设置为：`cd .. && turbo run build --filter=ai-count-number`
+5. **Install Command** 设置为：`cd .. && pnpm install`
+6. 点击 Deploy
 
 ### 方式二：使用 Vercel Teams 的 Monorepo 功能
 
@@ -48,8 +50,8 @@
 {
   "version": 2,
   "name": "ai-todo",
-  "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd ../.. && turbo run build --filter=ai-todo",
+  "installCommand": "cd .. && pnpm install",
+  "buildCommand": "cd .. && turbo run build --filter=ai-todo",
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
@@ -60,8 +62,8 @@
 {
   "version": 2,
   "name": "ai-count-number",
-  "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd ../.. && turbo run build --filter=ai-count-number",
+  "installCommand": "cd .. && pnpm install",
+  "buildCommand": "cd .. && turbo run build --filter=ai-count-number",
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
