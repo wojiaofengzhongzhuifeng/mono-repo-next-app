@@ -32,7 +32,7 @@ cd apps/home
 # 或者
 cd apps/about-us  
 # 或者
-cd apps/count-number
+cd apps/ai
 
 # 使用 pnpm 添加 shadcn/ui 组件
 pnpm dlx shadcn@latest add button

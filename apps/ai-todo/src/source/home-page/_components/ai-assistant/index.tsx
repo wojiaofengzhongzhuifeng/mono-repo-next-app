@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { useAIStore } from '@/source/store/aiStore'
-import { useTodoStore } from '@/source/store/todoStore'
-import { useAppStore } from '@/source/store/appStore'
+import { useAIStore } from '@/source/home-page/store/aiStore'
+import { useTodoStore } from '@/source/home-page/store/todoStore'
+import { useAppStore } from '@/source/home-page/store/appStore'
 
 export default function AIAssistant() {
   const { currentSuggestion, generateSuggestion, suggestions } = useAIStore()
   const { getTodoStats } = useTodoStore()
-  const { language } = useAppStore()
+  const { language } = useAppStore() as unknown as { language: 'zh-CN' | 'en' }
   
   const stats = getTodoStats()
   

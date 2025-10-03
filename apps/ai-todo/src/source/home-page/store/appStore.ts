@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { AppState } from '@/source/_types'
+import { AppState } from '@/source/home-page/_types'
 
 interface AppStore extends AppState {
   setTheme: (theme: 'light' | 'dark' | 'system') => void

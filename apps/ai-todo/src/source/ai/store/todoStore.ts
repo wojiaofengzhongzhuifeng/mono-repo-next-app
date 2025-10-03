@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Todo, TodoStats } from '@/source/_types'
+import { Todo, TodoStats } from '@/source/ai/_types'
 
 interface TodoStore {
   todos: Todo[]
@@ -20,7 +20,7 @@ export const useTodoStore = create<TodoStore>()(
     (set, get) => ({
       todos: [],
       
-      addTodo: (text: string, priority: 'medium' = 'medium') => {
+      addTodo: (text: string, priority: 'low' | 'medium' | 'high' = 'medium') => {
         const newTodo: Todo = {
           id: Date.now().toString(),
           text: text.trim(),

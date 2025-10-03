@@ -1,9 +1,15 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { useAppStore } from '@/source/store/appStore'
+import { useAppStore } from '@/source/home-page/store/appStore'
 
 export default function AppSettings() {
-  const { theme, language, setTheme, setLanguage, toggleTheme } = useAppStore()
+  const { theme, language, setTheme, setLanguage, toggleTheme } = useAppStore() as unknown as {
+    theme: 'light' | 'dark' | 'system'
+    language: 'zh-CN' | 'en'
+    setTheme: (theme: 'light' | 'dark' | 'system') => void
+    setLanguage: (language: 'zh-CN' | 'en') => void
+    toggleTheme: () => void
+  }
   
   return (
     <div className="space-y-6">

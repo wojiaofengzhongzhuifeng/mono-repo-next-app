@@ -1,4 +1,4 @@
-import { Todo } from '@/source/_types'
+import { Todo } from '@/source/ai/_types'
 
 export const getPriorityColor = (priority: 'low' | 'medium' | 'high') => {
   switch (priority) {

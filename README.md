@@ -40,7 +40,7 @@ pnpm run dev
 
 #### 启动计数器应用
 ```bash
-cd apps/count-number
+cd apps/ai
 pnpm run dev
 ```
 访问 http://localhost:3002/count-number
@@ -80,7 +80,7 @@ pnpm run dev
    pnpm run dev
    
    # 测试计数器应用（如果需要）
-   cd ../count-number
+   cd ../ai
    pnpm run dev
    ```
 

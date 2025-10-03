@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { useTodoStore } from '@/source/store/todoStore'
-import { useAppStore } from '@/source/store/appStore'
-import { getPriorityColor, getPriorityLabel, formatDate } from '@/source/_utils'
+import { useTodoStore } from '@/source/home-page/store/todoStore'
+import { useAppStore } from '@/source/home-page/store/appStore'
+import { getPriorityColor, getPriorityLabel, formatDate } from '@/source/home-page/_utils'
 
 export default function TodoList() {
   const [newTodo, setNewTodo] = useState('')
@@ -18,7 +18,7 @@ export default function TodoList() {
     getTodoStats 
   } = useTodoStore()
   
-  const { language } = useAppStore()
+  const { language } = useAppStore() as unknown as { language: 'zh-CN' | 'en' }
   
   const stats = getTodoStats()
   
@@ -49,8 +49,8 @@ export default function TodoList() {
   const sortedTodos = [...filteredTodos].sort((a, b) => {
     switch (sortBy) {
       case 'priority':
-        const priorityOrder = { high: 0, medium: 1, low: 2 }
-        return priorityOrder[a.priority] - priorityOrder[b.priority]
+        const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 }
+        return (priorityOrder[a.priority as string] || 999) - (priorityOrder[b.priority as string] || 999)
       case 'text':
         return a.text.localeCompare(b.text)
       case 'createdAt':

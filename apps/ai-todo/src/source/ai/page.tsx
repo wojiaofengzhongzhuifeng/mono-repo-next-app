@@ -1,14 +1,17 @@
 import React from 'react'
-import TodoList from '@/source/_components/todo-list'
-import AIAssistant from '@/source/_components/ai-assistant'
-import AppSettings from '@/source/_components/app-settings'
-import { useTodoStore } from '@/source/store/todoStore'
-import { useAIStore } from '@/source/store/aiStore'
-import { useAppStore } from '@/source/store/appStore'
-import { getThemeClasses } from '@/source/_utils'
+import TodoList from '@/source/ai/_components/todo-list'
+import AIAssistant from '@/source/ai/_components/ai-assistant'
+import AppSettings from '@/source/ai/_components/app-settings'
+import { useTodoStore } from '@/source/ai/store/todoStore'
+import { useAIStore } from '@/source/ai/store/aiStore'
+import { useAppStore } from '@/source/ai/store/appStore'
+import { getThemeClasses } from '@/source/ai/_utils'
 
 function Page() {
-  const { theme, language } = useAppStore()
+  const { theme, language } = useAppStore() as unknown as {
+    theme: 'light' | 'dark' | 'system'
+    language: 'zh-CN' | 'en'
+  }
   const { getTodoStats } = useTodoStore()
   const { currentSuggestion } = useAIStore()
 

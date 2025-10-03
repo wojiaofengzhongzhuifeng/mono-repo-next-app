@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { AISuggestion } from '@/source/_types'
+import { AISuggestion } from '@/source/home-page/_types'
 
 interface AIStore {
   suggestions: AISuggestion[]
