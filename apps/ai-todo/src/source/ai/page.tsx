@@ -22,7 +22,7 @@ function Page() {
     <div className={`min-h-screen ${themeClasses.bg} ${themeClasses.text}`}>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
+          {/* header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold mb-4">
               test123321

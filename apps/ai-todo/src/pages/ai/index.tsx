@@ -6,7 +6,7 @@ import AIPage from '@/source/ai/page'
 export default function AIPageRoute() {
   return (
     <div>
-      {/* Header */}
+      {/* header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div>
@@ -18,7 +18,7 @@ export default function AIPageRoute() {
           </Link>
         </div>
       </div>
-      
+
       {/* Main Content */}
       <AIPage />
     </div>
