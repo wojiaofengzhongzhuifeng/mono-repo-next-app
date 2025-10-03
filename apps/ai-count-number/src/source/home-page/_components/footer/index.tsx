@@ -1,6 +1,6 @@
 import React from 'react'
 
 function Footer() {
-  return <div>Footer</div>
+  return <div> no test logg Footer</div>
 }
 export default Footer
