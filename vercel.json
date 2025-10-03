@@ -1,11 +1,12 @@
 {
   "version": 2,
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm build",
+  "buildCommand": "cd ../.. && turbo run build --filter=ai-todo",
   "framework": "nextjs",
-  "outputDirectory": "apps/ai-todo/.next",
+  "rootDirectory": "apps/ai-todo",
+  "outputDirectory": ".next",
   "functions": {
-    "apps/ai-todo/pages/api/**/*.js": {
+    "pages/api/**/*.js": {
       "runtime": "nodejs18.x"
     }
   }
