@@ -1,7 +1,0 @@
-{
-  "buildCommand": "cd apps/ai-todo && pnpm build",
-  "outputDirectory": "apps/ai-todo/.next",
-  "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "devCommand": "cd apps/ai-todo && pnpm dev"
-}

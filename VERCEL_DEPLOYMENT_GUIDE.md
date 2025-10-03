@@ -32,7 +32,7 @@
    - 确认项目设置
    - 等待部署完成
 
-### 方法二：通过 Vercel 网页界面部署
+### 方法二：通过 Vercel 网页界面部署（推荐）
 
 1. **访问 Vercel 控制台**
    - 打开 [vercel.com](https://vercel.com)
@@ -43,11 +43,18 @@
    - 导入您的 Git 仓库
    - 或选择 "Import Git Repository"
 
-3. **配置项目设置**
+3. **配置项目设置（重要）**
    - **Framework Preset**: Next.js
-   - **Build Command**: `cd apps/ai-todo && pnpm build`
-   - **Output Directory**: `apps/ai-todo/.next`
+   - **Root Directory**: `apps/ai-todo` ← **这是关键步骤！**
+   - **Build Command**: `pnpm build`
+   - **Output Directory**: `.next`
    - **Install Command**: `pnpm install`
+
+   📋 **详细配置步骤：**
+   - 在 "Configure Project" 页面
+   - 找到 "Root Directory" 字段
+   - 输入：`apps/ai-todo`
+   - 其他字段会自动填充，确认无误即可
 
 4. **环境变量配置**
    在 Vercel 控制台中添加环境变量：
@@ -61,16 +68,10 @@
 
 ## 项目配置说明
 
-### vercel.json 配置
-```json
-{
-  "buildCommand": "cd apps/ai-todo && pnpm build",
-  "outputDirectory": "apps/ai-todo/.next",
-  "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "devCommand": "cd apps/ai-todo && pnpm dev"
-}
-```
+### 重要提示
+对于 monorepo 项目，**必须在 Vercel 控制台中设置 Root Directory 为 `apps/ai-todo`**，这样 Vercel 才能正确识别 Next.js 应用。
+
+**不需要 vercel.json 文件** - 所有配置都在 Vercel 控制台中完成。
 
 ### 环境变量
 参考 `.env.example` 文件配置环境变量。在 Vercel 控制台的 Environment Variables 部分添加：
@@ -120,6 +121,13 @@ A: 确认：
 
 ### Q: 自定义域名配置？
 A: 在 Vercel 控制台的 Domains 部分添加您的域名并配置 DNS。
+
+### Q: 报错 "No Next.js version detected" 怎么办？
+A: 这是 monorepo 项目的常见问题，解决方法：
+1. 在 Vercel 控制台中设置 **Root Directory** 为 `apps/ai-todo`
+2. 确保 **Build Command** 为 `pnpm build`
+3. 确保 **Output Directory** 为 `.next`
+4. 重新部署项目
 
 ## 自动部署
 
