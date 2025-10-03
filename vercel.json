@@ -3,6 +3,5 @@
   "outputDirectory": "apps/ai-todo/.next",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "devCommand": "cd apps/ai-todo && pnpm dev",
-  "rootDirectory": "."
+  "devCommand": "cd apps/ai-todo && pnpm dev"
 }

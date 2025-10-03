@@ -45,7 +45,6 @@
 
 3. **配置项目设置**
    - **Framework Preset**: Next.js
-   - **Root Directory**: .（根目录）
    - **Build Command**: `cd apps/ai-todo && pnpm build`
    - **Output Directory**: `apps/ai-todo/.next`
    - **Install Command**: `pnpm install`
@@ -69,8 +68,7 @@
   "outputDirectory": "apps/ai-todo/.next",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "devCommand": "cd apps/ai-todo && pnpm dev",
-  "rootDirectory": "."
+  "devCommand": "cd apps/ai-todo && pnpm dev"
 }
 ```
 
