@@ -14,7 +14,7 @@
 1. 在 Vercel 中创建新项目
 2. 连接到你的 GitHub 仓库
 3. **Root Directory** 设置为：`apps`
-4. **Build Command** 设置为：`cd .. && turbo run build --filter=@mono-repo/utils --filter=@mono-repo/ui --filter=ai-todo`
+4. **Build Command** 设置为：`cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-todo`
 5. **Install Command** 设置为：`cd .. && pnpm install`
 6. 点击 Deploy
 
@@ -22,7 +22,7 @@
 1. 在 Vercel 中创建另一个新项目
 2. 连接到同一个 GitHub 仓库
 3. **Root Directory** 设置为：`apps`
-4. **Build Command** 设置为：`cd .. && turbo run build --filter=@mono-repo/utils --filter=@mono-repo/ui --filter=ai-count-number`
+4. **Build Command** 设置为：`cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-count-number`
 5. **Install Command** 设置为：`cd .. && pnpm install`
 6. 点击 Deploy
 
@@ -51,7 +51,7 @@
   "version": 2,
   "name": "ai-todo",
   "installCommand": "cd .. && pnpm install",
-  "buildCommand": "cd .. && turbo run build --filter=@mono-repo/utils --filter=@mono-repo/ui --filter=ai-todo",
+  "buildCommand": "cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-todo",
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
@@ -63,7 +63,7 @@
   "version": 2,
   "name": "ai-count-number",
   "installCommand": "cd .. && pnpm install",
-  "buildCommand": "cd .. && turbo run build --filter=@mono-repo/utils --filter=@mono-repo/ui --filter=ai-count-number",
+  "buildCommand": "cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-count-number",
   "framework": "nextjs",
   "outputDirectory": ".next"
 }
@@ -111,6 +111,7 @@ cd apps/ai-count-number && pnpm dev
 每个应用可以设置独立的环境变量：
 
 - `ai-todo`: 在 Vercel 项目设置中添加环境变量
-- `ai-count-number`: 在其 Vercel 项目设置中添加环境变量
+- `ai-count-number`: 在其 Vercel 项目设l 
+- 置中添加环境变量
 
 共享的环境变量可以在根目录的 `.env` 文件中配置。

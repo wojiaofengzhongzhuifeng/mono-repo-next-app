@@ -1,7 +1,6 @@
 import React from 'react'
 import { useGlobalStore } from '@/store/global-store'
-import Link from 'next/link'
-
+import { log } from '@mono-repo/test-utils'
 function Content() {
   const { globalNumber, increment, decrement, reset } = useGlobalStore()
 
@@ -9,7 +8,9 @@ function Content() {
     <div className="p-8">
       <h2 className="text-2xl font-bold mb-4">Home Page</h2>
       <div className="bg-gray-100 p-6 rounded-lg">
-        <h3 className="text-lg font-semibold mb-4">Global Number: {globalNumber}</h3>
+        <h3 className="text-lg font-semibold mb-4">
+          Global Number: {globalNumber}
+        </h3>
         <div className="flex gap-4 mb-4">
           <button
             onClick={increment}
@@ -30,12 +31,8 @@ function Content() {
             Reset
           </button>
         </div>
-        <Link 
-          href="/ai" 
-          className="inline-block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-        >
-          Go to AI Page
-        </Link>
+
+        <button onClick={log}>test log</button>
       </div>
     </div>
   )

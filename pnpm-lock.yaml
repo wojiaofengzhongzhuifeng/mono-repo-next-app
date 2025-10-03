@@ -148,6 +148,9 @@ importers:
 
   apps/ai-todo:
     dependencies:
+      '@mono-repo/test-utils':
+        specifier: workspace:*
+        version: link:../../packages/test-utils
       '@mono-repo/utils':
         specifier: ^1.4.4
         version: 1.4.4
@@ -229,6 +232,18 @@ importers:
         version: 3.4.17
       typescript:
         specifier: ^5
+        version: 5.9.2
+
+  packages/test-utils:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.14
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.0(jiti@1.21.7)(postcss@8.5.6)(typescript@5.9.2)(yaml@2.8.1)
+      typescript:
+        specifier: ^5.0.0
         version: 5.9.2
 
   packages/ui:
