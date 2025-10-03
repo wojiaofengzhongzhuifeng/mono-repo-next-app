@@ -4,10 +4,5 @@
   "installCommand": "cd ../.. && pnpm install",
   "buildCommand": "cd ../.. && turbo run build --filter=ai-todo",
   "framework": "nextjs",
-  "outputDirectory": ".next",
-  "functions": {
-    "pages/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "outputDirectory": ".next"
 }
