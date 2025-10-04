@@ -3,7 +3,7 @@ export interface BaseComponentProps {
   children?: React.ReactNode
 }
 
-export interface NavigationItem {
+export interface NavigationItemBase {
   name: string
   href: string
 }

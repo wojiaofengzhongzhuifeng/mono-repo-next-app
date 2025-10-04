@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mono-repo/utils": "^1.4.4",
+    "@mono-repo/ui": "workspace:*",
     "ahooks": "^3.9.5",
     "axios": "^1.6.2",
     "next": "14.2.5",

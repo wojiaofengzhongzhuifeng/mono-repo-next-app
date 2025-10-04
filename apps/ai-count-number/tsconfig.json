@@ -19,7 +19,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@mono-repo/*": ["../../packages/*"]
+      "@mono-repo/ui": ["../../packages/ui/src"],
+      "@mono-repo/utils": ["../../packages/utils/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
