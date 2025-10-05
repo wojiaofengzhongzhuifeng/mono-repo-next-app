@@ -1,6 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
-import { Button } from '@/components'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import AIPage from '@/source/ai/page'
 
 export default function AIPageRoute() {
@@ -9,4 +8,12 @@ export default function AIPageRoute() {
       <AIPage />
     </div>
   )
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
 }

@@ -28,6 +28,7 @@ export interface HeaderConfig {
       onClick: () => void
       variant?: 'primary' | 'secondary' | 'ghost'
     }>
+    customContent?: React.ReactNode
   }
   
   // 样式配置
@@ -211,6 +212,12 @@ export function Header({
                     {action.label}
                   </button>
                 ))}
+              </div>
+            )}
+            
+            {userArea.customContent && (
+              <div className="flex items-center">
+                {userArea.customContent}
               </div>
             )}
           </div>

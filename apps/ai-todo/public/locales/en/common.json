@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "home": "Home",
+    "ai": "AI Assistant",
+    "todo": "Todo"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "chinese": "中文",
+    "english": "English"
+  },
+  "todo": {
+    "title": "Todo List",
+    "addTodo": "Add Todo",
+    "todoPlaceholder": "Enter your todo item...",
+    "completed": "Completed",
+    "pending": "Pending",
+    "markComplete": "Mark as Complete",
+    "markIncomplete": "Mark as Incomplete",
+    "deleteTodo": "Delete Todo",
+    "noTodos": "No todos yet",
+    "addFirstTodo": "Add your first todo item!"
+  },
+  "ai": {
+    "title": "AI Assistant",
+    "description": "Intelligent AI assistant to help you with various tasks",
+    "inputPlaceholder": "Enter your question...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "error": "AI service is temporarily unavailable, please try again later"
+  }
+}
