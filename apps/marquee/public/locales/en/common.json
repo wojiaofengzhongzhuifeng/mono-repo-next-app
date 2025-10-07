@@ -1,0 +1,22 @@
+{
+  "title": "Marquee Effect",
+  "home": "Home",
+  "marquee": "Marquee",
+  "inputArea": "Input Area",
+  "displayArea": "Display Area",
+  "textInput": "Text Content",
+  "effectType": "Effect Type",
+  "marqueeEffect": "Marquee Effect",
+  "blinkEffect": "Blink Effect",
+  "sequentialLightEffect": "Sequential Light Effect",
+  "direction": "Direction",
+  "leftToRight": "Left to Right",
+  "rightToLeft": "Right to Left",
+  "topToBottom": "Top to Bottom",
+  "bottomToTop": "Bottom to Top",
+  "speed": "Speed",
+  "frequency": "Frequency",
+  "start": "Start",
+  "stop": "Stop",
+  "reset": "Reset"
+}
