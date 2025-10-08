@@ -11,8 +11,8 @@ export const LanguageSwitcher: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center space-x-2">
-      <span className="text-sm text-gray-600">语言:</span>
+    <div className='flex items-center space-x-2'>
+      <span className='text-sm text-gray-600'>语言:</span>
       <button
         onClick={() => handleLanguageChange('zh')}
         className={`px-3 py-1 text-sm rounded-md transition-colors ${

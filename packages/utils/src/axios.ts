@@ -45,15 +45,22 @@ export const get = async <T>(opt: requestOpt) => {
   }
 }
 
-export const post = async <T>(opt: Pick<requestOpt, 'url' | 'data' | 'headers'>) => {
+export const post = async <T>(
+  opt: Pick<requestOpt, 'url' | 'data' | 'headers'>
+) => {
   try {
     const params = new URLSearchParams()
     for (const k in opt.data) {
       params.append(k, opt.data[k])
     }
-    const headers: AxiosRequestConfig['headers'] = Object.assign({}, opt.headers)
+    const headers: AxiosRequestConfig['headers'] = Object.assign(
+      {},
+      opt.headers
+    )
 
-    const ret = await instance.post<IServiceObject<T>>(opt.url, params, { headers })
+    const ret = await instance.post<IServiceObject<T>>(opt.url, params, {
+      headers,
+    })
     return ret.data
   } catch (e) {
     throw '请求数据报错，请稍后'

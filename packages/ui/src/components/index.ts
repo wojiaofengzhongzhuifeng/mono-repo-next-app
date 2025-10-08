@@ -4,7 +4,12 @@ export type { HeaderProps, HeaderConfig } from './Header'
 
 // 导出 Footer 组件和相关类型
 export { Footer, defaultFooterConfig, footerPresets } from './Footer'
-export type { FooterProps, FooterConfig, FooterSection, SocialLink } from './Footer'
+export type {
+  FooterProps,
+  FooterConfig,
+  FooterSection,
+  SocialLink,
+} from './Footer'
 
 // 导出共享类型
 export type { NavigationItem } from './Header'
@@ -21,7 +26,7 @@ export const LayoutComponents = {
   Footer,
   defaultHeaderConfig,
   defaultFooterConfig,
-  footerPresets
+  footerPresets,
 }
 
 // 便捷的布局组合函数
@@ -36,13 +41,13 @@ export const createLayoutConfig = (config: LayoutConfig = {}) => {
   return {
     header: {
       ...defaultHeaderConfig,
-      ...config.header
+      ...config.header,
     },
     footer: {
       ...defaultFooterConfig,
-      ...config.footer
+      ...config.footer,
     },
     showHeader: config.showHeader ?? true,
-    showFooter: config.showFooter ?? true
+    showFooter: config.showFooter ?? true,
   }
 }

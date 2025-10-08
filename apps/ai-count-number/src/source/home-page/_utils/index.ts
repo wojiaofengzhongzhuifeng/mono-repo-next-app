@@ -13,14 +13,17 @@ export const getPriorityColor = (priority: 'low' | 'medium' | 'high') => {
   }
 }
 
-export const getPriorityLabel = (priority: 'low' | 'medium' | 'high', language: 'zh-CN' | 'en') => {
+export const getPriorityLabel = (
+  priority: 'low' | 'medium' | 'high',
+  language: 'zh-CN' | 'en'
+) => {
   const labels = {
     'zh-CN': {
       high: '高',
       medium: '中',
       low: '低',
     },
-    'en': {
+    en: {
       high: 'High',
       medium: 'Medium',
       low: 'Low',
@@ -37,7 +40,10 @@ export const formatDate = (date: Date, language: 'zh-CN' | 'en') => {
     hour: '2-digit',
     minute: '2-digit',
   }
-  return new Intl.DateTimeFormat(language === 'zh-CN' ? 'zh-CN' : 'en-US', options).format(date)
+  return new Intl.DateTimeFormat(
+    language === 'zh-CN' ? 'zh-CN' : 'en-US',
+    options
+  ).format(date)
 }
 
 export const generateId = () => {
@@ -49,7 +55,10 @@ export const truncateText = (text: string, maxLength: number) => {
   return text.substr(0, maxLength) + '...'
 }
 
-export const filterTodos = (todos: Todo[], filter: 'all' | 'completed' | 'pending') => {
+export const filterTodos = (
+  todos: Todo[],
+  filter: 'all' | 'completed' | 'pending'
+) => {
   switch (filter) {
     case 'completed':
       return todos.filter(todo => todo.completed)
@@ -60,32 +69,40 @@ export const filterTodos = (todos: Todo[], filter: 'all' | 'completed' | 'pendin
   }
 }
 
-export const sortTodos = (todos: Todo[], sortBy: 'createdAt' | 'priority' | 'text') => {
+export const sortTodos = (
+  todos: Todo[],
+  sortBy: 'createdAt' | 'priority' | 'text'
+) => {
   const sorted = [...todos]
-  
+
   switch (sortBy) {
     case 'priority':
       const priorityOrder = { high: 0, medium: 1, low: 2 }
-      return sorted.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority])
+      return sorted.sort(
+        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+      )
     case 'text':
       return sorted.sort((a, b) => a.text.localeCompare(b.text))
     case 'createdAt':
     default:
-      return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      return sorted.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
   }
 }
 
 export const calculateStreak = (todos: Todo[]): number => {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  
+
   const completedToday = todos.filter(todo => {
     if (!todo.completed) return false
     const todoDate = new Date(todo.updatedAt)
     todoDate.setHours(0, 0, 0, 0)
     return todoDate.getTime() === today.getTime()
   })
-  
+
   return completedToday.length > 0 ? 1 : 0
 }
 
@@ -110,6 +127,6 @@ export const getThemeClasses = (theme: 'light' | 'dark' | 'system') => {
       border: 'border-gray-200 dark:border-gray-700',
     },
   }
-  
+
   return baseClasses[theme]
 }

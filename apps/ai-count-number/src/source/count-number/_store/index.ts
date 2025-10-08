@@ -7,9 +7,9 @@ interface CountNumberStore {
   reset: () => void
 }
 
-export const useCountNumberStore = create<CountNumberStore>((set) => ({
+export const useCountNumberStore = create<CountNumberStore>(set => ({
   countNumber: 100,
-  increment: () => set((state) => ({ countNumber: state.countNumber + 1 })),
-  decrement: () => set((state) => ({ countNumber: state.countNumber - 1 })),
+  increment: () => set(state => ({ countNumber: state.countNumber + 1 })),
+  decrement: () => set(state => ({ countNumber: state.countNumber - 1 })),
   reset: () => set({ countNumber: 100 }),
 }))

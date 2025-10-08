@@ -1,6 +1,10 @@
 export type EffectType = 'marquee' | 'blink' | 'sequential-light'
 
-export type Direction = 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top'
+export type Direction =
+  | 'left-to-right'
+  | 'right-to-left'
+  | 'top-to-bottom'
+  | 'bottom-to-top'
 
 export interface MarqueeConfig {
   text: string

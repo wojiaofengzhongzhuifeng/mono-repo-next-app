@@ -12,25 +12,25 @@ const defaultConfig: MarqueeConfig = {
 
 export const useMarqueeStore = create<MarqueeState>((set, get) => ({
   config: defaultConfig,
-  
+
   setConfig: (newConfig: Partial<MarqueeConfig>) => {
-    set((state) => ({
-      config: { ...state.config, ...newConfig }
+    set(state => ({
+      config: { ...state.config, ...newConfig },
     }))
   },
-  
+
   start: () => {
-    set((state) => ({
-      config: { ...state.config, isPlaying: true }
+    set(state => ({
+      config: { ...state.config, isPlaying: true },
     }))
   },
-  
+
   stop: () => {
-    set((state) => ({
-      config: { ...state.config, isPlaying: false }
+    set(state => ({
+      config: { ...state.config, isPlaying: false },
     }))
   },
-  
+
   reset: () => {
     set({ config: defaultConfig })
   },

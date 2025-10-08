@@ -7,14 +7,17 @@ export const getNumberColor = (value: number) => {
   return 'text-red-600 bg-red-100'
 }
 
-export const getOperationLabel = (operation: 'increment' | 'decrement' | 'reset', language: 'zh-CN' | 'en') => {
+export const getOperationLabel = (
+  operation: 'increment' | 'decrement' | 'reset',
+  language: 'zh-CN' | 'en'
+) => {
   const labels = {
     'zh-CN': {
       increment: '增加',
       decrement: '减少',
       reset: '重置',
     },
-    'en': {
+    en: {
       increment: 'Increment',
       decrement: 'Decrement',
       reset: 'Reset',
@@ -31,7 +34,10 @@ export const formatDate = (date: Date, language: 'zh-CN' | 'en') => {
     hour: '2-digit',
     minute: '2-digit',
   }
-  return new Intl.DateTimeFormat(language === 'zh-CN' ? 'zh-CN' : 'en-US', options).format(date)
+  return new Intl.DateTimeFormat(
+    language === 'zh-CN' ? 'zh-CN' : 'en-US',
+    options
+  ).format(date)
 }
 
 export const generateId = () => {
@@ -43,7 +49,10 @@ export const truncateText = (text: string, maxLength: number) => {
   return text.substr(0, maxLength) + '...'
 }
 
-export const filterNumbers = (numbers: CountNumber[], filter: 'all' | 'positive' | 'negative' | 'zero') => {
+export const filterNumbers = (
+  numbers: CountNumber[],
+  filter: 'all' | 'positive' | 'negative' | 'zero'
+) => {
   switch (filter) {
     case 'positive':
       return numbers.filter(num => num.value > 0)
@@ -56,9 +65,12 @@ export const filterNumbers = (numbers: CountNumber[], filter: 'all' | 'positive'
   }
 }
 
-export const sortNumbers = (numbers: CountNumber[], sortBy: 'value' | 'label' | 'createdAt') => {
+export const sortNumbers = (
+  numbers: CountNumber[],
+  sortBy: 'value' | 'label' | 'createdAt'
+) => {
   const sorted = [...numbers]
-  
+
   switch (sortBy) {
     case 'value':
       return sorted.sort((a, b) => a.value - b.value)
@@ -66,7 +78,10 @@ export const sortNumbers = (numbers: CountNumber[], sortBy: 'value' | 'label' | 
       return sorted.sort((a, b) => a.label.localeCompare(b.label))
     case 'createdAt':
     default:
-      return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      return sorted.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
   }
 }
 
@@ -79,13 +94,13 @@ export const calculateStats = (numbers: CountNumber[]) => {
       min: 0,
     }
   }
-  
+
   const values = numbers.map(num => num.value)
   const total = values.reduce((sum, val) => sum + val, 0)
   const average = total / values.length
   const max = Math.max(...values)
   const min = Math.min(...values)
-  
+
   return { total, average, max, min }
 }
 
@@ -110,6 +125,6 @@ export const getThemeClasses = (theme: 'light' | 'dark' | 'system') => {
       border: 'border-gray-200 dark:border-gray-700',
     },
   }
-  
+
   return baseClasses[theme]
 }

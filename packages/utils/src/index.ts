@@ -1,2 +1,2 @@
-export * from './axios';
-export { get, post } from './axios';
+export * from './axios'
+export { get, post } from './axios'

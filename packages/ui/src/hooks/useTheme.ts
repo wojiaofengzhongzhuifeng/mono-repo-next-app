@@ -16,17 +16,17 @@ export function useTheme(initialTheme: Theme = 'auto') {
   useEffect(() => {
     // 应用主题到 document
     const root = document.documentElement
-    
+
     if (theme === 'auto') {
       // 检测系统主题偏好
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
       const applySystemTheme = (e: MediaQueryListEvent | MediaQueryList) => {
         root.classList.toggle('dark', e.matches)
       }
-      
+
       applySystemTheme(mediaQuery)
       mediaQuery.addEventListener('change', applySystemTheme)
-      
+
       return () => {
         mediaQuery.removeEventListener('change', applySystemTheme)
       }
@@ -57,7 +57,13 @@ export function useTheme(initialTheme: Theme = 'auto') {
     setLightTheme,
     setDarkTheme,
     setAutoTheme,
-    isDark: theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches),
-    isLight: theme === 'light' || (theme === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches)
+    isDark:
+      theme === 'dark' ||
+      (theme === 'auto' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches),
+    isLight:
+      theme === 'light' ||
+      (theme === 'auto' &&
+        !window.matchMedia('(prefers-color-scheme: dark)').matches),
   }
 }

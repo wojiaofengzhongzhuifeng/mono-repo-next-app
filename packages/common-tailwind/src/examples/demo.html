@@ -1,321 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Common Tailwind 插件演示</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // 手动添加插件功能用于演示
-        tailwind.config = {
-            theme: {
-                extend: {
-                    spacing: Array(100).fill(0).reduce((acc, _, index) => {
-                        acc[index] = index * 2 + 'px'
-                        return acc
-                    }, {}),
-                    fontSize: Array(69).fill(0).reduce((acc, _, index) => {
-                        acc[index + 12] = index + 12 + 'px'
-                        return acc
-                    }, {})
-                }
-            }
-        }
+      // 手动添加插件功能用于演示
+      tailwind.config = {
+        theme: {
+          extend: {
+            spacing: Array(100)
+              .fill(0)
+              .reduce((acc, _, index) => {
+                acc[index] = index * 2 + 'px'
+                return acc
+              }, {}),
+            fontSize: Array(69)
+              .fill(0)
+              .reduce((acc, _, index) => {
+                acc[index + 12] = index + 12 + 'px'
+                return acc
+              }, {}),
+          },
+        },
+      }
     </script>
     <style>
-        /* center-container 样式 */
+      /* center-container 样式 */
+      .center-container {
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: content-box;
+        padding-left: 12px;
+        padding-right: 12px;
+        max-width: calc(100vw - 24px);
+      }
+      @media (min-width: 375.1px) {
         .center-container {
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: content-box;
-            padding-left: 12px;
-            padding-right: 12px;
-            max-width: calc(100vw - 24px);
+          padding-left: 16px;
+          padding-right: 16px;
+          max-width: 736px;
         }
-        @media (min-width: 375.1px) {
-            .center-container {
-                padding-left: 16px;
-                padding-right: 16px;
-                max-width: 736px;
-            }
+      }
+      @media (min-width: 768.1px) {
+        .center-container {
+          padding-left: 24px;
+          padding-right: 24px;
+          max-width: 1200px;
         }
-        @media (min-width: 768.1px) {
-            .center-container {
-                padding-left: 24px;
-                padding-right: 24px;
-                max-width: 1200px;
-            }
-        }
+      }
 
-        /* section-block 样式 */
+      /* section-block 样式 */
+      .section-block {
+        padding-top: 90px;
+        padding-bottom: 90px;
+      }
+      @media (max-width: 992px) {
         .section-block {
-            padding-top: 90px;
-            padding-bottom: 90px;
+          padding-top: 24px;
+          padding-bottom: 24px;
         }
-        @media (max-width: 992px) {
-            .section-block {
-                padding-top: 24px;
-                padding-bottom: 24px;
-            }
-        }
+      }
 
-        .section-block-20 {
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
+      .section-block-20 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
 
+      .section-block-45-20 {
+        padding-top: 90px;
+        padding-bottom: 90px;
+      }
+      @media (max-width: 992px) {
         .section-block-45-20 {
-            padding-top: 90px;
-            padding-bottom: 90px;
+          padding-top: 40px;
+          padding-bottom: 40px;
         }
-        @media (max-width: 992px) {
-            .section-block-45-20 {
-                padding-top: 40px;
-                padding-bottom: 40px;
-            }
-        }
+      }
 
-        .section-block-30-20 {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
+      .section-block-30-20 {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
 
-        /* text-12/14 等样式需要手动添加 */
-        .text-12\/14 {
-            font-size: 12px;
-            line-height: 14px;
-        }
-        .text-16\/20 {
-            font-size: 16px;
-            line-height: 20px;
-        }
-        .text-24\/32 {
-            font-size: 24px;
-            line-height: 32px;
-        }
+      /* text-12/14 等样式需要手动添加 */
+      .text-12\/14 {
+        font-size: 12px;
+        line-height: 14px;
+      }
+      .text-16\/20 {
+        font-size: 16px;
+        line-height: 20px;
+      }
+      .text-24\/32 {
+        font-size: 24px;
+        line-height: 32px;
+      }
     </style>
-</head>
-<body class="bg-gray-50">
+  </head>
+  <body class="bg-gray-50">
     <!-- Header -->
     <header class="bg-white shadow-sm border-b">
-        <div class="center-container">
-            <div class="py-4">
-                <h1 class="text-2xl font-bold text-gray-900">Common Tailwind 插件演示</h1>
-                <p class="text-gray-600 mt-2">展示各种插件的功能和用法</p>
-            </div>
+      <div class="center-container">
+        <div class="py-4">
+          <h1 class="text-2xl font-bold text-gray-900">
+            Common Tailwind 插件演示
+          </h1>
+          <p class="text-gray-600 mt-2">展示各种插件的功能和用法</p>
         </div>
+      </div>
     </header>
 
     <main>
-        <!-- Center Container 演示 -->
-        <section class="section-block">
-            <div class="center-container">
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-blue-900 mb-4">Center Container 演示</h2>
-                    <p class="text-blue-700 mb-4">
-                        这个容器使用了 <code class="bg-blue-100 px-2 py-1 rounded">.center-container</code> 类，
-                        它会自动居中并具有响应式的内边距和最大宽度。
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-white p-4 rounded border border-blue-200">
-                            <h3 class="font-medium text-blue-900 mb-2">响应式内边距</h3>
-                            <p class="text-sm text-blue-700">• 默认: px-3 (12px)</p>
-                            <p class="text-sm text-blue-700">• 375.1px+: px-4 (16px)</p>
-                            <p class="text-sm text-blue-700">• 768.1px+: px-6 (24px)</p>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-blue-200">
-                            <h3 class="font-medium text-blue-900 mb-2">响应式最大宽度</h3>
-                            <p class="text-sm text-blue-700">• 默认: calc(100vw - 24px)</p>
-                            <p class="text-sm text-blue-700">• 375.1px+: 736px</p>
-                            <p class="text-sm text-blue-700">• 768.1px+: 1200px</p>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-blue-200">
-                            <h3 class="font-medium text-blue-900 mb-2">其他变体</h3>
-                            <p class="text-sm text-blue-700">• center-container-sm</p>
-                            <p class="text-sm text-blue-700">• center-container-md</p>
-                            <p class="text-sm text-blue-700">• center-container-lg</p>
-                            <p class="text-sm text-blue-700">• center-container-xl</p>
-                        </div>
-                    </div>
-                </div>
+      <!-- Center Container 演示 -->
+      <section class="section-block">
+        <div class="center-container">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-blue-900 mb-4">
+              Center Container 演示
+            </h2>
+            <p class="text-blue-700 mb-4">
+              这个容器使用了
+              <code class="bg-blue-100 px-2 py-1 rounded"
+                >.center-container</code
+              >
+              类， 它会自动居中并具有响应式的内边距和最大宽度。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-white p-4 rounded border border-blue-200">
+                <h3 class="font-medium text-blue-900 mb-2">响应式内边距</h3>
+                <p class="text-sm text-blue-700">• 默认: px-3 (12px)</p>
+                <p class="text-sm text-blue-700">• 375.1px+: px-4 (16px)</p>
+                <p class="text-sm text-blue-700">• 768.1px+: px-6 (24px)</p>
+              </div>
+              <div class="bg-white p-4 rounded border border-blue-200">
+                <h3 class="font-medium text-blue-900 mb-2">响应式最大宽度</h3>
+                <p class="text-sm text-blue-700">• 默认: calc(100vw - 24px)</p>
+                <p class="text-sm text-blue-700">• 375.1px+: 736px</p>
+                <p class="text-sm text-blue-700">• 768.1px+: 1200px</p>
+              </div>
+              <div class="bg-white p-4 rounded border border-blue-200">
+                <h3 class="font-medium text-blue-900 mb-2">其他变体</h3>
+                <p class="text-sm text-blue-700">• center-container-sm</p>
+                <p class="text-sm text-blue-700">• center-container-md</p>
+                <p class="text-sm text-blue-700">• center-container-lg</p>
+                <p class="text-sm text-blue-700">• center-container-xl</p>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Spacing 演示 -->
-        <section class="section-block-20">
-            <div class="center-container">
-                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-green-900 mb-4">Spacing 插件演示</h2>
-                    <p class="text-green-700 mb-4">
-                        基于 2 倍规则的间距系统：数字 n 表示 n*2px 的间距
-                    </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-white p-4 rounded border border-green-200">
-                            <h3 class="font-medium text-green-900 mb-2">示例间距</h3>
-                            <div class="space-y-2">
-                                <div class="bg-green-100 p-1" style="padding: 10px;">p-10 = 20px</div>
-                                <div class="bg-green-200 p-1" style="padding: 20px;">p-20 = 40px</div>
-                                <div class="bg-green-300 p-1" style="padding: 30px;">p-30 = 60px</div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-green-200">
-                            <h3 class="font-medium text-green-900 mb-2">Margin</h3>
-                            <div class="space-y-2">
-                                <div class="bg-green-100 mx-2">m-2 = 4px</div>
-                                <div class="bg-green-200 mx-4">m-4 = 8px</div>
-                                <div class="bg-green-300 mx-6">m-6 = 12px</div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-green-200">
-                            <h3 class="font-medium text-green-900 mb-2">Gap</h3>
-                            <div class="space-y-2">
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div class="bg-green-100 h-8"></div>
-                                    <div class="bg-green-100 h-8"></div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="bg-green-200 h-8"></div>
-                                    <div class="bg-green-200 h-8"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-green-200">
-                            <h3 class="font-medium text-green-900 mb-2">范围</h3>
-                            <p class="text-sm text-green-700">• 0-99</p>
-                            <p class="text-sm text-green-700">• 0 = 0px</p>
-                            <p class="text-sm text-green-700">• 99 = 198px</p>
-                            <p class="text-sm text-green-700">• px = 1px</p>
-                        </div>
-                    </div>
+      <!-- Spacing 演示 -->
+      <section class="section-block-20">
+        <div class="center-container">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-green-900 mb-4">
+              Spacing 插件演示
+            </h2>
+            <p class="text-green-700 mb-4">
+              基于 2 倍规则的间距系统：数字 n 表示 n*2px 的间距
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-white p-4 rounded border border-green-200">
+                <h3 class="font-medium text-green-900 mb-2">示例间距</h3>
+                <div class="space-y-2">
+                  <div class="bg-green-100 p-1" style="padding: 10px">
+                    p-10 = 20px
+                  </div>
+                  <div class="bg-green-200 p-1" style="padding: 20px">
+                    p-20 = 40px
+                  </div>
+                  <div class="bg-green-300 p-1" style="padding: 30px">
+                    p-30 = 60px
+                  </div>
                 </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-green-200">
+                <h3 class="font-medium text-green-900 mb-2">Margin</h3>
+                <div class="space-y-2">
+                  <div class="bg-green-100 mx-2">m-2 = 4px</div>
+                  <div class="bg-green-200 mx-4">m-4 = 8px</div>
+                  <div class="bg-green-300 mx-6">m-6 = 12px</div>
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-green-200">
+                <h3 class="font-medium text-green-900 mb-2">Gap</h3>
+                <div class="space-y-2">
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="bg-green-100 h-8"></div>
+                    <div class="bg-green-100 h-8"></div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-green-200 h-8"></div>
+                    <div class="bg-green-200 h-8"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-green-200">
+                <h3 class="font-medium text-green-900 mb-2">范围</h3>
+                <p class="text-sm text-green-700">• 0-99</p>
+                <p class="text-sm text-green-700">• 0 = 0px</p>
+                <p class="text-sm text-green-700">• 99 = 198px</p>
+                <p class="text-sm text-green-700">• px = 1px</p>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Font Size 演示 -->
-        <section class="section-block-20">
-            <div class="center-container">
-                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-purple-900 mb-4">Font Size 插件演示</h2>
-                    <p class="text-purple-700 mb-4">
-                        支持 12px 到 80px 的字体大小，以及字体大小/行高的组合
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-4 rounded border border-purple-200">
-                            <h3 class="font-medium text-purple-900 mb-4">基础字体大小</h3>
-                            <div class="space-y-3">
-                                <p class="font-12">font-12: 12px 字体大小</p>
-                                <p class="font-16">font-16: 16px 字体大小</p>
-                                <p class="font-20">font-20: 20px 字体大小</p>
-                                <p class="font-24">font-24: 24px 字体大小</p>
-                                <p class="font-32">font-32: 32px 字体大小</p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-purple-200">
-                            <h3 class="font-medium text-purple-900 mb-4">字体大小/行高组合</h3>
-                            <div class="space-y-3">
-                                <p class="text-12/14">text-12/14: 12px 字体, 14px 行高</p>
-                                <p class="text-16/20">text-16/20: 16px 字体, 20px 行高</p>
-                                <p class="text-20/28">text-20/28: 20px 字体, 28px 行高</p>
-                                <p class="text-24/32">text-24/32: 24px 字体, 32px 行高</p>
-                                <p class="text-32/40">text-32/40: 32px 字体, 40px 行高</p>
-                            </div>
-                        </div>
-                    </div>
+      <!-- Font Size 演示 -->
+      <section class="section-block-20">
+        <div class="center-container">
+          <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-purple-900 mb-4">
+              Font Size 插件演示
+            </h2>
+            <p class="text-purple-700 mb-4">
+              支持 12px 到 80px 的字体大小，以及字体大小/行高的组合
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white p-4 rounded border border-purple-200">
+                <h3 class="font-medium text-purple-900 mb-4">基础字体大小</h3>
+                <div class="space-y-3">
+                  <p class="font-12">font-12: 12px 字体大小</p>
+                  <p class="font-16">font-16: 16px 字体大小</p>
+                  <p class="font-20">font-20: 20px 字体大小</p>
+                  <p class="font-24">font-24: 24px 字体大小</p>
+                  <p class="font-32">font-32: 32px 字体大小</p>
                 </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-purple-200">
+                <h3 class="font-medium text-purple-900 mb-4">
+                  字体大小/行高组合
+                </h3>
+                <div class="space-y-3">
+                  <p class="text-12/14">text-12/14: 12px 字体, 14px 行高</p>
+                  <p class="text-16/20">text-16/20: 16px 字体, 20px 行高</p>
+                  <p class="text-20/28">text-20/28: 20px 字体, 28px 行高</p>
+                  <p class="text-24/32">text-24/32: 24px 字体, 32px 行高</p>
+                  <p class="text-32/40">text-32/40: 32px 字体, 40px 行高</p>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Section Block 演示 -->
-        <section class="section-block-45-20">
-            <div class="center-container">
-                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-orange-900 mb-4">Section Block 插件演示</h2>
-                    <p class="text-orange-700 mb-4">
-                        内容区块间距插件，支持响应式和不对称间距
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-4 rounded border border-orange-200">
-                            <h3 class="font-medium text-orange-900 mb-4">对称间距示例</h3>
-                            <div class="space-y-4">
-                                <div class="bg-orange-100 p-4">
-                                    <p class="text-sm font-medium">section-block-20</p>
-                                    <p class="text-xs text-orange-600">上下间距: 40px (20*2)</p>
-                                </div>
-                                <div class="bg-orange-200 p-4">
-                                    <p class="text-sm font-medium">section-block-30</p>
-                                    <p class="text-xs text-orange-600">上下间距: 60px (30*2)</p>
-                                </div>
-                                <div class="bg-orange-300 p-4">
-                                    <p class="text-sm font-medium">section-block-45</p>
-                                    <p class="text-xs text-orange-600">上下间距: 90px (45*2)</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-orange-200">
-                            <h3 class="font-medium text-orange-900 mb-4">不对称间距示例</h3>
-                            <div class="space-y-4">
-                                <div class="bg-orange-100 p-4">
-                                    <p class="text-sm font-medium">section-block-30-20</p>
-                                    <p class="text-xs text-orange-600">上间距: 60px, 下间距: 40px</p>
-                                </div>
-                                <div class="bg-orange-200 p-4">
-                                    <p class="text-sm font-medium">section-block-45-20</p>
-                                    <p class="text-xs text-orange-600">桌面端: 90px, 移动端: 40px</p>
-                                </div>
-                                <div class="bg-orange-300 p-4">
-                                    <p class="text-sm font-medium">section-block-top-20</p>
-                                    <p class="text-xs text-orange-600">仅上间距: 40px</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <!-- Section Block 演示 -->
+      <section class="section-block-45-20">
+        <div class="center-container">
+          <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-orange-900 mb-4">
+              Section Block 插件演示
+            </h2>
+            <p class="text-orange-700 mb-4">
+              内容区块间距插件，支持响应式和不对称间距
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white p-4 rounded border border-orange-200">
+                <h3 class="font-medium text-orange-900 mb-4">对称间距示例</h3>
+                <div class="space-y-4">
+                  <div class="bg-orange-100 p-4">
+                    <p class="text-sm font-medium">section-block-20</p>
+                    <p class="text-xs text-orange-600">上下间距: 40px (20*2)</p>
+                  </div>
+                  <div class="bg-orange-200 p-4">
+                    <p class="text-sm font-medium">section-block-30</p>
+                    <p class="text-xs text-orange-600">上下间距: 60px (30*2)</p>
+                  </div>
+                  <div class="bg-orange-300 p-4">
+                    <p class="text-sm font-medium">section-block-45</p>
+                    <p class="text-xs text-orange-600">上下间距: 90px (45*2)</p>
+                  </div>
                 </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-orange-200">
+                <h3 class="font-medium text-orange-900 mb-4">不对称间距示例</h3>
+                <div class="space-y-4">
+                  <div class="bg-orange-100 p-4">
+                    <p class="text-sm font-medium">section-block-30-20</p>
+                    <p class="text-xs text-orange-600">
+                      上间距: 60px, 下间距: 40px
+                    </p>
+                  </div>
+                  <div class="bg-orange-200 p-4">
+                    <p class="text-sm font-medium">section-block-45-20</p>
+                    <p class="text-xs text-orange-600">
+                      桌面端: 90px, 移动端: 40px
+                    </p>
+                  </div>
+                  <div class="bg-orange-300 p-4">
+                    <p class="text-sm font-medium">section-block-top-20</p>
+                    <p class="text-xs text-orange-600">仅上间距: 40px</p>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- 综合演示 -->
-        <section class="section-block-30-20">
-            <div class="center-container">
-                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-8 text-white">
-                    <h2 class="text-3xl font-bold mb-4">综合演示</h2>
-                    <p class="text-xl mb-6">
-                        这个区域使用了所有插件的组合效果
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
-                            <h3 class="text-lg font-semibold mb-2">Center Container</h3>
-                            <p class="text-sm opacity-90">响应式居中容器</p>
-                        </div>
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
-                            <h3 class="text-lg font-semibold mb-2">Spacing</h3>
-                            <p class="text-sm opacity-90">2倍规则间距系统</p>
-                        </div>
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
-                            <h3 class="text-lg font-semibold mb-2">Font Size</h3>
-                            <p class="text-sm opacity-90">灵活的字体大小</p>
-                        </div>
-                    </div>
-                </div>
+      <!-- 综合演示 -->
+      <section class="section-block-30-20">
+        <div class="center-container">
+          <div
+            class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-8 text-white"
+          >
+            <h2 class="text-3xl font-bold mb-4">综合演示</h2>
+            <p class="text-xl mb-6">这个区域使用了所有插件的组合效果</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div
+                class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4"
+              >
+                <h3 class="text-lg font-semibold mb-2">Center Container</h3>
+                <p class="text-sm opacity-90">响应式居中容器</p>
+              </div>
+              <div
+                class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4"
+              >
+                <h3 class="text-lg font-semibold mb-2">Spacing</h3>
+                <p class="text-sm opacity-90">2倍规则间距系统</p>
+              </div>
+              <div
+                class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4"
+              >
+                <h3 class="text-lg font-semibold mb-2">Font Size</h3>
+                <p class="text-sm opacity-90">灵活的字体大小</p>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white section-block">
-        <div class="center-container">
-            <div class="text-center">
-                <h3 class="text-lg font-semibold mb-2">Common Tailwind 插件包</h3>
-                <p class="text-gray-400 mb-4">
-                    为 monorepo 项目提供统一的 Tailwind CSS 插件和工具类
-                </p>
-                <div class="flex justify-center space-x-4 text-sm">
-                    <span class="bg-gray-700 px-3 py-1 rounded">center-container</span>
-                    <span class="bg-gray-700 px-3 py-1 rounded">spacing</span>
-                    <span class="bg-gray-700 px-3 py-1 rounded">font-size</span>
-                    <span class="bg-gray-700 px-3 py-1 rounded">section-block</span>
-                </div>
-            </div>
+      <div class="center-container">
+        <div class="text-center">
+          <h3 class="text-lg font-semibold mb-2">Common Tailwind 插件包</h3>
+          <p class="text-gray-400 mb-4">
+            为 monorepo 项目提供统一的 Tailwind CSS 插件和工具类
+          </p>
+          <div class="flex justify-center space-x-4 text-sm">
+            <span class="bg-gray-700 px-3 py-1 rounded">center-container</span>
+            <span class="bg-gray-700 px-3 py-1 rounded">spacing</span>
+            <span class="bg-gray-700 px-3 py-1 rounded">font-size</span>
+            <span class="bg-gray-700 px-3 py-1 rounded">section-block</span>
+          </div>
         </div>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

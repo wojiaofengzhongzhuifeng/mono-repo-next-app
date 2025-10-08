@@ -5,6 +5,7 @@
 ## 组件特性
 
 ### Header 组件
+
 - ✅ **智能导航**：自动识别当前页面并高亮对应导航项
 - ✅ **多种布局**：支持 default、minimal、centered 三种布局
 - ✅ **主题切换**：支持 light、dark、auto 主题
@@ -13,6 +14,7 @@
 - ✅ **粘性定位**：可选的 sticky 定位
 
 ### Footer 组件
+
 - ✅ **灵活布局**：支持 1-4 列的自定义布局
 - ✅ **多种变体**：default、minimal、compact 三种样式
 - ✅ **内容区块**：支持文本、链接、自定义内容
@@ -31,9 +33,9 @@ import { Header, Footer } from '@mono-repo/ui'
 export default function Layout() {
   return (
     <div>
-      <Header appName="My App" />
+      <Header appName='My App' />
       <main>页面内容</main>
-      <Footer companyName="My App" />
+      <Footer companyName='My App' />
     </div>
   )
 }
@@ -48,61 +50,61 @@ const navigation: NavigationItem[] = [
   { name: '首页', href: '/' },
   { name: '产品', href: '/products' },
   { name: '关于我们', href: '/about' },
-  { name: '博客', href: '/blog', external: true }
+  { name: '博客', href: '/blog', external: true },
 ]
 
 export default function CustomLayout() {
   return (
     <div>
       <Header
-        appName="我的应用"
-        tagline="构建现代化的 Web 应用"
+        appName='我的应用'
+        tagline='构建现代化的 Web 应用'
         navigation={navigation}
         userArea={{
           showWelcome: true,
-          welcomeText: "欢迎来到我的应用",
+          welcomeText: '欢迎来到我的应用',
           actions: [
             {
-              label: "登录",
-              onClick: () => console.log("登录"),
-              variant: "primary"
+              label: '登录',
+              onClick: () => console.log('登录'),
+              variant: 'primary',
             },
             {
-              label: "注册",
-              onClick: () => console.log("注册"),
-              variant: "secondary"
-            }
-          ]
+              label: '注册',
+              onClick: () => console.log('注册'),
+              variant: 'secondary',
+            },
+          ],
         }}
-        theme="light"
-        variant="default"
+        theme='light'
+        variant='default'
         sticky={true}
       />
-      
+
       <main>页面内容</main>
-      
+
       <Footer
-        companyName="我的应用"
+        companyName='我的应用'
         sections={[
           {
-            title: "关于我们",
-            content: "我们致力于提供最优质的产品和服务"
+            title: '关于我们',
+            content: '我们致力于提供最优质的产品和服务',
           },
           {
-            title: "快速链接",
-            links: navigation
+            title: '快速链接',
+            links: navigation,
           },
           {
-            title: "联系方式",
-            content: "邮箱: contact@example.com\n电话: +86 123-4567-8900"
-          }
+            title: '联系方式',
+            content: '邮箱: contact@example.com\n电话: +86 123-4567-8900',
+          },
         ]}
         socialLinks={[
-          { name: "Twitter", href: "https://twitter.com", external: true },
-          { name: "GitHub", href: "https://github.com", external: true }
+          { name: 'Twitter', href: 'https://twitter.com', external: true },
+          { name: 'GitHub', href: 'https://github.com', external: true },
         ]}
-        theme="dark"
-        variant="default"
+        theme='dark'
+        variant='default'
         columns={3}
       />
     </div>
@@ -117,13 +119,13 @@ export default function CustomLayout() {
 ```tsx
 interface HeaderConfig {
   // 基础信息
-  appName?: string          // 应用名称
-  logo?: React.ReactNode    // 自定义 Logo
-  tagline?: string          // 标语/口号
-  
+  appName?: string // 应用名称
+  logo?: React.ReactNode // 自定义 Logo
+  tagline?: string // 标语/口号
+
   // 导航配置
-  navigation?: NavigationItem[]  // 导航项列表
-  
+  navigation?: NavigationItem[] // 导航项列表
+
   // 用户区域
   userArea?: {
     showWelcome?: boolean
@@ -134,11 +136,11 @@ interface HeaderConfig {
       variant?: 'primary' | 'secondary' | 'ghost'
     }>
   }
-  
+
   // 样式配置
   theme?: 'light' | 'dark' | 'auto'
   variant?: 'default' | 'minimal' | 'centered'
-  
+
   // 行为配置
   sticky?: boolean
   showBorder?: boolean
@@ -153,10 +155,10 @@ interface FooterConfig {
   companyName?: string
   copyrightText?: string
   logo?: React.ReactNode
-  
+
   // 主要内容区块
   sections?: FooterSection[]
-  
+
   // 底部信息
   bottomInfo?: {
     showCopyright?: boolean
@@ -164,14 +166,14 @@ interface FooterConfig {
     additionalText?: string
     showSocialLinks?: boolean
   }
-  
+
   // 社交媒体
   socialLinks?: SocialLink[]
-  
+
   // 样式配置
   theme?: 'light' | 'dark' | 'auto'
   variant?: 'default' | 'minimal' | 'compact'
-  
+
   // 布局配置
   columns?: number
   showTopBorder?: boolean
@@ -230,30 +232,28 @@ import { Header, Footer, footerPresets } from '@mono-repo/ui'
 
 export function CorporateLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className='min-h-screen flex flex-col'>
       <Header
-        appName="科技公司"
-        tagline="创新引领未来"
+        appName='科技公司'
+        tagline='创新引领未来'
         navigation={[
           { name: '首页', href: '/' },
           { name: '产品', href: '/products' },
           { name: '解决方案', href: '/solutions' },
           { name: '关于我们', href: '/about' },
-          { name: '联系我们', href: '/contact' }
+          { name: '联系我们', href: '/contact' },
         ]}
         userArea={{
           showWelcome: false,
           actions: [
-            { label: '免费试用', onClick: () => {}, variant: 'primary' }
-          ]
+            { label: '免费试用', onClick: () => {}, variant: 'primary' },
+          ],
         }}
         sticky={true}
       />
-      
-      <main className="flex-1">
-        {children}
-      </main>
-      
+
+      <main className='flex-1'>{children}</main>
+
       <Footer {...footerPresets.corporate} />
     </div>
   )
@@ -268,26 +268,24 @@ import { Header, Footer, footerPresets } from '@mono-repo/ui'
 
 export function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className='min-h-screen flex flex-col'>
       <Header
-        appName="我的博客"
-        tagline="记录技术生活"
-        variant="centered"
+        appName='我的博客'
+        tagline='记录技术生活'
+        variant='centered'
         navigation={[
           { name: '首页', href: '/' },
           { name: '文章', href: '/posts' },
-          { name: '关于', href: '/about' }
+          { name: '关于', href: '/about' },
         ]}
         userArea={{
           showWelcome: true,
-          welcomeText: "欢迎来到我的博客"
+          welcomeText: '欢迎来到我的博客',
         }}
       />
-      
-      <main className="flex-1 max-w-4xl mx-auto px-4 py-8">
-        {children}
-      </main>
-      
+
+      <main className='flex-1 max-w-4xl mx-auto px-4 py-8'>{children}</main>
+
       <Footer {...footerPresets.blog} />
     </div>
   )
@@ -302,23 +300,19 @@ import { Header } from '@mono-repo/ui'
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className='min-h-screen bg-gray-100'>
       <Header
-        appName="管理后台"
-        variant="minimal"
+        appName='管理后台'
+        variant='minimal'
         userArea={{
           showWelcome: true,
-          welcomeText: "管理员",
-          actions: [
-            { label: '退出', onClick: () => {}, variant: 'ghost' }
-          ]
+          welcomeText: '管理员',
+          actions: [{ label: '退出', onClick: () => {}, variant: 'ghost' }],
         }}
-        theme="light"
+        theme='light'
       />
-      
-      <main className="p-6">
-        {children}
-      </main>
+
+      <main className='p-6'>{children}</main>
     </div>
   )
 }

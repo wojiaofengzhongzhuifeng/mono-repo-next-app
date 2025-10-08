@@ -7,9 +7,9 @@ interface GlobalStore {
   reset: () => void
 }
 
-export const useGlobalStore = create<GlobalStore>((set) => ({
+export const useGlobalStore = create<GlobalStore>(set => ({
   globalNumber: 0,
-  increment: () => set((state) => ({ globalNumber: state.globalNumber + 1 })),
-  decrement: () => set((state) => ({ globalNumber: state.globalNumber - 1 })),
+  increment: () => set(state => ({ globalNumber: state.globalNumber + 1 })),
+  decrement: () => set(state => ({ globalNumber: state.globalNumber - 1 })),
   reset: () => set({ globalNumber: 0 }),
 }))
