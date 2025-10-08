@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGlobalStore } from '@/store/global-store'
-import { useAppStore } from '@/source/template/_store'
-import { useGetCountNumberHooks } from '@/source/template/_hooks/useGetCountNumber'
+import { useAppStore } from '@/source/home/_store'
+import { useGetCountNumberHooks } from '@/source/home/_hooks/useGetCountNumber'
 
 function Content() {
   const { globalNumber } = useGlobalStore()

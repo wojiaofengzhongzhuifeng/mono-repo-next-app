@@ -1,10 +1,10 @@
 import React from 'react'
-import CountNumberPage from '@/source/template/page'
+import ShopHome from '@/source/home/page'
 
-export default function CountNumberPageRoute() {
+export default function ShopHomePage() {
   return (
     <div>
-      <CountNumberPage />
+      <ShopHome />
     </div>
   )
 }

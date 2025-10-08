@@ -1,5 +1,5 @@
 import React from 'react'
-import Content from '@/source/template/_components/content'
+import Content from '@/source/home/_components/content'
 
 function Page() {
   return (

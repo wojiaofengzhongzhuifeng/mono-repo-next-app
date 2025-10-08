@@ -7,7 +7,7 @@ interface LayoutProps {
 
 const navigation: NavigationItem[] = [
   { name: '首页', href: '/' },
-  { name: '数字计数', href: '/template' },
+  { name: '数字计数', href: '/home' },
 ]
 
 export function Layout({ children }: LayoutProps) {
@@ -25,7 +25,7 @@ export function Layout({ children }: LayoutProps) {
               label: '开始计数',
               onClick: () => {
                 // 可以跳转到计数页面
-                window.location.href = '/template'
+                window.location.href = '/home'
               },
               variant: 'primary',
             },
@@ -58,7 +58,7 @@ export function Layout({ children }: LayoutProps) {
             title: '快速链接',
             links: [
               { name: '首页', href: '/' },
-              { name: '数字计数', href: '/template' },
+              { name: '数字计数', href: '/home' },
               { name: '使用指南', href: '#', external: true },
             ],
           },
