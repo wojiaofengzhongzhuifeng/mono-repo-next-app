@@ -1,11 +1,11 @@
 import React from 'react'
 import { useGlobalStore } from '@/store/global-store'
-import { useCountNumberStore } from '@/source/count-number/_store'
-import { useGetCountNumberHooks } from '@/source/count-number/_hooks/useGetCountNumber'
+import { useAppStore } from '@/source/template/_store'
+import { useGetCountNumberHooks } from '@/source/template/_hooks/useGetCountNumber'
 
 function Content() {
   const { globalNumber } = useGlobalStore()
-  const { countNumber, testList } = useCountNumberStore()
+  const { countNumber, testList } = useAppStore()
   useGetCountNumberHooks()
 
   return (

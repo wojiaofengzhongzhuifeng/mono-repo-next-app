@@ -1,5 +1,5 @@
 import React from 'react'
-import CountNumberPage from '@/source/count-number/page'
+import CountNumberPage from '@/source/template/page'
 
 export default function CountNumberPageRoute() {
   return (

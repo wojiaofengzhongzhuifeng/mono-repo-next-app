@@ -1,4 +1,4 @@
-import { CountNumber, CountOperation } from '@/source/count-number/_types'
+import { CountNumber } from '@/source/template/_types'
 
 export const getNumberColor = (value: number) => {
   if (value > 100) return 'text-green-600 bg-green-100'

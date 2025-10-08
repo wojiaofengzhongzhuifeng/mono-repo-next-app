@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface CountNumberStore {
+interface AppStore {
   countNumber: number
   setCountNumber: (newNumber: number) => void
 
@@ -8,7 +8,7 @@ interface CountNumberStore {
   setTestList: (newList: number[]) => void
 }
 
-export const useCountNumberStore = create<CountNumberStore>(set => ({
+export const useAppStore = create<AppStore>(set => ({
   countNumber: 100,
   setCountNumber: (newNumber: number) => set({ countNumber: newNumber }),
 
