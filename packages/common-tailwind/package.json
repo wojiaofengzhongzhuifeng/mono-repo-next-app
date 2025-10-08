@@ -11,14 +11,16 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "format": "prettier --write ."
   },
   "peerDependencies": {
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
     "typescript": "^5",
-    "@types/tailwindcss": "^3.0.0"
+    "@types/tailwindcss": "^3.0.0",
+    "prettier": "3.4.2"
   },
   "publishConfig": {
     "access": "public"
