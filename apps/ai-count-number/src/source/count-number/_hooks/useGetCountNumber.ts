@@ -18,9 +18,10 @@ export function useGetCountNumber() {
   return { error, loading, data, run }
 }
 
-export function useGetCountNumberStore() {
+// 使用 hooks
+export function useGetCountNumberHooks() {
   const { run, data, error } = useGetCountNumber()
-  const { countNumber, setCountNumber } = useCountNumberStore()
+  const { setCountNumber } = useCountNumberStore()
 
   useEffect(() => {
     run()

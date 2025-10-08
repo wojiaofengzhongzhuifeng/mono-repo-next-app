@@ -1,12 +1,12 @@
 import React from 'react'
 import { useGlobalStore } from '@/store/global-store'
 import { useCountNumberStore } from '@/source/count-number/_store'
-import { useGetCountNumberStore } from '@/source/count-number/_hooks/useGetCountNumber'
+import { useGetCountNumberHooks } from '@/source/count-number/_hooks/useGetCountNumber'
 
 function Content() {
   const { globalNumber } = useGlobalStore()
   const { countNumber } = useCountNumberStore()
-  useGetCountNumberStore()
+  useGetCountNumberHooks()
 
   return (
     <div className='p-8'>
