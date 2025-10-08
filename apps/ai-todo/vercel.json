@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "name": "ai-todo",
-  "installCommand": "cd .. && pnpm install",
-  "buildCommand": "cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-todo",
-  "framework": "nextjs",
-  "outputDirectory": ".next"
-}
