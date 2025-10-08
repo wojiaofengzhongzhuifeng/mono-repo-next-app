@@ -61,7 +61,7 @@ importers:
         specifier: latest
         version: 2.5.8
 
-  apps/ai-count-number:
+  apps/shop:
     dependencies:
       '@mono-repo/ui':
         specifier: workspace:*
@@ -158,117 +158,8 @@ importers:
         specifier: ^5
         version: 5.9.2
 
-  apps/ai-todo:
+  apps/template:
     dependencies:
-      '@mono-repo/common-tailwind':
-        specifier: workspace:*
-        version: link:../../packages/common-tailwind
-      '@mono-repo/test-utils':
-        specifier: workspace:*
-        version: link:../../packages/test-utils
-      '@mono-repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      '@mono-repo/utils':
-        specifier: ^1.4.4
-        version: 1.4.4
-      ahooks:
-        specifier: ^3.9.5
-        version: 3.9.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      axios:
-        specifier: ^1.6.2
-        version: 1.12.1
-      i18next:
-        specifier: ^25.5.3
-        version: 25.5.3(typescript@5.9.2)
-      next:
-        specifier: 14.2.5
-        version: 14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-i18next:
-        specifier: ^15.4.2
-        version: 15.4.2(@types/react@18.3.24)(i18next@25.5.3(typescript@5.9.2))(next@14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2))(react@18.3.1)
-      react:
-        specifier: ^18
-        version: 18.3.1
-      react-dom:
-        specifier: ^18
-        version: 18.3.1(react@18.3.1)
-      react-i18next:
-        specifier: ^16.0.0
-        version: 16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
-      zustand:
-        specifier: ^4.5.0
-        version: 4.5.7(@types/react@18.3.24)(react@18.3.1)
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.28.4
-        version: 7.28.4
-      '@babel/plugin-transform-runtime':
-        specifier: ^7.28.3
-        version: 7.28.3(@babel/core@7.28.4)
-      '@babel/preset-env':
-        specifier: ^7.28.3
-        version: 7.28.3(@babel/core@7.28.4)
-      '@babel/preset-react':
-        specifier: ^7.27.1
-        version: 7.27.1(@babel/core@7.28.4)
-      '@babel/preset-typescript':
-        specifier: ^7.27.1
-        version: 7.27.1(@babel/core@7.28.4)
-      '@types/node':
-        specifier: ^20
-        version: 20.19.14
-      '@types/react':
-        specifier: ^18
-        version: 18.3.24
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.7(@types/react@18.3.24)
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
-      babel-loader:
-        specifier: ^10.0.0
-        version: 10.0.0(@babel/core@7.28.4)(webpack@5.101.3)
-      eslint:
-        specifier: ^8
-        version: 8.57.1
-      eslint-config-next:
-        specifier: 14.2.5
-        version: 14.2.5(eslint@8.57.1)(typescript@5.9.2)
-      husky:
-        specifier: 8.0.0
-        version: 8.0.0
-      lint-staged:
-        specifier: 13.1.0
-        version: 13.1.0
-      postcss:
-        specifier: ^8
-        version: 8.5.6
-      prettier:
-        specifier: 3.4.2
-        version: 3.4.2
-      stylelint:
-        specifier: ^15.10.0
-        version: 15.11.0(typescript@5.9.2)
-      stylelint-config-standard:
-        specifier: ^34.0.0
-        version: 34.0.0(stylelint@15.11.0(typescript@5.9.2))
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.17
-      typescript:
-        specifier: ^5
-        version: 5.9.2
-
-  apps/demo-tailwind:
-    dependencies:
-      '@mono-repo/common-tailwind':
-        specifier: workspace:*
-        version: link:../../packages/common-tailwind
-      '@mono-repo/test-utils':
-        specifier: workspace:*
-        version: link:../../packages/test-utils
       '@mono-repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -318,6 +209,12 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.7(@types/react@18.3.24)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.46.0
+        version: 8.46.0(@typescript-eslint/parser@8.46.0(eslint@8.57.1)(typescript@5.9.2))(eslint@8.57.1)(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8.46.0
+        version: 8.46.0(eslint@8.57.1)(typescript@5.9.2)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
@@ -330,109 +227,9 @@ importers:
       eslint-config-next:
         specifier: 14.2.5
         version: 14.2.5(eslint@8.57.1)(typescript@5.9.2)
-      husky:
-        specifier: 8.0.0
-        version: 8.0.0
-      lint-staged:
-        specifier: 13.1.0
-        version: 13.1.0
-      postcss:
-        specifier: ^8
-        version: 8.5.6
-      prettier:
-        specifier: 3.4.2
-        version: 3.4.2
-      stylelint:
-        specifier: ^15.10.0
-        version: 15.11.0(typescript@5.9.2)
-      stylelint-config-standard:
-        specifier: ^34.0.0
-        version: 34.0.0(stylelint@15.11.0(typescript@5.9.2))
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.17
-      typescript:
-        specifier: ^5
-        version: 5.9.2
-
-  apps/marquee:
-    dependencies:
-      '@mono-repo/common-tailwind':
-        specifier: workspace:*
-        version: link:../../packages/common-tailwind
-      '@mono-repo/test-utils':
-        specifier: workspace:*
-        version: link:../../packages/test-utils
-      '@mono-repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      '@mono-repo/utils':
-        specifier: ^1.4.4
-        version: 1.4.4
-      ahooks:
-        specifier: ^3.9.5
-        version: 3.9.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      axios:
-        specifier: ^1.6.2
-        version: 1.12.1
-      i18next:
-        specifier: ^25.5.3
-        version: 25.5.3(typescript@5.9.2)
-      next:
-        specifier: 14.2.5
-        version: 14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-i18next:
-        specifier: ^15.4.2
-        version: 15.4.2(@types/react@18.3.24)(i18next@25.5.3(typescript@5.9.2))(next@14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2))(react@18.3.1)
-      react:
-        specifier: ^18
-        version: 18.3.1
-      react-dom:
-        specifier: ^18
-        version: 18.3.1(react@18.3.1)
-      react-i18next:
-        specifier: ^16.0.0
-        version: 16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
-      zustand:
-        specifier: ^4.5.0
-        version: 4.5.7(@types/react@18.3.24)(react@18.3.1)
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.28.4
-        version: 7.28.4
-      '@babel/plugin-transform-runtime':
-        specifier: ^7.28.3
-        version: 7.28.3(@babel/core@7.28.4)
-      '@babel/preset-env':
-        specifier: ^7.28.3
-        version: 7.28.3(@babel/core@7.28.4)
-      '@babel/preset-react':
-        specifier: ^7.27.1
-        version: 7.27.1(@babel/core@7.28.4)
-      '@babel/preset-typescript':
-        specifier: ^7.27.1
-        version: 7.27.1(@babel/core@7.28.4)
-      '@types/node':
-        specifier: ^20
-        version: 20.19.14
-      '@types/react':
-        specifier: ^18
-        version: 18.3.24
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.7(@types/react@18.3.24)
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
-      babel-loader:
-        specifier: ^10.0.0
-        version: 10.0.0(@babel/core@7.28.4)(webpack@5.101.3)
-      eslint:
-        specifier: ^8
-        version: 8.57.1
-      eslint-config-next:
-        specifier: 14.2.5
-        version: 14.2.5(eslint@8.57.1)(typescript@5.9.2)
+      eslint-plugin-unused-imports:
+        specifier: ^4.2.0
+        version: 4.2.0(@typescript-eslint/eslint-plugin@8.46.0(@typescript-eslint/parser@8.46.0(eslint@8.57.1)(typescript@5.9.2))(eslint@8.57.1)(typescript@5.9.2))(eslint@8.57.1)
       husky:
         specifier: 8.0.0
         version: 8.0.0
@@ -1578,11 +1375,6 @@ packages:
     resolution: {integrity: sha512-00UxlRaIUvYm4R4W9WYkN8/J+kV8fmOQ7okeH6YFtGWFMt3odD45tpG5yA5wnL7HE6lLgjaTW5n14ju2hl2NNA==}
     deprecated: This is a stub types definition. glob provides its own type definitions, so you do not need this installed.
 
-  '@types/hoist-non-react-statics@3.3.7':
-    resolution: {integrity: sha512-PQTyIulDkIDro8P+IHbKCsw7U2xxBYflVzW/FgWdCAePD9xGSidgA76/GeJ6lBKoblyhf9pBY763gbrN+1dI8g==}
-    peerDependencies:
-      '@types/react': '*'
-
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
@@ -2216,9 +2008,6 @@ packages:
   core-js-compat@3.45.1:
     resolution: {integrity: sha512-tqTt5T4PzsMIZ430XGviK4vzYSoeNJ6CXODi6c/voxOT6IZqBht5/EKaSNnYiEjjRYxjVz7DQIsOsY0XNi8PIA==}
 
-  core-js@3.45.1:
-    resolution: {integrity: sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==}
-
   cors@2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
     engines: {node: '>= 0.10'}
@@ -2769,15 +2558,9 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hoist-non-react-statics@3.3.2:
-    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
-
   hosted-git-info@4.1.0:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
     engines: {node: '>=10'}
-
-  html-parse-stringify@3.0.1:
-    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
 
   html-tags@3.3.1:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
@@ -2791,17 +2574,6 @@ packages:
     resolution: {integrity: sha512-4qbE/5dzNDNxFEkX9MNRPKl5+omTXQzdILCUWiqG/lWIAioiM5vln265/l6I2Zx8gpW8l1ukZwGQeCFbBZ6+6w==}
     engines: {node: '>=14'}
     hasBin: true
-
-  i18next-fs-backend@2.6.0:
-    resolution: {integrity: sha512-3ZlhNoF9yxnM8pa8bWp5120/Ob6t4lVl1l/tbLmkml/ei3ud8IWySCHt2lrY5xWRlSU5D9IV2sm5bEbGuTqwTw==}
-
-  i18next@25.5.3:
-    resolution: {integrity: sha512-joFqorDeQ6YpIXni944upwnuHBf5IoPMuqAchGVeQLdWC2JOjxgM9V8UGLhNIIH/Q8QleRxIi0BSRQehSrDLcg==}
-    peerDependencies:
-      typescript: ^5
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -3258,15 +3030,6 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  next-i18next@15.4.2:
-    resolution: {integrity: sha512-zgRxWf7kdXtM686ecGIBQL+Bq0+DqAhRlasRZ3vVF0TmrNTWkVhs52n//oU3Fj5O7r/xOKkECDUwfOuXVwTK/g==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      i18next: '>= 23.7.13'
-      next: '>= 12.0.0'
-      react: '>= 17.0.2'
-      react-i18next: '>= 13.5.0'
-
   next@14.2.5:
     resolution: {integrity: sha512-0f8aRfBVL+mpzfBjYfQuLWh2WyAwtJXCRfkPF4UJ5qd2YwrHczsrSzXU4tRMV0OAxR8ZJZWPFn6uhSC56UTsLA==}
     engines: {node: '>=18.17.0'}
@@ -3555,22 +3318,6 @@ packages:
 
   react-fast-compare@3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
-
-  react-i18next@16.0.0:
-    resolution: {integrity: sha512-JQ+dFfLnFSKJQt7W01lJHWRC0SX7eDPobI+MSTJ3/gP39xH2g33AuTE7iddAfXYHamJdAeMGM0VFboPaD3G68Q==}
-    peerDependencies:
-      i18next: '>= 25.5.2'
-      react: '>= 16.8.0'
-      react-dom: '*'
-      react-native: '*'
-      typescript: ^5
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-      typescript:
-        optional: true
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4203,10 +3950,6 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
-
-  void-elements@3.1.0:
-    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
-    engines: {node: '>=0.10.0'}
 
   watchpack@2.4.4:
     resolution: {integrity: sha512-c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==}
@@ -5422,11 +5165,6 @@ snapshots:
     dependencies:
       glob: 10.4.5
 
-  '@types/hoist-non-react-statics@3.3.7(@types/react@18.3.24)':
-    dependencies:
-      '@types/react': 18.3.24
-      hoist-non-react-statics: 3.3.2
-
   '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
@@ -6121,8 +5859,6 @@ snapshots:
   core-js-compat@3.45.1:
     dependencies:
       browserslist: 4.26.0
-
-  core-js@3.45.1: {}
 
   cors@2.8.5:
     dependencies:
@@ -6850,31 +6586,15 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hoist-non-react-statics@3.3.2:
-    dependencies:
-      react-is: 16.13.1
-
   hosted-git-info@4.1.0:
     dependencies:
       lru-cache: 6.0.0
-
-  html-parse-stringify@3.0.1:
-    dependencies:
-      void-elements: 3.1.0
 
   html-tags@3.3.1: {}
 
   human-signals@3.0.1: {}
 
   husky@8.0.0: {}
-
-  i18next-fs-backend@2.6.0: {}
-
-  i18next@25.5.3(typescript@5.9.2):
-    dependencies:
-      '@babel/runtime': 7.28.4
-    optionalDependencies:
-      typescript: 5.9.2
 
   ignore@5.3.2: {}
 
@@ -7306,20 +7026,6 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next-i18next@15.4.2(@types/react@18.3.24)(i18next@25.5.3(typescript@5.9.2))(next@14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.28.4
-      '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.24)
-      core-js: 3.45.1
-      hoist-non-react-statics: 3.3.2
-      i18next: 25.5.3(typescript@5.9.2)
-      i18next-fs-backend: 2.6.0
-      next: 14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-i18next: 16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
-    transitivePeerDependencies:
-      - '@types/react'
-
   next@14.2.5(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.5
@@ -7588,16 +7294,6 @@ snapshots:
       scheduler: 0.23.2
 
   react-fast-compare@3.2.2: {}
-
-  react-i18next@16.0.0(i18next@25.5.3(typescript@5.9.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2):
-    dependencies:
-      '@babel/runtime': 7.28.4
-      html-parse-stringify: 3.0.1
-      i18next: 25.5.3(typescript@5.9.2)
-      react: 18.3.1
-    optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
-      typescript: 5.9.2
 
   react-is@16.13.1: {}
 
@@ -8367,8 +8063,6 @@ snapshots:
       spdx-expression-parse: 3.0.1
 
   vary@1.1.2: {}
-
-  void-elements@3.1.0: {}
 
   watchpack@2.4.4:
     dependencies:
