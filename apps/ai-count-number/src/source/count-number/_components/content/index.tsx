@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useGlobalStore } from '@/store/global-store'
 import { useCountNumberStore } from '@/source/count-number/_store'
-import Link from 'next/link'
 import { useGetCountNumberStore } from '@/source/count-number/_hooks/useGetCountNumber'
 
 function Content() {
