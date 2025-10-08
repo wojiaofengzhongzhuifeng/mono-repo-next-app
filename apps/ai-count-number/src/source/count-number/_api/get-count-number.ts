@@ -1,4 +1,4 @@
-import { post } from '@mono-repo/utils'
+import { get } from '@mono-repo/utils'
 import { GET_COUNT_NUMBER } from '@/source/count-number/_api/mock'
 
 /**
@@ -16,15 +16,15 @@ export type GetCountNumberResponseData = {
  * 1. 配置请求代码
  */
 const API_CONFIG = {
-  url: '/api/web/v1/tst/otc_loan/get_quarterly_interest_detail',
-  useMock: true,
+  url: '/api/get-count',
+  useMock: false,
   mockData: GET_COUNT_NUMBER,
 }
 
 /**
  * 2. 请求代码 + 通用逻辑 + 错误处理
  */
-export const getQuarterlyInterestDetail =
+export const getCountNumberRequest =
   async (): Promise<GetCountNumberResponseData> => {
     try {
       if (API_CONFIG.useMock) {
@@ -37,7 +37,7 @@ export const getQuarterlyInterestDetail =
         }
       }
 
-      const res = await post<GetCountNumberResponseData>({
+      const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
       if (res.code === 200) {

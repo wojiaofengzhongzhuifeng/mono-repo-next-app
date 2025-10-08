@@ -11,6 +11,8 @@ $ pnpm run dev
 
 ## 功能
 
-- 代码 
+- 代码风格
+  - prettier 保持风格统一
+  - 
 
 
