@@ -5,7 +5,7 @@ import { useGetCountNumberHooks } from '@/source/count-number/_hooks/useGetCount
 
 function Content() {
   const { globalNumber } = useGlobalStore()
-  const { countNumber } = useCountNumberStore()
+  const { countNumber, testList } = useCountNumberStore()
   useGetCountNumberHooks()
 
   return (
@@ -14,7 +14,10 @@ function Content() {
         <h3 className='text-lg font-semibold mb-4'>
           Global Number from Home: {globalNumber}
         </h3>
-        <h3>服务器获取的数据：{countNumber}</h3>
+        <h3>
+          服务器获取的数据：{countNumber}, 数组为：{testList?.join(',')}
+        </h3>
+        <h3></h3>
       </div>
     </div>
   )
