@@ -11,7 +11,7 @@ export function useGetCountNumber() {
 
   useEffect(() => {
     if (error) {
-      alert('test')
+      // alert('test')
     }
   }, [error])
 

@@ -40,6 +40,8 @@ export const getCountNumberRequest =
       const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
+
+      console.log('res', res)
       if (res.code === 200) {
         // 正常获取数据
         return res.data

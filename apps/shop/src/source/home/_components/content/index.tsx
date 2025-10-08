@@ -15,7 +15,7 @@ function Content() {
           Global Number from Home: {globalNumber}
         </h3>
         <h3>
-          服务器获取的数据：{countNumber}, 数组为：{testList?.join(',')}
+          test服务器获取的数据：{countNumber}, 数组为：{testList?.join(',')}
         </h3>
         <h3></h3>
       </div>
