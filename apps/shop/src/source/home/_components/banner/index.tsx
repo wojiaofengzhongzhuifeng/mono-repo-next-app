@@ -82,30 +82,6 @@ const BannerComponent: React.FC = () => {
           ))}
         </Swiper>
       </div>
-
-      {/* 缩略图导航 */}
-      <div className="mt-4">
-        <Swiper
-          spaceBetween={8}
-          slidesPerView={'auto'}
-          centeredSlides={false}
-          watchSlidesProgress={true}
-          className="thumbnailSwiper"
-        >
-          {banners.map((banner, index) => (
-            <SwiperSlide key={banner.id} className="!w-20 !h-12 cursor-pointer">
-              <div className="relative w-full h-full rounded-lg overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all duration-200 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                <img 
-                  src={banner.imageUrl} 
-                  alt={`缩略图-${banner.id}`}
-                  className="w-full h-full object-contain rounded-lg"
-                />
-                <div className="absolute inset-0 bg-black/8 rounded-lg"></div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
     </div>
   )
 }
