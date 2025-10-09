@@ -21,7 +21,7 @@ export function useGetCountNumber() {
 // 使用 hooks
 export function useGetCountNumberHooks() {
   const { run, data, error } = useGetCountNumber()
-  const { setCountNumber, setTestList } = useAppStore()
+  const { setCountNumber, setTestList, setNumber2 } = useAppStore()
 
   useEffect(() => {
     run()
@@ -31,8 +31,11 @@ export function useGetCountNumberHooks() {
     if (!error && data) {
       setCountNumber(data.number)
       setTestList(data.testList)
+      setNumber2(data.number2)
     }
   }, [error, data])
 
-  console.log('data', data)
+  console.log('data', data
+    
+  )
 }
