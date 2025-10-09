@@ -20,6 +20,10 @@ interface AppStore {
     // 新增：category 数据状态管理
     categories: Category[] | null
     setCategories: (newCategories: Category[]) => void
+    
+    // 新增：当前选中的分类ID
+    selectedCategoryId: number | null
+    setSelectedCategoryId: (categoryId: number | null) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -39,5 +43,9 @@ export const useAppStore = create<AppStore>(set => ({
 
     // 新增：category 数据初始值和设置方法
     categories: null,
-    setCategories: (newCategories: Category[]) => set({ categories: newCategories })
+    setCategories: (newCategories: Category[]) => set({ categories: newCategories }),
+    
+    // 新增：当前选中的分类ID初始值和设置方法
+    selectedCategoryId: null,
+    setSelectedCategoryId: (categoryId: number | null) => set({ selectedCategoryId: categoryId })
 }))

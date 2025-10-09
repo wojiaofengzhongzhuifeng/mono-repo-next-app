@@ -3,6 +3,7 @@ import { useGlobalStore } from '@/store/global-store'
 import { useAppStore } from '@/source/home/_store'
 import { useGetCountNumberHooks } from '@/source/home/_hooks/useGetCountNumber'
 import { useGetCategoryHooks } from '@/source/home/_hooks/useGetCategory'
+import CategoryList from '../CategoryList'
 
 function Content() {
   const { globalNumber } = useGlobalStore()
@@ -23,6 +24,8 @@ function Content() {
         </h3>
         <h3></h3>
       </div>
+      
+      <CategoryList />
     </div>
   )
 }
