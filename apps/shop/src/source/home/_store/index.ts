@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { Category } from '@/source/home/_api/get-category'
+import { Banner } from '@/source/home/_api/get-banner'
 
 interface AppStore {
   countNumber: number
@@ -24,6 +25,10 @@ interface AppStore {
     // 新增：当前选中的分类ID
     selectedCategoryId: number | null
     setSelectedCategoryId: (categoryId: number | null) => void
+
+    // 新增：banner 数据状态管理
+    banners: Banner[] | null
+    setBanners: (newBanners: Banner[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -47,5 +52,9 @@ export const useAppStore = create<AppStore>(set => ({
     
     // 新增：当前选中的分类ID初始值和设置方法
     selectedCategoryId: null,
-    setSelectedCategoryId: (categoryId: number | null) => set({ selectedCategoryId: categoryId })
+    setSelectedCategoryId: (categoryId: number | null) => set({ selectedCategoryId: categoryId }),
+
+    // 新增：banner 数据初始值和设置方法
+    banners: null,
+    setBanners: (newBanners: Banner[]) => set({ banners: newBanners })
 }))

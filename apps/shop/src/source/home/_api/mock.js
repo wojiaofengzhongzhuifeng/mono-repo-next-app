@@ -169,3 +169,22 @@ export const GET_CATEGORY = {
     }
   ]
 }
+
+export const GET_BANNER = {
+  "code": 200,
+  "message": "成功",
+  "data": [
+    {
+      "id": 1,
+      "imageUrl": "https://cdn2.thecatapi.com/images/2ep.jpg"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://cdn2.thecatapi.com/images/6r8.jpg"
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://cdn2.thecatapi.com/images/efc.jpg"
+    }
+  ]
+}
