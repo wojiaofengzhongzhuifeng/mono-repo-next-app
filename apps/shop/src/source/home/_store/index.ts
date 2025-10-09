@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { Category } from '@/source/home/_api/get-category'
 
 interface AppStore {
   countNumber: number
@@ -16,6 +17,9 @@ interface AppStore {
     test:string | null
     setTest:(newValue: string)=>void
 
+    // 新增：category 数据状态管理
+    categories: Category[] | null
+    setCategories: (newCategories: Category[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -31,5 +35,9 @@ export const useAppStore = create<AppStore>(set => ({
     setNumber2: (newValue: number) => set({ number2: newValue }),
 
     test:null,
-    setTest:(newValue:string)=>set({test:newValue})
+    setTest:(newValue:string)=>set({test:newValue}),
+
+    // 新增：category 数据初始值和设置方法
+    categories: null,
+    setCategories: (newCategories: Category[]) => set({ categories: newCategories })
 }))
