@@ -2,11 +2,20 @@ import React from 'react'
 import { useAppStore } from '@/source/home/_store'
 import { useGetBannerHooks } from '@/source/home/_hooks/useGetBanner'
 import { Banner } from '@/source/home/_api/get-banner'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import 'swiper/css/autoplay'
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
 const BannerComponent: React.FC = () => {
   const { banners } = useAppStore()
   const { loading } = useGetBannerHooks()
-console.log('banners',banners)
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -27,16 +36,76 @@ console.log('banners',banners)
   }
 
   return (
-    <div className="mx-auto w-[960px]">
-      {banners.map((banner) => (
-        <div key={banner.id} className="mb-4">
-          <img 
-            src={banner.imageUrl} 
-            alt={`轮播图-${banner.id}`}
-            className="w-full h-auto object-cover rounded-lg"
-          />
-        </div>
-      ))}
+    <div className="mx-auto w-[960px] " style={{width:"960px"}} >
+      <div className="relative overflow-hidden rounded-lg bg-gray-100" style={{width:"960px" , padding:"20px"}}>
+        <Swiper
+          spaceBetween={0}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          navigation={true}
+          loop={true}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+          style={{
+            '--swiper-navigation-color': '#fff',
+            '--swiper-pagination-color': '#fff',
+            '--swiper-pagination-bullet-inactive-color': '#ffffff80',
+            '--swiper-pagination-bullet-inactive-opacity': '0.5',
+            '--swiper-pagination-bullet-size': '8px',
+            '--swiper-pagination-bullet-horizontal-gap': '4px',
+          } as React.CSSProperties}
+        >
+          {banners.map((banner) => (
+            <SwiperSlide key={banner.id}>
+              <div className="w-full h-[450px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                <img 
+                  src={banner.imageUrl} 
+                  alt={`轮播图-${banner.id}`}
+                  className="object-contain rounded-xl shadow-lg"
+                  style={{
+                    width: '850px',
+                    height: '380px',
+                    objectFit: 'contain',
+                    objectPosition: 'center'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/8 to-transparent pointer-events-none rounded-xl"></div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* 缩略图导航 */}
+      <div className="mt-4">
+        <Swiper
+          spaceBetween={8}
+          slidesPerView={'auto'}
+          centeredSlides={false}
+          watchSlidesProgress={true}
+          className="thumbnailSwiper"
+        >
+          {banners.map((banner, index) => (
+            <SwiperSlide key={banner.id} className="!w-20 !h-12 cursor-pointer">
+              <div className="relative w-full h-full rounded-lg overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all duration-200 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                <img 
+                  src={banner.imageUrl} 
+                  alt={`缩略图-${banner.id}`}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+                <div className="absolute inset-0 bg-black/8 rounded-lg"></div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   )
 }

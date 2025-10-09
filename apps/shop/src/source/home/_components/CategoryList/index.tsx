@@ -59,19 +59,11 @@ const CategoryList: React.FC = () => {
     )
   }
 
-  // 获取当前选中的分类
-  const selectedCategory = selectedCategoryId 
-    ? categories.find(category => category.id === selectedCategoryId)
-    : null
+
 
   return (
-  //轮播图
 <div style={{ 
-    width:"960px", 
-    marginLeft: "auto",
-    marginRight: "auto"
 }}>
-    <img src='https://cdn2.thecatapi.com/images/ado.jpg' alt='轮播图' style={{width:"100%"}} />
 </div>)
 }
 
