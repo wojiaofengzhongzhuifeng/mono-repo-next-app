@@ -14,8 +14,8 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className='min-h-screen flex flex-col'>
       <Header
-        appName='AI Count Number'
-        tagline='智能数字计数工具'
+        appName='AI Shop'
+        tagline='智能商店'
         navigation={navigation}
         userArea={{
           showWelcome: true,

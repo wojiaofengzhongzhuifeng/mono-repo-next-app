@@ -31,7 +31,6 @@ export function useGetCountNumberHooks() {
     if (!error && data) {
       setCountNumber(data.number)
       setTestList(data.testList)
-      setNumber2(data.number2)
     }
   }, [error, data])
 

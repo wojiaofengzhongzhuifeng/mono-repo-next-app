@@ -7,7 +7,7 @@ import CategoryList from '../CategoryList'
 
 function Content() {
   const { globalNumber } = useGlobalStore()
-  const { countNumber, testList ,number2 ,test, categories} = useAppStore()
+  const {categories} = useAppStore()
   useGetCountNumberHooks()
   useGetCategoryHooks()
   console.log('categories', categories)
@@ -17,12 +17,6 @@ function Content() {
         <h3 className='text-lg font-semibold mb-4'>
           Global Number from Home: {globalNumber}
         </h3>
-        <h3>
-          test服务器获取的数据：{countNumber}, 数组为：{testList?.join(',')}
-          <span>Number2:{number2}</span>
-          <h4>test:{test}</h4>
-        </h3>
-        <h3></h3>
       </div>
       
       <CategoryList />

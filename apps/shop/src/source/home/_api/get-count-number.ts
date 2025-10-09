@@ -10,7 +10,6 @@ export type GetCountNumberResponseData = {
   number: number
   id: number
   testList: number[]
-  number2:number
 }
 
 /**
