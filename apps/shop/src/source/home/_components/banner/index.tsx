@@ -37,34 +37,44 @@ const BannerComponent: React.FC = () => {
     )
   }
 
+  console.log('BannerComponent: 准备渲染 Swiper，banners 长度:', banners.length)
+  console.log('BannerComponent: banners 数据详情:', banners)
+  
+  // 详细检查每个banner的imageUrl
+  banners.forEach((banner, index) => {
+    console.log(`Banner ${index + 1}:`, {
+      id: banner.id,
+      imageUrl: banner.imageUrl,
+      imageUrlType: typeof banner.imageUrl,
+      imageUrlLength: banner.imageUrl?.length,
+      hasValidProtocol: banner.imageUrl?.startsWith('http')
+    })
+  })
+  
   return (
     <div className="mx-auto w-[960px] " >
       <div className="relative overflow-hidden rounded-lg bg-gray-100" style={{width:"960px" , padding:"20px"}}>
         <Swiper
-          spaceBetween={0}
-          centeredSlides={true}
+          onSwiper={(swiper) => {
+            console.log('Swiper 初始化成功:', swiper)
+          }}
+          onSlideChange={(swiper) => {
+            console.log('Swiper 幻灯片切换:', swiper.activeIndex)
+          }}
+          spaceBetween={30}
+          slidesPerView={1}
           autoplay={{
-            delay: 3000,
+            delay: 2500,
             disableOnInteraction: false,
           }}
           pagination={{
             clickable: true,
-            dynamicBullets: true,
           }}
           navigation={true}
-          loop={true}
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper"
-          style={{
-            '--swiper-navigation-color': '#fff',
-            '--swiper-pagination-color': '#fff',
-            '--swiper-pagination-bullet-inactive-color': '#ffffff80',
-            '--swiper-pagination-bullet-inactive-opacity': '0.5',
-            '--swiper-pagination-bullet-size': '8px',
-            '--swiper-pagination-bullet-horizontal-gap': '4px',
-          } as React.CSSProperties}
         >
-          {banners.map((banner) => (
+          {banners.map((banner, index) => (
             <SwiperSlide key={banner.id}>
               <div className="w-full h-[450px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
                 <img 
@@ -76,6 +86,13 @@ const BannerComponent: React.FC = () => {
                     height: '380px',
                     objectFit: 'contain',
                     objectPosition: 'center'
+                  }}
+                  onLoad={() => {
+                    console.log(`图片加载成功: ${banner.imageUrl}`)
+                  }}
+                  onError={(e) => {
+                    console.error(`图片加载失败: ${banner.imageUrl}`, e)
+                    console.log('banner 对象:', banner)
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/8 to-transparent pointer-events-none rounded-xl"></div>
