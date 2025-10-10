@@ -26,7 +26,6 @@ export function useGetBannerHooks() {
   useEffect(() => {
       run()
   }, [])
-
   useEffect(() => {
     if (!error && data) {
       setBanners(data)

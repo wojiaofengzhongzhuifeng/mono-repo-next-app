@@ -16,6 +16,8 @@ const BannerComponent: React.FC = () => {
   const { banners } = useAppStore()
   const { loading } = useGetBannerHooks()
 
+  console.log('BannerComponent: 渲染中', { banners, loading })
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -36,7 +38,7 @@ const BannerComponent: React.FC = () => {
   }
 
   return (
-    <div className="mx-auto w-[960px] " style={{width:"960px"}} >
+    <div className="mx-auto w-[960px] " >
       <div className="relative overflow-hidden rounded-lg bg-gray-100" style={{width:"960px" , padding:"20px"}}>
         <Swiper
           spaceBetween={0}

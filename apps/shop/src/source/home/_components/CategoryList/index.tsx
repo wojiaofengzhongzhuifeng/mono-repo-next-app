@@ -8,30 +8,22 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const handleProductClick = () => {
+    console.log('点击商品:', product.productName)
+    // 这里可以添加商品点击后的逻辑，比如跳转到商品详情页
+  }
+
   return (
-    <div className="border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+    <div 
+      className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      onClick={handleProductClick}
+    >
       <img 
         src={product.productImg} 
         alt={product.productName}
-        className="w-full h-32 object-cover rounded-md mb-4"
+        className="w-full h-32 object-cover rounded-md mb-3"
       />
-      <h4 className="font-semibold text-lg text-left">{product.productName}</h4>
-    </div>
-  )
-}
-
-interface CategorySectionProps {
-  category: Category
-}
-
-const CategorySection: React.FC<CategorySectionProps> = ({ category }) => {
-  return (
-    <div className="mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {category.products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <h4 className="font-semibold text-base text-center">{product.productName}</h4>
     </div>
   )
 }
@@ -59,12 +51,39 @@ const CategoryList: React.FC = () => {
     )
   }
 
-
+  // 如果没有选中的分类，默认选中第一个分类
+  const currentCategoryId = selectedCategoryId || categories[0].id
+  const currentCategory = categories.find(category => category.id === currentCategoryId)
 
   return (
-<div style={{ 
-}}>
-</div>)
+    <div className="mx-auto w-[960px]">
+      {/* Tab 切换 */}
+      <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-200">
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            className={`px-4 py-2 font-medium text-sm rounded-t-lg transition-colors ${
+              currentCategoryId === category.id
+                ? 'bg-blue-500 text-white border-b-2 border-blue-500'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+            onClick={() => setSelectedCategoryId(category.id)}
+          >
+            {category.categoryName}
+          </button>
+        ))}
+      </div>
+
+      {/* 商品列表 */}
+      {currentCategory && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {currentCategory.products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default CategoryList
