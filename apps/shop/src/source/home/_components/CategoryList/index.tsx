@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { useAppStore } from '@/source/home/_store'
 import { useGetCategoryHooks } from '@/source/home/_hooks/useGetCategory'
 import { Category } from '@/source/home/_api/get-category'
@@ -8,9 +9,11 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const router = useRouter()
+
   const handleProductClick = () => {
-    console.log('点击商品:', product.productName)
-    // 这里可以添加商品点击后的逻辑，比如跳转到商品详情页
+    // 使用商品ID作为路由参数跳转到商品详情页
+    router.push(`/product/${product.id}`)
   }
 
   return (
@@ -24,6 +27,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         className="w-full h-32 object-cover rounded-md mb-3"
       />
       <h4 className="font-semibold text-base text-center">{product.productName}</h4>
+      <div className="mt-2 text-center">
+        <span className="text-red-600 font-bold">¥{product.price.toLocaleString()}</span>
+      </div>
     </div>
   )
 }
