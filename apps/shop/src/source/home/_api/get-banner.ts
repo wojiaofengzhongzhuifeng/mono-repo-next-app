@@ -19,39 +19,38 @@ export type GetBannerResponseData = Banner[]
  */
 const API_CONFIG = {
   url: '/api/images',
-  useMock: true,
+  useMock: false,
   mockData: GET_BANNER,
 }
 
 /**
  * 2. 请求代码 + 通用逻辑 + 错误处理
  */
-export const getBannerRequest =
-  async (): Promise<GetBannerResponseData> => {
-    try {
-      if (API_CONFIG.useMock) {
-        const res = API_CONFIG.mockData
-        if (res.code === 200) {
-          // 正常获取数据
-          return res.data
-        } else {
-          throw new Error('获取数据失败： 业务错误')
-        }
-      }
-
-      const res = await get<GetBannerResponseData>({
-        url: API_CONFIG.url,
-      })
-
+export const getBannerRequest = async (): Promise<GetBannerResponseData> => {
+  try {
+    if (API_CONFIG.useMock) {
+      const res = API_CONFIG.mockData
       if (res.code === 200) {
         // 正常获取数据
         return res.data
       } else {
         throw new Error('获取数据失败： 业务错误')
       }
-    } catch (error) {
-      console.error('获取数据失败：', error)
-      // 获取数据失败： httpcode 非200
-      throw new Error('获取数据失败： httpcode 非200')
     }
+
+    const res = await get<GetBannerResponseData>({
+      url: API_CONFIG.url,
+    })
+
+    if (res.code === 200) {
+      // 正常获取数据
+      return res.data
+    } else {
+      throw new Error('获取数据失败： 业务错误')
+    }
+  } catch (error) {
+    console.error('获取数据失败：', error)
+    // 获取数据失败： httpcode 非200
+    throw new Error('获取数据失败： httpcode 非200')
   }
+}

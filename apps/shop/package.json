@@ -13,6 +13,7 @@
     "clean": "rm -rf .next out"
   },
   "dependencies": {
+    "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
     "@mono-repo/utils": "^1.4.4",
     "ahooks": "^3.9.5",

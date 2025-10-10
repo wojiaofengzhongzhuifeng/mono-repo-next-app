@@ -24,7 +24,7 @@ export function useGetBannerHooks() {
   const { setBanners } = useAppStore()
 
   useEffect(() => {
-      run()
+    run()
   }, [])
   useEffect(() => {
     if (!error && data) {

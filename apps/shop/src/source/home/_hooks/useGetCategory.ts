@@ -21,10 +21,10 @@ export function useGetCategory() {
 // 使用 hooks - 根据 countNumber 获取 category 数据
 export function useGetCategoryHooks() {
   const { run, data, error, loading } = useGetCategory()
-  const { setCategories, countNumber } = useAppStore()
+  const { setCategories } = useAppStore()
 
   useEffect(() => {
-      run()
+    run()
   }, [])
 
   useEffect(() => {
