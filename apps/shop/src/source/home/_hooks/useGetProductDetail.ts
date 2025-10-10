@@ -8,6 +8,7 @@ const mockSkuList = () => {
     // 一、电子产品（3个商品：iPhone 15 Pro、MacBook Air M3、AirPods Pro 3）
     {
       name: "iPhone 15 Pro",
+      image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&h=800&fit=crop",
       attributes: {
         color: ["黑色钛金属", "白色钛金属", "蓝色钛金属", "原色钛金属"],
         storage: ["128GB", "256GB", "512GB", "1TB"],
@@ -113,6 +114,7 @@ const mockSkuList = () => {
     },
     {
       name: "MacBook Air M3",
+      image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=800&fit=crop",
       attributes: {
         color: ["星光色", "深空灰色", "银色"],
         storage: ["256GB", "512GB", "1TB"],
@@ -176,6 +178,7 @@ const mockSkuList = () => {
     },
     {
       name: "AirPods Pro 3",
+      image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=800&h=800&fit=crop",
       attributes: {
         color: ["白色"],
         version: ["标准版", "MagSafe充电盒版"],
@@ -199,6 +202,7 @@ const mockSkuList = () => {
     // 二、服装鞋帽（3个商品：Nike Air Max 270、Adidas三叶草卫衣、Levi's 501牛仔裤）
     {
       name: "Nike Air Max 270",
+      image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop",
       attributes: {
         color: ["黑橙", "白蓝", "灰粉", "全黑"],
         size: ["35.5", "36", "37.5", "38", "39", "40", "41", "42"],
@@ -400,6 +404,7 @@ const mockSkuList = () => {
     },
     {
       name: "Adidas三叶草卫衣",
+      image: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=800&h=800&fit=crop",
       attributes: {
         color: ["黑色", "白色", "灰色"],
         size: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -517,6 +522,7 @@ const mockSkuList = () => {
     },
     {
       name: "Levi's 501牛仔裤",
+      image: "https://images.unsplash.com/photo-1542271021-7f488b7f2444?w=800&h=800&fit=crop",
       attributes: {
         color: ["深蓝色", "浅蓝色", "黑色"],
         size: ["28", "29", "30", "31", "32", "33", "34", "35", "36"],
@@ -690,6 +696,7 @@ const mockSkuList = () => {
     // 三、家居用品（3个商品：无印良品收纳盒、宜家北欧风台灯、小米空气净化器）
     {
       name: "无印良品收纳盒",
+      image: "https://images.unsplash.com/photo-1587620969629-9d1c6f9c8ba8?w=800&h=800&fit=crop",
       attributes: {
         size: ["小号(20×15×10cm)", "中号(30×20×15cm)", "大号(40×30×20cm)"],
         color: ["透明", "白色"],
@@ -735,6 +742,7 @@ const mockSkuList = () => {
     },
     {
       name: "宜家北欧风台灯",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop",
       attributes: {
         color: ["原木色", "白色", "浅灰色"],
         lightMode: ["暖光(2700K)", "中性光(4000K)", "冷光(6500K)"],
@@ -798,6 +806,7 @@ const mockSkuList = () => {
     },
     {
       name: "小米空气净化器",
+      image: "https://images.unsplash.com/photo-1593692614414-8d3f6e5c7d9d?w=800&h=800&fit=crop",
       attributes: {
         filterType: ["标准版滤网", "抗菌版滤网"],
         version: ["基础版", "智能版(APP控制)"],
@@ -833,6 +842,7 @@ const mockSkuList = () => {
     // 四、食品饮料（3个商品：星巴克咖啡豆、费列罗巧克力、农夫山泉天然水）
     {
       name: "星巴克咖啡豆",
+      image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=800&fit=crop",
       attributes: {
         roast: ["轻度烘焙", "中度烘焙", "深度烘焙"],
         package: ["200g/袋", "500g/袋"],
@@ -878,6 +888,7 @@ const mockSkuList = () => {
     },
     {
       name: "费列罗巧克力",
+      image: "https://images.unsplash.com/photo-1543076499-a6133cb641dd?w=800&h=800&fit=crop",
       attributes: {
         package: ["16颗/盒(200g)", "32颗/盒(400g)"],
         giftBox: ["普通装", "节日礼盒装"],
@@ -911,6 +922,7 @@ const mockSkuList = () => {
     },
     {
       name: "农夫山泉天然水",
+      image: "https://images.unsplash.com/photo-1613564834361-9436948817d1?w=800&h=800&fit=crop",
       attributes: {
         capacity: ["550ml/瓶", "1.5L/瓶", "4L/桶"],
         package: ["单瓶装", "12瓶/箱(550ml)", "4桶/箱(4L)"],
@@ -952,6 +964,7 @@ const mockSkuList = () => {
     // 五、图书文具（3个商品：《JavaScript高级程序设计》、晨光中性笔套装、Moleskine笔记本）
     {
       name: "《JavaScript高级程序设计》",
+      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&h=800&fit=crop",
       attributes: {
         binding: ["平装", "精装"],
         version: ["第4版(ES2020)", "第4版修订版(ES2022)"],
@@ -985,6 +998,7 @@ const mockSkuList = () => {
     },
     {
       name: "晨光中性笔套装",
+      image: "https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?w=800&h=800&fit=crop",
       attributes: {
         color: ["黑色6支+蓝色3支+红色3支", "全黑色12支", "全蓝色12支"],
         tip: ["0.5mm子弹头", "0.38mm针管头"],
@@ -1030,6 +1044,7 @@ const mockSkuList = () => {
     },
     {
       name: "Moleskine笔记本",
+      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&h=800&fit=crop",
       attributes: {
         size: ["口袋版(13×21cm)", "标准版(17×25cm)", "大号版(21×29cm)"],
         pageType: ["横线", "点阵", "空白"],

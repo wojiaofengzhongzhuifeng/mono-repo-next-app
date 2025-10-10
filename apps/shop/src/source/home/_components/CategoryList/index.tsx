@@ -18,18 +18,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div 
-      className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      className="border rounded-lg p-3 shadow-sm hover:shadow-md w-[223px] h-[271px]"
       onClick={handleProductClick}
     >
       <img 
         src={product.productImg} 
         alt={product.productName}
-        className="w-full h-32 object-cover rounded-md mb-3"
+        className="w-223 h-223 object-cover rounded-md mb-3"
       />
       <h4 className="font-semibold text-base text-center">{product.productName}</h4>
-      <div className="mt-2 text-center">
-        <span className="text-red-600 font-bold">¥{product.price.toLocaleString()}</span>
-      </div>
+
     </div>
   )
 }
@@ -37,6 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 const CategoryList: React.FC = () => {
   const { categories, selectedCategoryId, setSelectedCategoryId } = useAppStore()
   const { loading } = useGetCategoryHooks()
+  console.log(categories)
 
   if (loading) {
     return (
@@ -60,15 +59,14 @@ const CategoryList: React.FC = () => {
   // 如果没有选中的分类，默认选中第一个分类
   const currentCategoryId = selectedCategoryId || categories[0].id
   const currentCategory = categories.find(category => category.id === currentCategoryId)
-
   return (
     <div className="mx-auto w-[960px]">
       {/* Tab 切换 */}
-      <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-200">
+      <div className="flex flex-wrap border-b-[1px] font-[light] gap-[32px] font-bold pb-[28px]">
         {categories.map((category) => (
           <button
             key={category.id}
-            className={`px-4 py-2 font-medium text-sm rounded-t-lg transition-colors ${
+            className={`px-4 py-2  text-sm rounded-t-lg transition-colors ${
               currentCategoryId === category.id
                 ? 'bg-blue-500 text-white border-b-2 border-blue-500'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -82,7 +80,7 @@ const CategoryList: React.FC = () => {
 
       {/* 商品列表 */}
       {currentCategory && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
           {currentCategory.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

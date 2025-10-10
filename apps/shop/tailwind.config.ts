@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { centerContainerPlugin } from '@mono-repo/common-tailwind'
 
 const config: Config = {
   darkMode: ['class'],
@@ -74,6 +75,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), centerContainerPlugin],
 }
 export default config

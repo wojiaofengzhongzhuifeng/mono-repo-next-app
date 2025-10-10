@@ -39,8 +39,8 @@ const BannerComponent: React.FC = () => {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="relative group">
+    <div className=" center-container w-[960px] py-[12px] px-[8px]" >
+      <div className="relative group ">
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
