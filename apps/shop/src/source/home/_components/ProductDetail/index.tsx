@@ -29,7 +29,6 @@ interface SkuItem {
 
 interface ProductData {
   name: string
-  image?: string
   attributes: ProductAttribute
   skus: SkuItem[]
 }
@@ -74,8 +73,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       ...prev,
       [attributeKey]: value
     }))
-    // 切换属性时重置数量为1
-    setQuantity(1)
   }
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -120,36 +117,18 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   console.log('productData',productData)
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      {/* 商品图片和标题 */}
-      <div className="flex flex-col md:flex-row gap-8 mb-8">
-        {/* 商品图片 */}
-        <div className="md:w-1/2 flex items-center justify-center">
-          {productData.image ? (
-            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 w-full max-w-md">
-              <img
-                src={productData.image}
-                alt={productData.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ) : (
-            <div className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center w-full max-w-md">
-              <span className="text-gray-400 text-sm">暂无商品图片</span>
-            </div>
-          )}
-        </div>
-        
-        {/* 商品标题和价格 */}
-        <div className="md:w-1/2">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {productData.name}
-          </h1>
+      {/* 商品标题 */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          {productData.name}
+        </h1>
         <div className="flex items-center gap-4">
           {selectedSku && (
             <>
               <span className="text-2xl font-bold text-red-600">
                 ¥{selectedSku.price.toLocaleString()}
-                              <span className={cn(
+              </span>
+              <span className={cn(
                 'text-sm px-2 py-1 rounded',
                 selectedSku.stock > 10 ? 'bg-green-100 text-green-800' :
                 selectedSku.stock > 0 ? 'bg-yellow-100 text-yellow-800' :
@@ -159,15 +138,45 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                  selectedSku.stock > 0 ? `仅剩 ${selectedSku.stock} 件` :
                  '暂时缺货'}
               </span>
-              </span>
-
             </>
           )}
         </div>
       </div>
-      </div>
 
-     
+      {/* 属性选择 */}
+      <div className="space-y-6 mb-8">
+        {Object.entries(productData.attributes).map(([attrKey, attrValues]) => (
+          <div key={attrKey} className="space-y-3">
+            <h3 className="text-lg font-semibold text-gray-800">
+              {getAttributeDisplayName(attrKey)}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+            {attrValues?.map((value: string) => {
+                const isSelected = selectedAttributes[attrKey] === value
+                const isAvailable = isAttributeAvailable(attrKey, value)
+                
+                return (
+                  <button
+                    key={value}
+                    className={cn(
+                      'px-4 py-2 border rounded-md text-sm font-medium transition-colors',
+                      isSelected 
+                        ? 'bg-blue-500 text-white border-blue-500' 
+                        : isAvailable
+                          ? 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                          : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                    )}
+                    onClick={() => isAvailable && handleAttributeChange(attrKey, value)}
+                    disabled={!isAvailable}
+                  >
+                    {value}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
 
               {/* 当前选择的SKU信息 */}
       {selectedSku && (
