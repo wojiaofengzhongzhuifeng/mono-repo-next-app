@@ -19,7 +19,7 @@ export type GetBannerResponseData = Banner[]
  */
 const API_CONFIG = {
   url: '/api/images',
-  useMock: false,
+  useMock: true,
   mockData: GET_BANNER,
 }
 

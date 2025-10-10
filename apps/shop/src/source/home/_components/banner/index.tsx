@@ -16,14 +16,12 @@ const BannerComponent: React.FC = () => {
   const { banners } = useAppStore()
   const { loading } = useGetBannerHooks()
 
-  console.log('BannerComponent: 渲染中', { banners, loading })
-
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-96 bg-gray-50 rounded-xl">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-          <p>加载中...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-3 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg font-medium">轮播图加载中...</p>
         </div>
       </div>
     )
@@ -31,75 +29,84 @@ const BannerComponent: React.FC = () => {
 
   if (!banners || banners.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">暂无轮播图数据</p>
+      <div className="flex justify-center items-center h-96 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🖼️</div>
+          <p className="text-gray-500 text-lg font-medium">暂无轮播图数据</p>
+        </div>
       </div>
     )
   }
 
-  console.log('BannerComponent: 准备渲染 Swiper，banners 长度:', banners.length)
-  console.log('BannerComponent: banners 数据详情:', banners)
-  
-  // 详细检查每个banner的imageUrl
-  banners.forEach((banner, index) => {
-    console.log(`Banner ${index + 1}:`, {
-      id: banner.id,
-      imageUrl: banner.imageUrl,
-      imageUrlType: typeof banner.imageUrl,
-      imageUrlLength: banner.imageUrl?.length,
-      hasValidProtocol: banner.imageUrl?.startsWith('http')
-    })
-  })
-  
   return (
-    <div className="mx-auto w-[960px] " >
-      <div className="relative overflow-hidden rounded-lg bg-gray-100" style={{width:"960px" , padding:"20px"}}>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative group">
         <Swiper
-          onSwiper={(swiper) => {
-            console.log('Swiper 初始化成功:', swiper)
-          }}
-          onSlideChange={(swiper) => {
-            console.log('Swiper 幻灯片切换:', swiper.activeIndex)
-          }}
-          spaceBetween={30}
+          spaceBetween={0}
           slidesPerView={1}
           autoplay={{
-            delay: 2500,
+            delay: 4000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           pagination={{
             clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 3,
           }}
-          navigation={true}
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
           modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper"
+          className="banner-swiper rounded-2xl overflow-hidden shadow-2xl"
+          loop={true}
+          grabCursor={true}
         >
           {banners.map((banner, index) => (
             <SwiperSlide key={banner.id}>
-              <div className="w-full h-[450px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+              <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
                 <img 
                   src={banner.imageUrl} 
                   alt={`轮播图-${banner.id}`}
-                  className="object-contain rounded-xl shadow-lg"
+                  className="w-full h-full object-contain"
                   style={{
-                    width: '850px',
-                    height: '380px',
                     objectFit: 'contain',
-                    objectPosition: 'center'
+                    objectPosition: 'center',
+                    maxWidth: '100%',
+                    maxHeight: '100%'
                   }}
                   onLoad={() => {
                     console.log(`图片加载成功: ${banner.imageUrl}`)
                   }}
                   onError={(e) => {
                     console.error(`图片加载失败: ${banner.imageUrl}`, e)
-                    console.log('banner 对象:', banner)
+                    // 图片加载失败时显示占位图
+                    const target = e.target as HTMLImageElement
+                    target.src = `https://via.placeholder.com/1200x500/4F46E5/white?text=Banner+${banner.id}`
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/8 to-transparent pointer-events-none rounded-xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="max-w-4xl mx-auto">
+                  </div>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+        
+        {/* 自定义导航按钮 */}
+        <button className="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button className="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   )

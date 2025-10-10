@@ -31,7 +31,7 @@ export type GetCountNumberResponseData = Category[]
  */
 const API_CONFIG = {
   url: '/api/category',
-  useMock: false,
+  useMock: true,
   mockData: GET_CATEGORY,
 }
 
