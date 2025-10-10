@@ -114,7 +114,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       })
     })
   }
-
+  console.log('productData',productData)
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* 商品标题 */}
@@ -178,6 +178,30 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
         ))}
       </div>
 
+              {/* 当前选择的SKU信息 */}
+      {selectedSku && (
+        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <h4 className="font-semibold text-gray-800 mb-2">当前选择：</h4>
+          <div className="text-sm text-gray-600 space-y-1 flex gap-20">
+            {Object.entries(selectedSku.attrs).map(([key, value]) => (
+              <div key={key}>
+                <span className="font-medium">{getAttributeDisplayName(key)}：</span>
+                <span>{value}</span>
+              </div>
+            ))}
+            <div>
+              <span className="font-medium">单价：</span>
+              <span className="text-red-600">¥{selectedSku.price.toLocaleString()}</span>
+            </div>
+              <span className='font-medium'>数量：{quantity}</span>
+              <span className="font-medium">总价：</span>
+              <span className="text-red-600 font-semibold">
+                ¥{(selectedSku.price * quantity).toLocaleString()}
+              </span>
+          </div>
+        </div>
+      )}
+
       {/* 数量选择和购买按钮 */}
       <div className="border-t pt-6">
         <div className="flex items-center gap-4 mb-6">
@@ -223,67 +247,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
           >
             立即购买
           </Button>
-        </div>
-      </div>
-
-      {/* 当前选择的SKU信息 */}
-      {selectedSku && (
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-          <h4 className="font-semibold text-gray-800 mb-2">当前选择：</h4>
-          <div className="text-sm text-gray-600 space-y-1">
-            {Object.entries(selectedSku.attrs).map(([key, value]) => (
-              <div key={key}>
-                <span className="font-medium">{getAttributeDisplayName(key)}：</span>
-                <span>{value}</span>
-              </div>
-            ))}
-            <div>
-              <span className="font-medium">单价：</span>
-              <span className="text-red-600">¥{selectedSku.price.toLocaleString()}</span>
-            </div>
-            <div>
-              <span className="font-medium">总价：</span>
-              <span className="text-red-600 font-semibold">
-                ¥{(selectedSku.price * quantity).toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 商品规格信息 */}
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">商品规格</h3>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2 px-3">属性</th>
-                <th className="text-left py-2 px-3">可选值</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(productData.attributes).map(([attrKey, attrValues]) => (
-                <tr key={attrKey} className="border-b">
-                  <td className="py-2 px-3 font-medium">
-                    {getAttributeDisplayName(attrKey)}
-                  </td>
-                  <td className="py-2 px-3">
-                    <div className="flex flex-wrap gap-1">
-                      {attrValues?.map((value: string) => (
-                        <span 
-                          key={value}
-                          className="px-2 py-1 bg-white border rounded text-xs"
-                        >
-                          {value}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
