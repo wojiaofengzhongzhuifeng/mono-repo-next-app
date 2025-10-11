@@ -29,7 +29,16 @@ interface AppStore {
   // 新增：banner 数据状态管理
   banners: Banner[] | null
   setBanners: (newBanners: Banner[]) => void
+
+  // 新增：购物车商品数据（支持多个商品）
+  cartItems: any[]
+  addToCart: (item: any) => void
+  removeFromCart: (itemId: string) => void
+  clearCart: () => void
+  updateCartItemQuantity: (itemId: string, quantity: number) => void
 }
+
+
 
 export const useAppStore = create<AppStore>(set => ({
   countNumber: 100,
@@ -59,4 +68,32 @@ export const useAppStore = create<AppStore>(set => ({
   // 新增：banner 数据初始值和设置方法
   banners: null,
   setBanners: (newBanners: Banner[]) => set({ banners: newBanners }),
+
+  // 新增：购物车商品数据初始值和方法
+  cartItems: [],
+  addToCart: (item) => set((state) => {
+    const existingItem = state.cartItems.find(cartItem => cartItem.id === item.id)
+    if (existingItem) {
+      // 如果商品已存在，更新数量
+      return {
+        cartItems: state.cartItems.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: (cartItem.quantity || 1) + (item.quantity || 1) }
+            : cartItem
+        )
+      }
+    } else {
+      // 如果商品不存在，添加到购物车
+      return { cartItems: [...state.cartItems, { ...item, quantity: item.quantity || 1 }] }
+    }
+  }),
+  removeFromCart: (itemId) => set((state) => ({
+    cartItems: state.cartItems.filter(item => item.id !== itemId)
+  })),
+  clearCart: () => set({ cartItems: [] }),
+  updateCartItemQuantity: (itemId, quantity) => set((state) => ({
+    cartItems: state.cartItems.map(item =>
+      item.id === itemId ? { ...item, quantity } : item
+    )
+  })),
 }))

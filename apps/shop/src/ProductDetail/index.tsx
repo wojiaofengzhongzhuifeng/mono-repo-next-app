@@ -120,7 +120,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     })
   }
 
-  console.log('productData', productData)
   return (
     <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg'>
       {/* 商品标题 */}
@@ -251,11 +250,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
         <div className='flex gap-4'>
           <Button
             size='lg'
-            className='flex-1 bg-orange-500 hover:bg-orange-600'
+            className='flex-1'
             onClick={handleAddToCart}
             disabled={!selectedSku || selectedSku.stock === 0}
           >
-            加入购物车
+            加入购物车 
           </Button>
           <Button
             size='lg'

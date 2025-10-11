@@ -2,16 +2,20 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import ProductDetail from '@/ProductDetail'
 import { useGetProductDetailHooks } from '@/source/home/_hooks/useGetProductDetail'
+import { useAppStore } from '@/source/home/_store'
 
 function ProductDetailPage() {
   const router = useRouter()
   const { id } = router.query
   const { productData, loading } = useGetProductDetailHooks(id as string)
-
+  const { addToCart } = useAppStore()
+  
   const handleAddToCart = (sku: any) => {
     console.log('添加到购物车:', sku)
-    // 这里可以添加购物车逻辑
+    // 将 sku 数据添加到购物车
+    addToCart(sku)
     alert(`已添加到购物车：${sku.quantity} 件商品`)
+    
   }
 
   if (loading) {
