@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import ProductDetail from '@/source/home/_components/ProductDetail'
+import ProductDetail from '@/ProductDetail'
 import { useGetProductDetailHooks } from '@/source/home/_hooks/useGetProductDetail'
 
 function ProductDetailPage() {
