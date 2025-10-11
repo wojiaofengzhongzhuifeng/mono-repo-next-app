@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
+
+
+
+
+console.log(123321)
+
 // 定义商品SKU相关的类型
 interface ProductAttribute {
   color?: string[]
