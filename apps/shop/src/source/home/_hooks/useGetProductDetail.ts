@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ProductData } from '@/ProductDetail'
 
+console.log(1)
 // 模拟的 SKU 数据，从 server.js 中的 getSkuList 函数复制
 const mockSkuList = () => {
   return [
