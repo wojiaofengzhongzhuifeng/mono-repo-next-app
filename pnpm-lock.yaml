@@ -171,6 +171,9 @@ importers:
 
   apps/template:
     dependencies:
+      '@mono-repo/common-tailwind':
+        specifier: workspace:*
+        version: link:../../packages/common-tailwind
       '@mono-repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui

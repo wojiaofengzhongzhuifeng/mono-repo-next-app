@@ -1,7 +1,7 @@
-import { getCountNumberRequest } from '@/source/template/_api/get-count-number'
+import { getCountNumberRequest } from '@/source/home/_api/get-count-number'
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
-import { useAppStore } from '@/source/template/_store'
+import { useAppStore } from '@/source/home/_store'
 
 // 凡是以 get or submit 开头，表示请求数据
 export function useGetCountNumber() {
@@ -11,7 +11,7 @@ export function useGetCountNumber() {
 
   useEffect(() => {
     if (error) {
-      alert('test')
+      // alert('test')
     }
   }, [error])
 

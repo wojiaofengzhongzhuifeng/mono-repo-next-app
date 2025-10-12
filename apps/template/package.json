@@ -1,9 +1,9 @@
 {
-  "name": "ai-count-number-template",
+  "name": "ai-count-number-shop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3007",
+    "dev": "next dev -p 3008",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +13,7 @@
     "clean": "rm -rf .next out"
   },
   "dependencies": {
+    "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
     "@mono-repo/utils": "^1.4.4",
     "ahooks": "^3.9.5",
