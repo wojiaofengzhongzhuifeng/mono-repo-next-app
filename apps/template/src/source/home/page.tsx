@@ -1,10 +1,12 @@
 import React from 'react'
-import Content from '@/source/home/_components/content'
+import Component1 from '@/source/home/_components/component1'
+import Component2 from '@/source/home/_components/component2'
 
 function Page() {
   return (
     <div>
-      <Content />
+      <Component1 />
+      <Component2 />
     </div>
   )
 }
