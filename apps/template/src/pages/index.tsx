@@ -1,10 +1,12 @@
 import React from 'react'
-import CountNumberPage from '@/source/template/page'
+import ShopHome from '@/source/home/page'
 
-export default function CountNumberPageRoute() {
+console.log(123321)
+
+export default function ShopHomePage() {
   return (
     <div>
-      <CountNumberPage />
+      <ShopHome />
     </div>
   )
 }
