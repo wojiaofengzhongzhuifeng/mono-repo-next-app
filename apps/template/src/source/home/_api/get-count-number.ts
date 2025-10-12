@@ -17,7 +17,7 @@ export type GetCountNumberResponseData = {
  */
 const API_CONFIG = {
   url: '/api/get-count',
-  useMock: false,
+  useMock: true,
   mockData: GET_COUNT_NUMBER,
 }
 

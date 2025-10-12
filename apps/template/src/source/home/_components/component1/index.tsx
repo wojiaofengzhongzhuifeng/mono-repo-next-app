@@ -1,5 +1,7 @@
 import React from 'react'
+import { useAppStore } from '@/source/home/_store'
 function Component1() {
-  return <div>Component1</div>
+  const { countNumber } = useAppStore()
+  return <div>Component1: {countNumber}</div>
 }
 export default Component1
