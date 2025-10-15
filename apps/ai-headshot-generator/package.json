@@ -1,0 +1,51 @@
+{
+  "name": "ai-count-number-shop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3008",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "lint-staged": "lint-staged",
+    "clean": "rm -rf .next out"
+  },
+  "dependencies": {
+    "@mono-repo/common-tailwind": "workspace:*",
+    "@mono-repo/ui": "workspace:*",
+    "@mono-repo/utils": "^1.4.4",
+    "ahooks": "^3.9.5",
+    "axios": "^1.6.2",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/plugin-transform-runtime": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "autoprefixer": "^10.4.21",
+    "babel-loader": "^10.0.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "husky": "8.0.0",
+    "lint-staged": "13.1.0",
+    "postcss": "^8",
+    "prettier": "3.4.2",
+    "stylelint": "^15.10.0",
+    "stylelint-config-standard": "^34.0.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
