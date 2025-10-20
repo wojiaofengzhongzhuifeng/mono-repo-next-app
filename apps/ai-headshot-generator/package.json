@@ -13,11 +13,16 @@
     "clean": "rm -rf .next out"
   },
   "dependencies": {
+    "@google/genai": "^0.5.0",
+    "@google/generative-ai": "^0.24.1",
     "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
     "@mono-repo/utils": "^1.4.4",
     "ahooks": "^3.9.5",
     "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",

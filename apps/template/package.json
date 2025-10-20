@@ -13,6 +13,7 @@
     "clean": "rm -rf .next out"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
     "@mono-repo/utils": "^1.4.4",
