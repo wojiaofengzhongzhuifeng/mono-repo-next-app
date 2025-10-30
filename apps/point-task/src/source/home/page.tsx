@@ -1,14 +1,16 @@
-import React from 'react'
-import Component1 from '@/source/home/_components/component1'
-import Component2 from '@/source/home/_components/component2'
+import React, { use } from 'react'
 import { useGetCountNumberHooks } from '@/source/home/_hooks/use-get-count-number'
+import Banner from './_components/Banner'
+import useSetUserInfo from './_hooks/useSetUserInfo'
+import { useUserInfoHooks } from './_hooks/useGetUserInf'
 
 function Page() {
   useGetCountNumberHooks()
+  useSetUserInfo()
+  useUserInfoHooks()
   return (
     <div>
-      <Component1 />
-      <Component2 />
+      <Banner></Banner>
     </div>
   )
 }

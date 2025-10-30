@@ -5,7 +5,8 @@ function useSetUserInfo() {
     const setUserInfo = useAppStore(state => state.setUserInfo)
 
     useEffect(()=>{
-
+        
         setUserInfo({ userId: "user001" })
     }, [])
 }
+export default useSetUserInfo
