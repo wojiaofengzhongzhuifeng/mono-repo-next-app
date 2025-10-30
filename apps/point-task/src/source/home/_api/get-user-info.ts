@@ -45,7 +45,7 @@ export const getUserInfo =
         url:url,
       })
 
-      if (res.code === 200) {
+      if (res.code === 0) {
         // 正常获取数据
         return res.data
       } else {

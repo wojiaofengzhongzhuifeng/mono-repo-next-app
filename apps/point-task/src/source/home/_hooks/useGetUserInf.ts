@@ -9,6 +9,7 @@ export function useGetUserInfo() {
   })
 
   useEffect(() => {
+    console.log('error changed', error)
     if (error) {
       alert(error)
     }
@@ -24,16 +25,18 @@ export function useUserInfoHooks() {
 
   useEffect(() => {
     console.log('userInfo changed', userInfo)
-    if (userInfo.userId) {
-      run(userInfo.userId)
+    if (userInfo?.user_id && !userInfo.nickname) {
+      run(userInfo?.user_id)
     }
   }, [userInfo])
 
   useEffect(() => {
     if (!error && data) {
       setUserInfo({
-        ...userInfo,
+        id: data.id,
+        user_id: data.user_id,
         nickname: data.nickname,
+        created_at: data.created_at,
         totalPoints: data.totalPoints,
       })
     }

@@ -6,7 +6,13 @@ function useSetUserInfo() {
 
     useEffect(()=>{
         
-        setUserInfo({ userId: "user001" })
+        setUserInfo({ 
+            user_id: "user001",
+            nickname: "",   
+            created_at: "",
+            id: 0,
+            totalPoints: 0
+         })
     }, [])
 }
 export default useSetUserInfo
