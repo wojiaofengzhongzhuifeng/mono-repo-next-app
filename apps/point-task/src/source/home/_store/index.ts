@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { UserInfoResponseData } from '../_api/get-user-info'
+import { UserTargetsResponseData } from '../_api/get-user-targets'
 
 interface AppStore {
   countNumber: number
@@ -7,6 +8,9 @@ interface AppStore {
 
   userInfo: UserInfoResponseData | null
   setUserInfo: (info: UserInfoResponseData) => void
+
+  userTargets: UserTargetsResponseData[]
+  setUserTargets: (targets: UserTargetsResponseData[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -14,4 +18,7 @@ export const useAppStore = create<AppStore>(set => ({
   setCountNumber: newNumber => set({ countNumber: newNumber }),
   userInfo: null,
   setUserInfo: info => set({ userInfo: info }),
+
+  userTargets: [],
+  setUserTargets: targets => set({ userTargets: targets }),
 }))
