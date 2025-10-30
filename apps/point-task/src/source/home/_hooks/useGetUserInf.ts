@@ -31,12 +31,11 @@ export function useUserInfoHooks() {
   }, [userInfo])
 
   useEffect(() => {
-    if (!error && data) {
+    if (!error && data && userInfo) {
       setUserInfo({
-        id: data.id,
-        user_id: data.user_id,
+        ...userInfo,
+        id: userInfo?.id ?? 0,
         nickname: data.nickname,
-        created_at: data.created_at,
         totalPoints: data.totalPoints,
       })
     }
