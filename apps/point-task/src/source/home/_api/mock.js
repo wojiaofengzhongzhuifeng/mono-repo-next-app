@@ -24,12 +24,13 @@ export const USER_TARGETS = {
   code: 0,
   message: '获取用户信息成功',
   data: {
-    id: number, // 1,
-    name: string, //"iPhone  ",
-    description: number, // "5000",
-    user_id: string, // "user001",
-    is_redeemed: boolean, // true
-    created_at: string, // "2025-10-27T12:53:52.160Z",
-    user: { nickname: string }, //测试用户
+    id:   1,
+    name:"iPhone  ",
+    description: 5000,
+    need_points: 5000,
+    user_id:"user001",
+    is_redeemed: true,
+    created_at:"2025-10-27T12:53:52.160Z",
+    user: {nickname: "测试用户"},
   },
 }

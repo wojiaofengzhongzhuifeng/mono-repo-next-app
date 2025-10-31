@@ -7,13 +7,14 @@ import { USER_TARGETS } from './mock'
 
 // 接口返回数据
 export type UserTargetsResponseData = {
+  need_points: any
   id: number // 1,
   name: string //"iPhone  ",
   description: number // "5000",
   user_id: string // "user001",
   is_redeemed: boolean // true
   created_at: string // "2025-10-27T12:53:52.160Z",
-  user:{nickname:string} //测试用户
+  user: { nickname: string } //测试用户
 }
 
 /**
@@ -34,7 +35,7 @@ export const getUserTargets = async (
   try {
     if (API_CONFIG.useMock) {
       const res = API_CONFIG.mockData
-      if (res.code === 200) {
+      if (res.code === 0) {
         // 正常获取数据
         return res.data
       } else {

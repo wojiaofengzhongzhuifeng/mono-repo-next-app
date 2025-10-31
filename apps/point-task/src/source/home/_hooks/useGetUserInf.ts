@@ -21,10 +21,9 @@ export function useGetUserInfo() {
 // 使用 hooks
 export function useUserInfoHooks() {
   const { run, data, error } = useGetUserInfo()
-  const { setUserInfo, userInfo } = useAppStore()
+  const { userInfo,setUserInfo  } = useAppStore()
 
   useEffect(() => {
-    console.log('userInfo changed', userInfo)
     if (userInfo?.user_id && !userInfo.nickname) {
       run(userInfo?.user_id)
     }
