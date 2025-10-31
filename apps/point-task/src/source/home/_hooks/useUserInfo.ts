@@ -1,7 +1,7 @@
-import { getUserInfo } from '@/source/home/_api/get-user-info'
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
+import { getUserInfo } from '@/source/home/_api/get-user-info'
 
 export function useGetUserInfo() {
   const { data, error, loading, run } = useRequest(getUserInfo, {
@@ -18,17 +18,32 @@ export function useGetUserInfo() {
   return { error, loading, data, run }
 }
 
-// 使用 hooks
+// 统一的用户信息管理hook
 export function useUserInfoHooks() {
   const { run, data, error } = useGetUserInfo()
-  const { userInfo,setUserInfo  } = useAppStore()
+  const { userInfo, setUserInfo } = useAppStore()
 
+  // 初始化用户信息
+  useEffect(() => {
+    if (!userInfo) {
+      setUserInfo({
+        user_id: 'user001',
+        nickname: '',
+        created_at: '',
+        id: 0,
+        totalPoints: 0,
+      })
+    }
+  }, [userInfo, setUserInfo])
+
+  // 获取用户详细信息
   useEffect(() => {
     if (userInfo?.user_id && !userInfo.nickname) {
       run(userInfo?.user_id)
     }
-  }, [userInfo])
+  }, [userInfo, run])
 
+  // 更新用户信息
   useEffect(() => {
     if (!error && data && userInfo) {
       setUserInfo({
@@ -38,5 +53,8 @@ export function useUserInfoHooks() {
         totalPoints: data.totalPoints,
       })
     }
-  }, [data])
+  }, [data, error, userInfo, setUserInfo])
 }
+
+// 导出默认hook，保持向后兼容
+export default useUserInfoHooks

@@ -1,16 +1,16 @@
 import React, { use } from 'react'
 import { useGetCountNumberHooks } from '@/source/home/_hooks/use-get-count-number'
 import Banner from './_components/Banner'
-import useSetUserInfo from './_hooks/useSetUserInfo'
-import { useUserInfoHooks } from './_hooks/useGetUserInf'
+import Targets from './_components/Tatgets'
+import useUserInfoHooks from './_hooks/useUserInfo'
 
 function Page() {
   useGetCountNumberHooks()
-  useSetUserInfo()
   useUserInfoHooks()
   return (
     <div>
       <Banner></Banner>
+      <Targets></Targets>
     </div>
   )
 }
