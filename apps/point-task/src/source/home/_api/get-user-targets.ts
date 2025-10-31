@@ -21,7 +21,7 @@ export type UserTargetsResponseData = {
  * 1. 配置请求代码
  */
 const API_CONFIG = {
-  url: '/api/targets/:userId',
+  url: '/api/targets?user_id=:userId',
   useMock: false,
   mockData: USER_TARGETS,
 }

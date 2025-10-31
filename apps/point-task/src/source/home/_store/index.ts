@@ -9,7 +9,7 @@ interface AppStore {
   userInfo: UserInfoResponseData | null
   setUserInfo: (info: UserInfoResponseData) => void
 
-  userTargets: UserTargetsResponseData[]
+  userTargets: UserTargetsResponseData[] | null
   setUserTargets: (targets: UserTargetsResponseData[]) => void
 }
 
@@ -19,6 +19,6 @@ export const useAppStore = create<AppStore>(set => ({
   userInfo: null,
   setUserInfo: info => set({ userInfo: info }),
 
-  userTargets: [],
+  userTargets: null,
   setUserTargets: targets => set({ userTargets: targets }),
 }))

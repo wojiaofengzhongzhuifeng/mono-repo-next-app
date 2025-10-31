@@ -20,14 +20,15 @@ export function useGetUserTargets() {
 
 export function useUserTargetsHooks() {
   const { run, data, error } = useGetUserTargets()
-  const { userTargets, setUserTargets } = useAppStore()
+  const { userTargets, setUserTargets, userInfo } = useAppStore()
+
+  // 初始化用户目标数据
 
   useEffect(() => {
-    if (userTargets && userTargets.length > 0) {
-      const userId = userTargets[0]?.user_id || 'user001'
-      run(userId)
+    if (userInfo?.user_id && !userTargets) {
+      run(userInfo.user_id)
     }
-  }, [userTargets, run])
+  }, [run, userInfo, userTargets])
 
   useEffect(() => {
     if (!error && data) {
