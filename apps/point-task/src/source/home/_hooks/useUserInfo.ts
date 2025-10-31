@@ -46,12 +46,15 @@ export function useUserInfoHooks() {
   // 更新用户信息
   useEffect(() => {
     if (!error && data && userInfo) {
-      setUserInfo({
-        ...userInfo,
-        id: userInfo?.id ?? 0,
-        nickname: data.nickname,
-        totalPoints: data.totalPoints,
-      })
+      // 检查是否真的需要更新，避免无限循环
+      if (userInfo.nickname !== data.nickname || userInfo.totalPoints !== data.totalPoints) {
+        setUserInfo({
+          ...userInfo,
+          id: userInfo?.id ?? 0,
+          nickname: data.nickname,
+          totalPoints: data.totalPoints,
+        })
+      }
     }
   }, [data, error, userInfo, setUserInfo])
 }
