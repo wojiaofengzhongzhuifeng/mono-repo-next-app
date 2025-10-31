@@ -6,7 +6,7 @@ function Banner() {
   console.log('userInfo in Banner', userInfo)
   return (
     <div className=' flex justify-center items-center mb-6'>
-      <div className='flex justify-center items-center h-[45vh] w-[80vh] bg-blue-500 text-white px-4 rounded-lg mb-6'>
+      <div className='flex justify-center items-center h-[45vh] w-[90vh] bg-blue-500 text-white px-4 rounded-lg mb-6'>
         <div className='text-center'>
           <h1 className='text-2xl  mb-4'>积分目标管理系统</h1>
           <div className='mt-5'>我的积分</div>
