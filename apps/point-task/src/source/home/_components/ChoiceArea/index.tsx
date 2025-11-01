@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import { FaPlus, FaBullseye, FaCheck, FaGift } from 'react-icons/fa'
 import SetGoals from '../SetGoals'
+import AddGoals from '../AddGoals'
 
 function ChoiceArea() {
   const [showSetGoals, setShowSetGoals] = useState(false)
+  const [showAddgoals, setShowAddgoals] = useState(false)
 
   if (showSetGoals) {
     return <SetGoals onBack={() => setShowSetGoals(false)} />
+  }
+
+  if (showAddgoals) {
+    return <AddGoals onBack={() => setShowAddgoals(false)} />
   }
 
   return (
@@ -20,7 +26,10 @@ function ChoiceArea() {
             <FaBullseye className='text-white text-xl mb-2' />
             <div>创建目标</div>
           </div>
-          <div className='bg-green-500/100 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-green-600/100 transition-colors '>
+          <div
+            className='bg-green-500/100 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-green-600/100 transition-colors '
+            onClick={() => setShowAddgoals(true)}
+          >
             <FaPlus className='text-white text-xl' />
             <div>添加任务</div>
           </div>

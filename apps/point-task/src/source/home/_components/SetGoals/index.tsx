@@ -8,7 +8,6 @@ function SetGoals({ onBack }: SetGoalsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
-  // const []
   const difficultyLevel = (points: number) => {
     if (!points) {
       return ''
