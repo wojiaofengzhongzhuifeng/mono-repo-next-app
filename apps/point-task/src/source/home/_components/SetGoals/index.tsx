@@ -7,6 +7,7 @@ interface SetGoalsProps {
 function SetGoals({ onBack }: SetGoalsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
+  const [goatNumber, setGoatNumber] = useState('')
   // const []
   const difficultyLevel = (points: number) => {
     if (!points) {
@@ -19,7 +20,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
   }
   return (
     <div className='flex justify-center items-center mb-6'>
-      <div className='w-[80vh] bg-gray-50 px-6 py-6 rounded-lg mb-6 drop-shadow-2xl'>
+      <div className='w-[80vh] bg-gray-50 px-6 py-6 rounded-lg mb-6 drop-shadow-lg'>
         <div className='flex justify-between items-center mb-6'>
           <h2 className='text-2xl font-bold'>创建目标</h2>
         </div>
@@ -27,7 +28,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
         <form className='space-y-4'>
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-2'>
-              目标名称
+              目标名称 <span className='text-red-500'>*</span>
             </label>
             <textarea
               value={wordNumber}
@@ -35,19 +36,18 @@ function SetGoals({ onBack }: SetGoalsProps) {
               className='w-full px-3 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 '
               placeholder='请输入目标名称'
               rows={2}
+              maxLength={100}
             />
-            {wordNumber && (
+            {
               <div className='text-gray-500 mt-1 text-xs text-right'>
-                {wordNumber.length < 100
-                  ? `${wordNumber.length} /100`
-                  : '目标名称过长，请控制在100字以内'}
+                {<div>{wordNumber.length} /100</div>}
               </div>
-            )}
+            }
           </div>
 
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-2'>
-              所需积分
+              所需积分 <span className='text-red-500'>*</span>
             </label>
             <input
               type='number'
@@ -87,23 +87,31 @@ function SetGoals({ onBack }: SetGoalsProps) {
             <textarea
               className='w-full px-3 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
               rows={4}
-              placeholder='请输入目标描述'
+              placeholder='详细描述你的目标...'
+              maxLength={200}
+              value={goatNumber}
+              onChange={e => setGoatNumber(e.target.value)}
             />
+            {
+              <div className='text-gray-500 mt-1 text-xs text-right'>
+                {<div>{goatNumber.length} /200</div>}
+              </div>
+            }
           </div>
 
-          <div className='flex justify-end space-x-4'>
+          <div>
+            <button
+              type='submit'
+              className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
+            >
+              创建目标
+            </button>
             <button
               type='button'
               onClick={onBack}
-              className='px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors'
+              className='mt-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors'
             >
               取消
-            </button>
-            <button
-              type='submit'
-              className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
-            >
-              创建目标
             </button>
           </div>
         </form>
