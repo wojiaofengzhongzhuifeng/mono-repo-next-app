@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
+import { useAppStore } from '../../_store'
 interface AddGoalsProps {
   onBack: () => void
 }
@@ -16,34 +17,37 @@ function AddGoals({ onBack }: AddGoalsProps) {
     create_point: string | number
     is_repeatable: boolean
     task_type: string | null
+    user_id: string
   } | null>(null)
+  const { userInfo } = useAppStore()
+  console.log('userInfo in AddGoals', userInfo)
 
   const advisePoints = (value: string | null) => {
-    if (value === 'goal1') {
+    if (value === 'study') {
       return (
         <>
           <div>💡建议10-30积分</div>
         </>
       )
-    } else if (value === 'goal2') {
+    } else if (value === 'sport') {
       return (
         <>
           <div>💡建议15-40积分</div>
         </>
       )
-    } else if (value === 'goal3') {
+    } else if (value === 'work') {
       return (
         <>
           <div>💡建议20-50积分</div>
         </>
       )
-    } else if (value === 'goal4') {
+    } else if (value === 'life') {
       return (
         <>
           <div>💡建议5-20积分</div>
         </>
       )
-    } else if (value === 'goal5') {
+    } else if (value === 'other') {
       return (
         <>
           <div>💡建议10-30积分</div>
@@ -53,19 +57,26 @@ function AddGoals({ onBack }: AddGoalsProps) {
     return null
   }
 
+  const generateUserId = () => {
+    const userId = userInfo?.user_id
+    return String(userId)
+  }
+
   const handleAddNewTask = () => {
-    // 处理添加新任务的逻辑
-    const newTask = {
-      name: goalswordNumber,
-      create_point: getPoints,
-      is_repeatable: open,
-      task_type: goalType,
-    }
+    const userId = generateUserId()
 
     if (goalswordNumber === '') {
       return alert('任务名称不能为空！')
     } else if (getPoints === '') {
       return alert('获得积分不能为空！')
+    }
+
+    const newTask = {
+      name: goalswordNumber,
+      create_point: getPoints,
+      is_repeatable: open,
+      task_type: goalType,
+      user_id: userId,
     }
 
     setAddNewTask(newTask)
@@ -152,11 +163,11 @@ function AddGoals({ onBack }: AddGoalsProps) {
                 className='w-full '
                 placeholder='请选择目标'
                 options={[
-                  { value: 'goal1', label: '学习' },
-                  { value: 'goal2', label: '运动' },
-                  { value: 'goal3', label: '工作' },
-                  { value: 'goal4', label: '生活' },
-                  { value: 'goal5', label: '其他' },
+                  { value: 'study', label: '学习' },
+                  { value: 'sport', label: '运动' },
+                  { value: 'work', label: '工作' },
+                  { value: 'life', label: '生活' },
+                  { value: 'other', label: '其他' },
                 ]}
                 value={goalType}
                 onChange={value => {

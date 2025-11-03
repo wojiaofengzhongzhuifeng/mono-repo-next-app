@@ -47,7 +47,7 @@ function MyTask({ onBack }: MyTaskProps) {
 
           {/* 任务列表部分 */}
           <div className='mt-4 h-[30vh] '>
-            <div className='border border-gary-800 rounded-lg'>123123</div>
+            <div className='border border-gray-800 rounded-lg'>123123</div>
           </div>
         </div>
       </div>
