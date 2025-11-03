@@ -15,12 +15,11 @@ function AddGoals({ onBack }: AddGoalsProps) {
   const [addNewTask, setAddNewTask] = useState<{
     name: string
     create_point: string | number
-    is_repeatable: boolean
     task_type: string | null
+    is_repeatable: boolean
     user_id: string
   } | null>(null)
   const { userInfo } = useAppStore()
-  console.log('userInfo in AddGoals', userInfo)
 
   const advisePoints = (value: string | null) => {
     if (value === 'study') {
@@ -74,8 +73,8 @@ function AddGoals({ onBack }: AddGoalsProps) {
     const newTask = {
       name: goalswordNumber,
       create_point: getPoints,
-      is_repeatable: open,
       task_type: goalType,
+      is_repeatable: open,
       user_id: userId,
     }
 
