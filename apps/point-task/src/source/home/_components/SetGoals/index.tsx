@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import MyGoals from './MyGoals'
 
 interface SetGoalsProps {
   onBack: () => void
 }
 
 function SetGoals({ onBack }: SetGoalsProps) {
+  const [showMyGoals, setShowMyGoals] = useState<boolean>(false)
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
@@ -17,6 +19,12 @@ function SetGoals({ onBack }: SetGoalsProps) {
     if (points < 150) return '困难'
     return '极难'
   }
+
+  // 如果 showMyGoals 为 true，则显示 MyGoals 组件，否则显示创建目标表单
+  if (showMyGoals) {
+    return <MyGoals onBack={() => setShowMyGoals(false)} />
+  }
+
   return (
     <div className='flex justify-center items-center mb-6'>
       <div className='w-[80vh] bg-gray-50 px-6 py-6 rounded-lg mb-6 drop-shadow-lg'>
@@ -102,9 +110,16 @@ function SetGoals({ onBack }: SetGoalsProps) {
             <button
               type='submit'
               className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
+              onClick={e => {
+                e.preventDefault()
+                // 这里可以添加创建目标的逻辑
+                alert('目标创建成功！')
+                setShowMyGoals(true)
+              }}
             >
               创建目标
             </button>
+
             <button
               type='button'
               onClick={onBack}

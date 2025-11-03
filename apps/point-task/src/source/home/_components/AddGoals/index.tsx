@@ -199,16 +199,17 @@ function AddGoals({ onBack }: AddGoalsProps) {
           <div className='mt-10'>
             <button
               type='submit'
-              className='w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
+              className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
               onClick={() => {
                 handleAddNewTask()
                 setGoalsWordNumber('')
                 setGetPoints('')
                 setGoalType(null)
                 setOpen(false)
+                onBack() // 回到 SetGoals 组件
               }}
             >
-              添加任务
+              创建目标
             </button>
             {/* todo  点击显示我的任务*/}
             <div className='text-gray-500 mt-1 text-xs mt-4'>查看任务列表</div>
@@ -216,7 +217,7 @@ function AddGoals({ onBack }: AddGoalsProps) {
         </div>
       </div>
 
-      <div className='flex justify-center items-center  text-blue-700 mt-'>
+      <div className='flex justify-center items-center  text-blue-700 mt-4'>
         <div className='w-[80vh] bg-gray-50 px-3 py-6 rounded-lg mb-6 drop-shadow-lg bg-blue-100'>
           💡提示：添加任务后，您可以在任务列表中完成它们来获得积分！
         </div>
