@@ -13,9 +13,9 @@ function AddGoals({ onBack }: AddGoalsProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [addNewTask, setAddNewTask] = useState<{
     name: string
-    points: string | number
-    open: boolean
-    goalType: string | null
+    create_point: string | number
+    is_repeatable: boolean
+    task_type: string | null
   } | null>(null)
 
   const advisePoints = (value: string | null) => {
@@ -57,9 +57,9 @@ function AddGoals({ onBack }: AddGoalsProps) {
     // 处理添加新任务的逻辑
     const newTask = {
       name: goalswordNumber,
-      points: getPoints,
-      open: open,
-      goalType: goalType,
+      create_point: getPoints,
+      is_repeatable: open,
+      task_type: goalType,
     }
 
     if (goalswordNumber === '') {
@@ -73,6 +73,7 @@ function AddGoals({ onBack }: AddGoalsProps) {
 
     return { newTask }
   }
+  console.log('添加的新任务：', addNewTask)
   return (
     <>
       <div className='flex justify-center items-center mb-6'>
@@ -114,11 +115,25 @@ function AddGoals({ onBack }: AddGoalsProps) {
               <input
                 type='number'
                 value={getPoints}
-                onChange={e =>
-                  setGetPoints(
-                    e.target.value === '' ? '' : Number(e.target.value)
-                  )
-                }
+                onChange={e => {
+                  // 只允许输入正整数，移除非数字字符
+                  const value = e.target.value.replace(/[^0-9]/g, '')
+                  setGetPoints(value === '' ? '' : Number(value))
+                }}
+                onKeyPress={e => {
+                  // 阻止输入 e, E, -, + 等非数字字符
+                  if (
+                    !/[0-9]/.test(e.key) &&
+                    e.key !== 'Backspace' &&
+                    e.key !== 'Delete' &&
+                    e.key !== 'ArrowLeft' &&
+                    e.key !== 'ArrowRight' &&
+                    e.key !== 'Tab'
+                  ) {
+                    e.preventDefault()
+                  }
+                }}
+                min='1'
                 className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 placeholder='完成这个任务可以获得多少积分'
               />
