@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Select } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Switch } from 'antd'
 interface AddGoalsProps {
   onBack: () => void
 }
@@ -8,20 +10,73 @@ function AddGoals({ onBack }: AddGoalsProps) {
   const [GoalswordNumber, setGoalsWordNumber] = useState('')
   const [getPoints, setGetPoints] = useState<string | number>('')
   const [goalType, setGoalType] = useState<string | null>(null)
-  console.log('goalType', goalType)
+  const [open, setOpen] = useState<boolean>(false)
+  const [addNewTask, setAddNewTask] = useState<{
+    name: string
+    points: string | number
+    open: boolean
+    goalType: string | null
+  } | null>(null)
 
   const advisePoints = (value: string | null) => {
-    return (
-      <>
-        <div>选择类型: {value}</div>
-      </>
-    )
+    if (value === 'goal1') {
+      return (
+        <>
+          <div>💡建议10-30积分</div>
+        </>
+      )
+    } else if (value === 'goal2') {
+      return (
+        <>
+          <div>💡建议15-40积分</div>
+        </>
+      )
+    } else if (value === 'goal3') {
+      return (
+        <>
+          <div>💡建议20-50积分</div>
+        </>
+      )
+    } else if (value === 'goal4') {
+      return (
+        <>
+          <div>💡建议5-20积分</div>
+        </>
+      )
+    } else if (value === 'goal5') {
+      return (
+        <>
+          <div>💡建议10-30积分</div>
+        </>
+      )
+    }
+    return null
   }
+
+  const handleAddNewTask = () => {
+    // 处理添加新任务的逻辑
+    const newTask = {
+      name: GoalswordNumber,
+      points: getPoints,
+      open: open,
+      goalType: goalType,
+    }
+    setAddNewTask(newTask)
+    return { newTask }
+  }
+  console.log(addNewTask)
   return (
     <div className='flex justify-center items-center mb-6'>
       <div className='w-[80vh] bg-gray-50 px-6 py-6 rounded-lg mb-6 drop-shadow-lg'>
-        <div className='flex justify-between items-center mb-6'>
-          <h2 className='text-2xl font-bold'>添加新任务</h2>
+        <div className='flex  items-center mb-6'>
+          <button
+            type='button'
+            onClick={onBack}
+            className='mt-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors'
+          >
+            <ArrowLeftOutlined />
+          </button>
+          <h2 className='text-2xl font-bold mx-2'>添加新任务</h2>
         </div>
 
         <form className='space-y-4'>
@@ -85,25 +140,34 @@ function AddGoals({ onBack }: AddGoalsProps) {
                 advisePoints(value)
               }}
             />
-            {advisePoints(goalType)}
-          </div>
-
-          <div>
-            <button
-              type='submit'
-              className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
-            >
-              创建目标
-            </button>
-            <button
-              type='button'
-              onClick={onBack}
-              className='mt-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors'
-            >
-              取消
-            </button>
+            <div className='text-blue-500 mt-1  text-[14px]'>
+              {advisePoints(goalType)}
+            </div>
           </div>
         </form>
+
+        <div>
+          <div className='flex justify-between items-center mt-4 p-2 border border-gray-300 rounded-lg bg-gray-150'>
+            <div>
+              允许重复完成
+              <div className='text-gray-500 mt-1 text-xs text-right'>
+                可以多次完成此任务并获得积分
+              </div>
+            </div>
+            <Switch onChange={setOpen} checked={open} style={{ margin: 16 }} />
+          </div>
+        </div>
+
+        <div className='mt-10'>
+          <button
+            type='submit'
+            className='w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
+            onClick={handleAddNewTask}
+          >
+            添加任务
+          </button>
+          <div className='text-gray-500 mt-1 text-xs mt-4'>查看任务列表</div>
+        </div>
       </div>
     </div>
   )
