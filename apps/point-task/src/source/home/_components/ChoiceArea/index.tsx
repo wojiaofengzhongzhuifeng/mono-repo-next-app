@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { FaPlus, FaBullseye, FaCheck, FaGift } from 'react-icons/fa'
 import SetGoals from '../SetGoals'
 import AddGoals from '../AddGoals'
+import MyTask from '../MyTask'
 
 function ChoiceArea() {
   const [showSetGoals, setShowSetGoals] = useState(false)
   const [showAddgoals, setShowAddgoals] = useState(false)
+  const [showMyTask, setShowMyTask] = useState(false)
 
   if (showSetGoals) {
     return <SetGoals onBack={() => setShowSetGoals(false)} />
@@ -13,6 +15,10 @@ function ChoiceArea() {
 
   if (showAddgoals) {
     return <AddGoals onBack={() => setShowAddgoals(false)} />
+  }
+
+  if (showMyTask) {
+    return <MyTask onBack={() => setShowMyTask(false)} />
   }
 
   return (
@@ -33,7 +39,10 @@ function ChoiceArea() {
             <FaPlus className='text-white text-xl' />
             <div>添加任务</div>
           </div>
-          <div className='bg-orange-500/100 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-orange-600/100 transition-colors '>
+          <div
+            className='bg-orange-500/100 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-orange-600/100 transition-colors '
+            onClick={() => setShowMyTask(true)}
+          >
             <FaCheck className='text-white text-xl mb-2' />
             <div>完成任务</div>
           </div>
@@ -46,4 +55,5 @@ function ChoiceArea() {
     </>
   )
 }
+
 export default ChoiceArea

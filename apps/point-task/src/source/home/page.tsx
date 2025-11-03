@@ -8,6 +8,7 @@ import ChoiceArea from './_components/ChoiceArea'
 function Page() {
   useUserInfoHooks()
   useUserTargetsHooks()
+
   return (
     <div>
       <Banner></Banner>

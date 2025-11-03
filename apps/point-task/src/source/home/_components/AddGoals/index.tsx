@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
-import { Alert } from 'antd'
 interface AddGoalsProps {
   onBack: () => void
 }
@@ -186,6 +185,7 @@ function AddGoals({ onBack }: AddGoalsProps) {
             >
               添加任务
             </button>
+            {/* todo  点击显示我的任务*/}
             <div className='text-gray-500 mt-1 text-xs mt-4'>查看任务列表</div>
           </div>
         </div>
