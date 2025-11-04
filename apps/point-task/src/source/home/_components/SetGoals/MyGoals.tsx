@@ -14,11 +14,20 @@ function MyGoals({ onBack }: MyGoalsProps) {
 
   // 计算还需多少积分
   const calculateRemainingPoints = (card: { need_points: string | number }) => {
-    if (!userInfo?.totalPoints) return 0
+    if (!userInfo?.totalPoints) return Number(card.need_points)
     const neededPoints = Number(card.need_points)
     const userPoints = Number(userInfo.totalPoints)
     const remaining = neededPoints - userPoints
     return remaining > 0 ? remaining : 0 // 如果积分足够，返回0
+  }
+
+  // 计算进度百分比
+  const calculateProgress = (card: { need_points: string | number }) => {
+    if (!userInfo?.totalPoints) return 0
+    const neededPoints = Number(card.need_points)
+    const userPoints = Number(userInfo.totalPoints)
+    const progress = (userPoints / neededPoints) * 100
+    return Math.min(progress, 100) // 不超过100%
   }
 
   //兑换功能
@@ -96,7 +105,7 @@ function MyGoals({ onBack }: MyGoalsProps) {
                     </div>
                     <div>
                       <Flex gap='small' vertical>
-                        <Progress percent={userInfo?.totalPoints} />
+                        <Progress percent={calculateProgress(card)} />
                       </Flex>
                     </div>
                   </div>
@@ -127,8 +136,7 @@ function MyGoals({ onBack }: MyGoalsProps) {
                     </div>
                   </div>
 
-                  {/* 所需积分即可兑换 */}
-                  {/* todo 后续根据进度动态显示还需多少积分 */}
+                  {/* 进度动态显示 */}
                   <div className=' text-blue-600 text-sm bg-blue-50 inline-block px-2 py-1 rounded mt-8'>
                     {calculateRemainingPoints(card) > 0 ? (
                       <>还需{calculateRemainingPoints(card)} 积分即可兑换</>
