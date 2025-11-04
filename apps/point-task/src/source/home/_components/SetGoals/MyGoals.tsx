@@ -30,6 +30,11 @@ function MyGoals({ onBack }: MyGoalsProps) {
     return Math.min(progress, 100) // 不超过100%
   }
 
+  // 目标状态更新
+  const updateGoalState = (state: '进行中' | '已完成' | '未完成') => {
+    setGoalState(state)
+  }
+
   //兑换功能
   const handleExchange = (card: { need_points: string | number }) => {
     if (!userInfo?.totalPoints) {
@@ -124,6 +129,7 @@ function MyGoals({ onBack }: MyGoalsProps) {
                           className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
                           onClick={() => {
                             handleExchange(card)
+                            updateGoalState('已完成')
                           }}
                         >
                           立即兑换
