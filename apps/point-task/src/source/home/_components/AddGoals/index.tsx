@@ -55,7 +55,6 @@ function AddGoals({ onBack }: AddGoalsProps) {
     }
     return null
   }
-
   const generateUserId = () => {
     const userId = userInfo?.user_id
     return String(userId)
@@ -84,6 +83,8 @@ function AddGoals({ onBack }: AddGoalsProps) {
     return { newTask }
   }
   console.log('添加的新任务：', addNewTask)
+  console.log('userInfo当前用户信息：', userInfo)
+
   return (
     <>
       <div className='flex justify-center items-center mb-6'>

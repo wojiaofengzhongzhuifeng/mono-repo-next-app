@@ -11,7 +11,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
-  const { userInfo } = useAppStore()
+  const { userInfo, goalsCard, setGoalsCard } = useAppStore()
 
   const difficultyLevel = (points: number) => {
     if (!points) {
@@ -22,19 +22,9 @@ function SetGoals({ onBack }: SetGoalsProps) {
     if (points < 150) return '困难'
     return '极难'
   }
-  const [goalsCard, setGoalsCard] = useState<{
-    name: string
-    need_points: string | number
-    user_id: string
-    is_redeemed: boolean // true表示已兑换，false表示未兑换 todo后续使用
-    created_at: number
-    description: string | null
-  }>()
 
   if (showMyGoals) {
-    return (
-      <MyGoals onBack={() => setShowMyGoals(false)} goalsCard={goalsCard} />
-    )
+    return <MyGoals onBack={() => setShowMyGoals(false)} />
   }
 
   const generateUserId = () => {
@@ -51,12 +41,10 @@ function SetGoals({ onBack }: SetGoalsProps) {
       created_at: Date.now(),
       description: goatNumber || null,
     }
-    setGoalsCard(newCard)
+    setGoalsCard([...goalsCard, newCard])
     console.log('新创建的目标卡片：', newCard) // 直接打印新创建的卡片
     return newCard
   }
-
-  // 移除这里的console.log，因为它会在每次渲染时打印undefined
 
   return (
     <div className='flex justify-center items-center mb-6'>
@@ -149,6 +137,9 @@ function SetGoals({ onBack }: SetGoalsProps) {
                 alert('目标创建成功！')
                 setShowMyGoals(true)
                 getGoalsCard()
+                setGoatNumber('')
+                setWordNumber('')
+                setPoints('')
               }}
             >
               创建目标

@@ -11,6 +11,25 @@ interface AppStore {
 
   userTargets: UserTargetsResponseData[] | null
   setUserTargets: (targets: UserTargetsResponseData[]) => void
+
+  goalsCard: {
+    name: string
+    need_points: string | number
+    user_id: string
+    is_redeemed: boolean
+    created_at: number
+    description: string | null
+  }[]
+  setGoalsCard: (
+    cards: {
+      name: string
+      need_points: string | number
+      user_id: string
+      is_redeemed: boolean
+      created_at: number
+      description: string | null
+    }[]
+  ) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -21,4 +40,7 @@ export const useAppStore = create<AppStore>(set => ({
 
   userTargets: null,
   setUserTargets: targets => set({ userTargets: targets }),
+
+  goalsCard: [],
+  setGoalsCard: cards => set({ goalsCard: cards }),
 }))
