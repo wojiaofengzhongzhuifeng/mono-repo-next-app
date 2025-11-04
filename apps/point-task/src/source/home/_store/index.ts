@@ -30,6 +30,23 @@ interface AppStore {
       description: string | null
     }[]
   ) => void
+
+  addNewTask: {
+    name: string
+    create_point: string | number
+    task_type: string | null
+    is_repeatable: boolean
+    user_id: string
+  } | null
+  setAddNewTask: (
+    task: {
+      name: string
+      create_point: string | number
+      task_type: string | null
+      is_repeatable: boolean
+      user_id: string
+    } | null
+  ) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -43,4 +60,7 @@ export const useAppStore = create<AppStore>(set => ({
 
   goalsCard: [],
   setGoalsCard: cards => set({ goalsCard: cards }),
+
+  addNewTask: null,
+  setAddNewTask: task => set({ addNewTask: task }),
 }))
