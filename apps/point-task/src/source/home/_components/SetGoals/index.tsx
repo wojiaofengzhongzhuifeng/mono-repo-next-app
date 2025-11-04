@@ -32,7 +32,9 @@ function SetGoals({ onBack }: SetGoalsProps) {
   }>()
 
   if (showMyGoals) {
-    return <MyGoals onBack={() => setShowMyGoals(false)} />
+    return (
+      <MyGoals onBack={() => setShowMyGoals(false)} goalsCard={goalsCard} />
+    )
   }
 
   const generateUserId = () => {
