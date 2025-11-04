@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
-import { getUserInfo } from '@/source/home/_api/get-user-info'
+import {
+  postUserTargets,
+  CreateTargetRequestData,
+} from '@/source/home/_api/post-create-targets'
 
-export function useGetUserInfo() {
-  const { data, error, loading, run } = useRequest(getUserInfo, {
+export function useCreateTargets() {
+  const { data, error, loading, run } = useRequest(postUserTargets, {
     manual: true,
   })
 
@@ -18,48 +21,44 @@ export function useGetUserInfo() {
   return { error, loading, data, run }
 }
 
-// 统一的用户信息管理hook
-export function useUserInfoHooks() {
-  const { run, data, error } = useGetUserInfo()
-  const { userInfo, setUserInfo } = useAppStore()
+// 统一的目标创建管理hook
+export function useCreateTargetsHooks() {
+  const { run, data, error, loading } = useCreateTargets()
+  const { userInfo, userTargets, setUserTargets } = useAppStore()
 
-  // 初始化用户信息
-  useEffect(() => {
-    if (!userInfo) {
-      setUserInfo({
-        user_id: 'user001',
-        nickname: '',
-        created_at: '',
-        id: 0,
-        totalPoints: 0,
-      })
+  // 创建目标
+  const createTargets = async (targetData: CreateTargetRequestData) => {
+    try {
+      const result = await run(targetData)
+      return result
+    } catch (error) {
+      console.error('创建目标失败:', error)
+      throw error
     }
-  }, [userInfo, setUserInfo])
+  }
 
-  // 获取用户详细信息
-  useEffect(() => {
-    if (userInfo?.user_id && !userInfo.nickname) {
-      run(userInfo?.user_id)
-    }
-  }, [userInfo, run])
-
-  // 更新用户信息
+  // 更新目标列表
   useEffect(() => {
     if (!error && data && userInfo) {
-      // 检查是否真的需要更新，避免无限循环
-      // 只在昵称不同时更新，不覆盖积分变化
-      if (userInfo.nickname !== data.nickname) {
-        setUserInfo({
-          ...userInfo,
-          id: userInfo?.id ?? 0,
-          nickname: data.nickname,
-          // 保持当前的积分值，不覆盖
-          totalPoints: userInfo.totalPoints,
-        })
-      }
+      // 将新创建的目标添加到现有目标列表中
+      const currentTargets = userTargets || []
+      // 将CreateTargetResponseItemData转换为UserTargetsResponseData格式
+      const newTargets = data.map(item => ({
+        need_points: item.need_point,
+        id: item.id,
+        name: item.name,
+        description: item.need_point, // 使用need_point作为description，因为原类型中description是number
+        user_id: item.user_id,
+        is_redeemed: item.is_redeemed,
+        created_at: item.created_at,
+        user: { nickname: userInfo.nickname || '' },
+      }))
+      setUserTargets([...currentTargets, ...newTargets])
     }
-  }, [data, error, userInfo, setUserInfo])
+  }, [data, error, userTargets, setUserTargets, userInfo])
+
+  return { createTargets, loading, error, data }
 }
 
 // 导出默认hook，保持向后兼容
-export default useUserInfoHooks
+export default useCreateTargetsHooks
