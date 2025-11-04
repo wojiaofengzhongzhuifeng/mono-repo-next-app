@@ -7,7 +7,7 @@ import { USER_TARGETS } from './mock'
 
 // 接口返回数据
 export type UserTargetsResponseData = {
-  need_points: any
+  need_points: number
   id: number // 1,
   name: string //"iPhone  ",
   description: number // "5000",

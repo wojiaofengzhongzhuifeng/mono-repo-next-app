@@ -6,13 +6,13 @@ import { USER_TARGETS } from './mock'
  */
 
 // 接口返回数据
-export type UserTargetsResponseDataItem = {
+export type UserTargetsRequestDataItem = {
   name: string // '买一台新电脑123321'
   description: string // '用于学习和编程'
   need_point: number // 100
   user_id: string // 'user001'
 }
-export type CreateTargetRequestData = UserTargetsResponseDataItem[]
+export type CreateTargetRequestData = UserTargetsRequestDataItem[]
 
 export type CreateTargetResponseItemData = {
   id: number // 6
