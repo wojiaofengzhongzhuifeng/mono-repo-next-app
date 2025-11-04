@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import MyGoals from './MyGoals'
+import { useAppStore } from '../../_store'
 
 interface SetGoalsProps {
   onBack: () => void
@@ -10,6 +11,8 @@ function SetGoals({ onBack }: SetGoalsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
+  const { userInfo } = useAppStore()
+
   const difficultyLevel = (points: number) => {
     if (!points) {
       return ''
@@ -19,11 +22,39 @@ function SetGoals({ onBack }: SetGoalsProps) {
     if (points < 150) return '困难'
     return '极难'
   }
+  const [goalsCard, setGoalsCard] = useState<{
+    name: string
+    need_points: string | number
+    user_id: string
+    is_redeemed: boolean // true表示已兑换，false表示未兑换 todo后续使用
+    created_at: number
+    description: string | null
+  }>()
 
-  // 如果 showMyGoals 为 true，则显示 MyGoals 组件，否则显示创建目标表单
   if (showMyGoals) {
     return <MyGoals onBack={() => setShowMyGoals(false)} />
   }
+
+  const generateUserId = () => {
+    const userId = userInfo?.user_id
+    return String(userId)
+  }
+
+  const getGoalsCard = () => {
+    const newCard = {
+      name: wordNumber,
+      need_points: points,
+      user_id: generateUserId(),
+      is_redeemed: true || false,
+      created_at: Date.now(),
+      description: goatNumber || null,
+    }
+    setGoalsCard(newCard)
+    console.log('新创建的目标卡片：', newCard) // 直接打印新创建的卡片
+    return newCard
+  }
+
+  // 移除这里的console.log，因为它会在每次渲染时打印undefined
 
   return (
     <div className='flex justify-center items-center mb-6'>
@@ -115,6 +146,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
                 // 这里可以添加创建目标的逻辑
                 alert('目标创建成功！')
                 setShowMyGoals(true)
+                getGoalsCard()
               }}
             >
               创建目标
