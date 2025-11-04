@@ -47,12 +47,14 @@ export function useUserInfoHooks() {
   useEffect(() => {
     if (!error && data && userInfo) {
       // 检查是否真的需要更新，避免无限循环
-      if (userInfo.nickname !== data.nickname || userInfo.totalPoints !== data.totalPoints) {
+      // 只在昵称不同时更新，不覆盖积分变化
+      if (userInfo.nickname !== data.nickname) {
         setUserInfo({
           ...userInfo,
           id: userInfo?.id ?? 0,
           nickname: data.nickname,
-          totalPoints: data.totalPoints,
+          // 保持当前的积分值，不覆盖
+          totalPoints: userInfo.totalPoints,
         })
       }
     }

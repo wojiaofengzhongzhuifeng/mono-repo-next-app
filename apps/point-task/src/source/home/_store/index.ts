@@ -8,6 +8,7 @@ interface AppStore {
 
   userInfo: UserInfoResponseData | null
   setUserInfo: (info: UserInfoResponseData) => void
+  updateUserPoints: (newPoints: number) => void
 
   userTargets: UserTargetsResponseData[] | null
   setUserTargets: (targets: UserTargetsResponseData[]) => void
@@ -54,6 +55,12 @@ export const useAppStore = create<AppStore>(set => ({
   setCountNumber: newNumber => set({ countNumber: newNumber }),
   userInfo: null,
   setUserInfo: info => set({ userInfo: info }),
+  updateUserPoints: newPoints =>
+    set(state => ({
+      userInfo: state.userInfo
+        ? { ...state.userInfo, totalPoints: newPoints }
+        : null,
+    })),
 
   userTargets: null,
   setUserTargets: targets => set({ userTargets: targets }),

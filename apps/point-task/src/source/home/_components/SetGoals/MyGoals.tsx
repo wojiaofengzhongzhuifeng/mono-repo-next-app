@@ -9,8 +9,8 @@ interface MyGoalsProps {
 
 function MyGoals({ onBack }: MyGoalsProps) {
   const [goalState, setGoalState] = useState('进行中') // 目标状态：进行中、已完成、未完成
-  const { userInfo, goalsCard } = useAppStore()
-  console.log('目标卡片传入的数据：', goalsCard)
+  const { userInfo, goalsCard, updateUserPoints } = useAppStore()
+  const [exchangeable, setExchangeable] = useState(false)
 
   // 计算还需多少积分
   const calculateRemainingPoints = (card: { need_points: string | number }) => {
@@ -20,6 +20,30 @@ function MyGoals({ onBack }: MyGoalsProps) {
     const remaining = neededPoints - userPoints
     return remaining > 0 ? remaining : 0 // 如果积分足够，返回0
   }
+
+  //兑换功能
+  const handleExchange = (card: { need_points: string | number }) => {
+    if (!userInfo?.totalPoints) {
+      alert('用户积分信息不可用')
+      return
+    }
+
+    const remainingPoints = calculateRemainingPoints(card)
+    if (remainingPoints > 0) {
+      alert(`还需 ${remainingPoints} 积分才能兑换`)
+      return
+    }
+    // 进行兑换操作
+    const updatedPoints =
+      Number(userInfo.totalPoints) - Number(card.need_points)
+    if (updatedPoints >= 0 && card) {
+      updateUserPoints(updatedPoints)
+      setExchangeable(true)
+    }
+    console.log('兑换成功，剩余积分：', updatedPoints)
+    alert('兑换成功！')
+  }
+
   return (
     <>
       <div className='flex justify-center items-center mb-6'>
@@ -87,7 +111,12 @@ function MyGoals({ onBack }: MyGoalsProps) {
                       card?.need_points &&
                       Number(userInfo.totalPoints) >=
                         Number(card.need_points) ? (
-                        <button className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'>
+                        <button
+                          className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
+                          onClick={() => {
+                            handleExchange(card)
+                          }}
+                        >
                           立即兑换
                         </button>
                       ) : (
