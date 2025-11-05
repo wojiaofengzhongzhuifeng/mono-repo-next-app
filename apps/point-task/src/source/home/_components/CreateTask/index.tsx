@@ -3,11 +3,11 @@ import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
 import { useAppStore } from '../../_store'
-interface AddGoalsProps {
+interface CreateTaskProps {
   onBack: () => void
 }
 
-function AddGoals({ onBack }: AddGoalsProps) {
+function CreateTask({ onBack }: CreateTaskProps) {
   const [goalswordNumber, setGoalsWordNumber] = useState('')
   const [getPoints, setGetPoints] = useState<string | number>('')
   const [goalType, setGoalType] = useState<string | null>(null)
@@ -219,4 +219,4 @@ function AddGoals({ onBack }: AddGoalsProps) {
     </>
   )
 }
-export default AddGoals
+export default CreateTask

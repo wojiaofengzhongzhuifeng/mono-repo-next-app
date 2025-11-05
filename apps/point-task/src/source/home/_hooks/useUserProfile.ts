@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
-import { getUserInfo } from '@/source/home/_api/get-user-info'
+import { getUserInfo } from '@/source/home/_api/getUserProfile'
 
 export function useGetUserInfo() {
   const { data, error, loading, run } = useRequest(getUserInfo, {

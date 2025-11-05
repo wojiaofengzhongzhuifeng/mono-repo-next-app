@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import { FaPlus, FaBullseye, FaCheck, FaGift } from 'react-icons/fa'
-import SetGoals from '../SetGoals'
-import AddGoals from '../AddGoals'
-import MyTask from '../MyTask'
+import CreateGoal from '../CreateGoal'
+import CreateTask from '../CreateTask'
+import TaskList from '../TaskList'
 
-function ChoiceArea() {
+function ActionMenu() {
   const [showSetGoals, setShowSetGoals] = useState(false)
   const [showAddgoals, setShowAddgoals] = useState(false)
   const [showMyTask, setShowMyTask] = useState(false)
 
   if (showSetGoals) {
-    return <SetGoals onBack={() => setShowSetGoals(false)} />
+    return <CreateGoal onBack={() => setShowSetGoals(false)} />
   }
 
   if (showAddgoals) {
-    return <AddGoals onBack={() => setShowAddgoals(false)} />
+    return <CreateTask onBack={() => setShowAddgoals(false)} />
   }
 
   if (showMyTask) {
-    return <MyTask onBack={() => setShowMyTask(false)} />
+    return <TaskList onBack={() => setShowMyTask(false)} />
   }
 
   return (
@@ -56,4 +56,4 @@ function ChoiceArea() {
   )
 }
 
-export default ChoiceArea
+export default ActionMenu

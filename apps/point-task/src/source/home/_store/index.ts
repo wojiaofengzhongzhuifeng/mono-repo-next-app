@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { UserInfoResponseData } from '../_api/get-user-info'
-import { UserTargetsResponseData } from '../_api/get-user-targets'
+import { UserInfoResponseData } from '../_api/getUserProfile'
+import { UserTargetsResponseData } from '../_api/getUserGoals'
 
 interface AppStore {
   countNumber: number

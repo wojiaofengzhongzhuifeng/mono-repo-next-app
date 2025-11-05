@@ -1,19 +1,19 @@
 import React, { use } from 'react'
-import Banner from './_components/Banner'
-import Targets from './_components/Tatgets'
-import useUserInfoHooks from './_hooks/useUserInfo'
-import { useUserTargetsHooks } from './_hooks/useGetUserTargets'
-import ChoiceArea from './_components/ChoiceArea'
+import DashboardHeader from './_components/DashboardHeader'
+import GoalDisplay from './_components/GoalDisplay'
+import useUserProfile from './_hooks/useUserProfile'
+import { useUserTargetsHooks } from './_hooks/useUserGoals'
+import ActionMenu from './_components/ActionMenu'
 
 function Page() {
-  useUserInfoHooks()
+  useUserProfile()
   useUserTargetsHooks()
 
   return (
     <div>
-      <Banner></Banner>
-      {/* <Targets></Targets> */}
-      <ChoiceArea></ChoiceArea>
+      <DashboardHeader></DashboardHeader>
+      {/* <GoalDisplay></GoalDisplay> */}
+      <ActionMenu></ActionMenu>
     </div>
   )
 }

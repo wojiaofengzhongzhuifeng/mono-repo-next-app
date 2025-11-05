@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppStore } from '../../_store'
 
-function Targets() {
+function GoalDisplay() {
   const { userTargets, setUserTargets } = useAppStore()
   console.log('userTargets', userTargets)
 
@@ -49,4 +49,4 @@ function Targets() {
     </div>
   )
 }
-export default Targets
+export default GoalDisplay

@@ -1,7 +1,7 @@
 import React, { use } from 'react'
 import { useAppStore } from '../../_store'
 
-function Banner() {
+function DashboardHeader() {
   const { userInfo } = useAppStore()
   console.log('userInfo in Banner', userInfo)
   return (
@@ -21,4 +21,4 @@ function Banner() {
     </div>
   )
 }
-export default Banner
+export default DashboardHeader

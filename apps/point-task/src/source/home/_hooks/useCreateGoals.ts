@@ -4,7 +4,7 @@ import { useAppStore } from '@/source/home/_store'
 import {
   postUserTargets,
   CreateTargetRequestData,
-} from '@/source/home/_api/post-create-targets'
+} from '@/source/home/_api/createUserGoals'
 
 export function useCreateTargets() {
   const { data, error, loading, run } = useRequest(postUserTargets, {

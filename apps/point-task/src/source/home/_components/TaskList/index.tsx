@@ -2,11 +2,11 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
 
-interface MyTaskProps {
+interface TaskListProps {
   onBack: () => void
 }
 
-function MyTask({ onBack }: MyTaskProps) {
+function TaskList({ onBack }: TaskListProps) {
   return (
     <>
       <div className='flex justify-center mb-6'>
@@ -54,4 +54,4 @@ function MyTask({ onBack }: MyTaskProps) {
     </>
   )
 }
-export default MyTask
+export default TaskList

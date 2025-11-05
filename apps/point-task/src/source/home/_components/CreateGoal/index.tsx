@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import MyGoals from './MyGoals'
+import GoalList from './GoalList'
 import { useAppStore } from '../../_store'
-import { useCreateTargetsHooks } from '../../_hooks/useCreateTargets'
+import { useCreateTargetsHooks } from '../../_hooks/useCreateGoals'
 
 interface SetGoalsProps {
   onBack: () => void
@@ -26,7 +26,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
   }
 
   if (showMyGoals) {
-    return <MyGoals onBack={() => setShowMyGoals(false)} />
+    return <GoalList onBack={() => setShowMyGoals(false)} />
   }
 
   const generateUserId = () => {

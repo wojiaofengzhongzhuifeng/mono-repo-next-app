@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
-import { getUserTargets } from '../_api/get-user-targets'
+import { getUserTargets } from '../_api/getUserGoals'
 
 export function useGetUserTargets() {
   const { data, error, loading, run } = useRequest(getUserTargets, {
