@@ -32,7 +32,7 @@ export function useUserTargetsHooks() {
 
   useEffect(() => {
     if (!error && data) {
-      setUserTargets([data])
+      setUserTargets(data)
     }
   }, [data, error, setUserTargets])
 }

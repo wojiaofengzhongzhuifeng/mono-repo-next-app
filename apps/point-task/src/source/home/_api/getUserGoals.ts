@@ -17,6 +17,8 @@ export type UserTargetsResponseData = {
   user: { nickname: string } //测试用户
 }
 
+export type UserTargetsResponseDataArray = UserTargetsResponseData[]
+
 /**
  * 1. 配置请求代码
  */
@@ -31,13 +33,13 @@ const API_CONFIG = {
  */
 export const getUserTargets = async (
   userId: string
-): Promise<UserTargetsResponseData> => {
+): Promise<UserTargetsResponseDataArray> => {
   try {
     if (API_CONFIG.useMock) {
       const res = API_CONFIG.mockData
       if (res.code === 0) {
-        // 正常获取数据
-        return res.data
+        // 正常获取数据 - 将单个对象包装成数组
+        return [res.data]
       } else {
         throw new Error('获取数据失败： 业务错误')
       }
@@ -45,7 +47,7 @@ export const getUserTargets = async (
 
     const url = API_CONFIG.url.replace(':userId', userId)
 
-    const res = await get<UserTargetsResponseData>({
+    const res = await get<UserTargetsResponseDataArray>({
       url: url,
     })
 
