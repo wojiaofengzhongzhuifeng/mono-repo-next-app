@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
 import { ArrowLeftOutlined, CheckSquareOutlined } from '@ant-design/icons'
 import { Divider, Flex, Progress } from 'antd'
 import { useAppStore } from '../../_store'
@@ -47,15 +47,20 @@ function MyGoals({ onBack }: MyGoalsProps) {
       alert(`还需 ${remainingPoints} 积分才能兑换`)
       return
     }
+
     // 进行兑换操作
     const updatedPoints =
       Number(userInfo.totalPoints) - Number(card.need_points)
     if (updatedPoints >= 0 && card) {
       updateUserPoints(updatedPoints)
       setExchangeable(true)
+
+      // 更新目标状态为已完成
+      updateGoalState('已完成')
+
+      console.log('兑换成功，剩余积分：', updatedPoints)
+      alert('兑换成功！恭喜你完成目标！')
     }
-    console.log('兑换成功，剩余积分：', updatedPoints)
-    alert('兑换成功！')
   }
 
   return (

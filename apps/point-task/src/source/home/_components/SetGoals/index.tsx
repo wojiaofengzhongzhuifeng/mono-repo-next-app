@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import MyGoals from './MyGoals'
 import { useAppStore } from '../../_store'
+import { useCreateTargetsHooks } from '../../_hooks/useCreateTargets'
 
 interface SetGoalsProps {
   onBack: () => void
@@ -12,6 +13,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
   const { userInfo, goalsCard, setGoalsCard } = useAppStore()
+  const { createTargets, loading } = useCreateTargetsHooks()
 
   const difficultyLevel = (points: number) => {
     if (!points) {
@@ -32,18 +34,46 @@ function SetGoals({ onBack }: SetGoalsProps) {
     return String(userId)
   }
 
-  const getGoalsCard = () => {
-    const newCard = {
-      name: wordNumber,
-      need_points: points,
-      user_id: generateUserId(),
-      is_redeemed: true || false,
-      created_at: Date.now(),
-      description: goatNumber || null,
+  const createNewTarget = async () => {
+    if (!wordNumber.trim() || !points) {
+      alert('请填写目标名称和所需积分')
+      return
     }
-    setGoalsCard([...goalsCard, newCard])
-    console.log('新创建的目标卡片：', newCard) // 直接打印新创建的卡片
-    return newCard
+
+    try {
+      // 构建请求数据
+      const targetData = [
+        {
+          name: wordNumber,
+          description: goatNumber || '',
+          need_point: Number(points),
+          user_id: generateUserId(),
+        },
+      ]
+
+      // 调用API创建目标
+      await createTargets(targetData)
+
+      // 同时更新本地状态（为了立即显示）
+      const newCard = {
+        name: wordNumber,
+        need_points: points,
+        user_id: generateUserId(),
+        is_redeemed: false,
+        created_at: Date.now(),
+        description: goatNumber || null,
+      }
+      setGoalsCard([...goalsCard, newCard])
+
+      alert('目标创建成功！')
+      setShowMyGoals(true)
+      setGoatNumber('')
+      setWordNumber('')
+      setPoints('')
+    } catch (error) {
+      console.error('创建目标失败:', error)
+      alert('创建目标失败，请重试')
+    }
   }
 
   return (
@@ -130,19 +160,14 @@ function SetGoals({ onBack }: SetGoalsProps) {
           <div>
             <button
               type='submit'
-              className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
+              className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
               onClick={e => {
                 e.preventDefault()
-                // 这里可以添加创建目标的逻辑
-                alert('目标创建成功！')
-                setShowMyGoals(true)
-                getGoalsCard()
-                setGoatNumber('')
-                setWordNumber('')
-                setPoints('')
+                createNewTarget()
               }}
+              disabled={loading}
             >
-              创建目标
+              {loading ? '创建中...' : '创建目标'}
             </button>
 
             <button
