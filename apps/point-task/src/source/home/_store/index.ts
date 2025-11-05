@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { UserInfoResponseData } from '../_api/getUserProfile'
 import { UserTargetsResponseData } from '../_api/getUserGoals'
+import { UserAddTaskRequestDataItem } from '../_api/AddTask'
 
 interface AppStore {
   countNumber: number
@@ -13,22 +14,8 @@ interface AppStore {
   userTargets: UserTargetsResponseData[] | null
   setUserTargets: (targets: UserTargetsResponseData[]) => void
 
-  addNewTask: {
-    name: string
-    create_point: string | number
-    task_type: string | null
-    is_repeatable: boolean
-    user_id: string
-  } | null
-  setAddNewTask: (
-    task: {
-      name: string
-      create_point: string | number
-      task_type: string | null
-      is_repeatable: boolean
-      user_id: string
-    } | null
-  ) => void
+  userAddTask: UserAddTaskRequestDataItem[] | null
+  setUserAddTask: (tasks: UserAddTaskRequestDataItem[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -46,6 +33,6 @@ export const useAppStore = create<AppStore>(set => ({
   userTargets: null,
   setUserTargets: targets => set({ userTargets: targets }),
 
-  addNewTask: null,
-  setAddNewTask: task => set({ addNewTask: task }),
+  userAddTask: null,
+  setUserAddTask: tasks => set({ userAddTask: tasks }),
 }))
