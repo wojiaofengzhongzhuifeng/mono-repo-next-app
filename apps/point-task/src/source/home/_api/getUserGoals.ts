@@ -1,5 +1,5 @@
 import { get } from '@mono-repo/utils'
-import { USER_TARGETS } from './mock'
+import { USER_TARGETS } from './mockData'
 
 /**
  * 0. 定义请求与响应的数据结构
