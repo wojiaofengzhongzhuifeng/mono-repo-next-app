@@ -4,13 +4,16 @@ import { useAppStore } from '@/source/home/_store'
 import {
   postUserTasks,
   CreateAddTaskRequestData,
-  UserAddTaskResponseData,
 } from '@/source/home/_api/AddTask'
 
 export function useAddTask() {
-  const { data, error, loading, run } = useRequest(postUserTasks, {
-    manual: true,
-  })
+  const { data, error, loading, run } = useRequest(
+    (taskData: CreateAddTaskRequestData, userId: string) =>
+      postUserTasks(taskData, userId),
+    {
+      manual: true,
+    }
+  )
 
   useEffect(() => {
     console.log('error changed', error)
@@ -31,7 +34,7 @@ export function useAddTaskHooks() {
   // 创建任务
   const createAddTask = async (taskData: CreateAddTaskRequestData) => {
     try {
-      const result = await run(taskData)
+      const result = await run(taskData, userInfo?.user_id || '')
       return result
     } catch (error) {
       console.error('创建任务失败:', error)
@@ -46,7 +49,7 @@ export function useAddTaskHooks() {
       const dataId = data
         .map(
           item =>
-            `${item.name}-${item.create_point}-${item.task_type}-${item.created_at}`
+            `${item.name}-${item.create_point}-${item.task_type}-${item.user_id}`
         )
         .join(',')
       if (processedDataRef.current.includes(dataId)) {
@@ -61,10 +64,7 @@ export function useAddTaskHooks() {
         create_point: item.create_point,
         task_type: item.task_type,
         is_repeatable: item.is_repeatable,
-        is_completed: item.is_completed || false,
-        completed_at: item.completed_at || null,
         user_id: item.user_id,
-        created_at: item.created_at || Date.now(),
       }))
       setUserAddTask([...currentTasks, ...newTasks])
     }

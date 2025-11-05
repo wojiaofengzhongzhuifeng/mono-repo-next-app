@@ -6,10 +6,7 @@ export type UserAddTaskRequestDataItem = {
   create_point: number
   task_type: string
   is_repeatable: boolean
-  is_completed: boolean
-  completed_at: number | null
   user_id: string
-  created_at: number
 }
 
 export type CreateAddTaskRequestData = UserAddTaskRequestDataItem[]
@@ -19,27 +16,26 @@ export type CreateAddTaskResponseItemData = {
   create_point: number
   task_type: string
   is_repeatable: boolean
-  is_completed: boolean
-  completed_at: number | null
   user_id: string
-  created_at: number
 }
 
 export type UserAddTaskResponseData = CreateAddTaskResponseItemData[]
 
 const API_CONFIG = {
-  url: '/api/tasks',
+  url: '/api/tasks?user_id=userId',
   useMock: false,
   mockData: USER_TARGETS,
 }
 
 export const postUserTasks = async (
-  createTaskRequestData: CreateAddTaskRequestData
+  createTaskRequestData: CreateAddTaskRequestData,
+  userId: string
 ): Promise<UserAddTaskResponseData> => {
   try {
     console.log('创建目标数据:321', createTaskRequestData)
+    const url = API_CONFIG.url.replace(':userId', userId)
     const res = await post<UserAddTaskResponseData>({
-      url: API_CONFIG.url,
+      url: url,
       data: createTaskRequestData,
     })
 

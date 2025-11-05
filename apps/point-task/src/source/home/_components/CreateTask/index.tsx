@@ -12,7 +12,9 @@ function CreateTask({ onBack }: CreateTaskProps) {
   const [getPoints, setGetPoints] = useState<string | number>('')
   const [goalType, setGoalType] = useState<string | null>(null)
   const [open, setOpen] = useState<boolean>(false)
-  const { userInfo, addNewTask, setAddNewTask } = useAppStore()
+  const { userInfo, userAddTask, setUserAddTask } = useAppStore()
+
+  console.log('userAddTask当前添加的任务：', userAddTask)
 
   const advisePoints = (value: string | null) => {
     if (value === 'study') {
@@ -70,12 +72,12 @@ function CreateTask({ onBack }: CreateTaskProps) {
       user_id: userId,
     }
 
-    setAddNewTask(newTask)
+    setUserAddTask(newTask)
     alert('任务添加成功！')
 
     return { newTask }
   }
-  console.log('添加的新任务：', addNewTask)
+  console.log('添加的新任务：', userAddTask)
   console.log('userInfo当前用户信息：', userInfo)
 
   return (

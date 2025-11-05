@@ -4,7 +4,6 @@ import { useAppStore } from '@/source/home/_store'
 import {
   postUserTargets,
   CreateTargetRequestData,
-  UserTargetsResponseData,
 } from '@/source/home/_api/createUserGoals'
 
 export function useCreateTargets() {

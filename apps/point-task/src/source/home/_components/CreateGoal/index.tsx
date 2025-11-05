@@ -12,7 +12,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
-  const { userInfo, goalsCard, setGoalsCard } = useAppStore()
+  const { userInfo, useGoalsCard, setGoalsCard } = useAppStore()
   const { createTargets, loading } = useCreateTargetsHooks()
 
   const difficultyLevel = (points: number) => {
