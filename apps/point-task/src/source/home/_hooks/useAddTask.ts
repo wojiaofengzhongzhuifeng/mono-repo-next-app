@@ -14,7 +14,6 @@ export function useAddTask() {
       manual: true,
     }
   )
-
   useEffect(() => {
     console.log('error changed', error)
     if (error) {

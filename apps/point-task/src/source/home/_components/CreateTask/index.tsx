@@ -3,6 +3,7 @@ import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
 import { useAppStore } from '../../_store'
+import { useAddTaskHooks } from '../../_hooks/useAddTask'
 interface CreateTaskProps {
   onBack: () => void
 }
@@ -13,6 +14,7 @@ function CreateTask({ onBack }: CreateTaskProps) {
   const [goalType, setGoalType] = useState<string | null>(null)
   const [open, setOpen] = useState<boolean>(false)
   const { userInfo, userAddTask, setUserAddTask } = useAppStore()
+  const { createAddTask } = useAddTaskHooks()
 
   console.log('userAddTask当前添加的任务：', userAddTask)
 
@@ -55,7 +57,7 @@ function CreateTask({ onBack }: CreateTaskProps) {
     return String(userId)
   }
 
-  const handleAddNewTask = () => {
+  const handleAddNewTask = async () => {
     const userId = generateUserId()
 
     if (goalswordNumber === '') {
@@ -72,8 +74,10 @@ function CreateTask({ onBack }: CreateTaskProps) {
       user_id: userId,
     }
 
-    setUserAddTask(newTask)
-    alert('任务添加成功！')
+    // 请求添加任务
+    console.log('准备添加新任务：', newTask)
+    const result = await createAddTask([newTask])
+    console.log('添加任务结果：', result)
 
     return { newTask }
   }
@@ -205,7 +209,7 @@ function CreateTask({ onBack }: CreateTaskProps) {
                 onBack() // 回到 SetGoals 组件
               }}
             >
-              创建目标
+              创建任务
             </button>
             {/* todo  点击显示我的任务*/}
             <div className='text-gray-500 mt-1 text-xs mt-4'>查看任务列表</div>
