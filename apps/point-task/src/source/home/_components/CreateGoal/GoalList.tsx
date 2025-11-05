@@ -30,11 +30,6 @@ function GoalList({ onBack }: GoalListProps) {
     return Math.min(progress, 100) // 不超过100%
   }
 
-  // 目标状态更新
-  const updateGoalState = (state: '进行中' | '已完成' | '未完成') => {
-    setGoalState(state)
-  }
-
   //兑换功能
   const handleExchange = (card: { need_points: string | number }) => {
     if (!userInfo?.totalPoints) {
@@ -56,11 +51,16 @@ function GoalList({ onBack }: GoalListProps) {
       setExchangeable(true)
 
       // 更新目标状态为已完成
-      updateGoalState('已完成')
+      setGoalState('已完成')
 
       console.log('兑换成功，剩余积分：', updatedPoints)
       alert('兑换成功！恭喜你完成目标！')
     }
+  }
+
+  // 目标状态更新
+  const updateGoalState = (state: '进行中' | '已完成' | '未完成') => {
+    setGoalState(state)
   }
 
   return (
@@ -132,10 +132,7 @@ function GoalList({ onBack }: GoalListProps) {
                         Number(card.need_points) ? (
                         <button
                           className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
-                          onClick={() => {
-                            handleExchange(card)
-                            updateGoalState('已完成')
-                          }}
+                          onClick={() => handleExchange(card)}
                         >
                           立即兑换
                         </button>
@@ -145,15 +142,6 @@ function GoalList({ onBack }: GoalListProps) {
                         </button>
                       )}
                     </div>
-                  </div>
-
-                  {/* 进度动态显示 */}
-                  <div className=' text-blue-600 text-sm bg-blue-50 inline-block px-2 py-1 rounded mt-8'>
-                    {calculateRemainingPoints(card) > 0 ? (
-                      <>还需{calculateRemainingPoints(card)} 积分即可兑换</>
-                    ) : (
-                      <>积分已足够，可以兑换！</>
-                    )}
                   </div>
                 </div>
               ))
