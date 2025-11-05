@@ -50,7 +50,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
           user_id: generateUserId(),
         },
       ]
-
+      console.log('创建目标数据:', targetData)
       // 调用API创建目标
       await createTargets(targetData)
 

@@ -49,16 +49,13 @@ export const post = async <T>(
   opt: Pick<requestOpt, 'url' | 'data' | 'headers'>
 ) => {
   try {
-    const params = new URLSearchParams()
-    for (const k in opt.data) {
-      params.append(k, opt.data[k])
-    }
     const headers: AxiosRequestConfig['headers'] = Object.assign(
       {},
+      { 'Content-Type': 'application/json' },
       opt.headers
     )
 
-    const ret = await instance.post<IServiceObject<T>>(opt.url, params, {
+    const ret = await instance.post<IServiceObject<T>>(opt.url, opt.data, {
       headers,
     })
     return ret.data

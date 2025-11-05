@@ -32,6 +32,7 @@ export const postUserTargets = async (
   createTargetRequestData: CreateTargetRequestData
 ): Promise<UserTargetsResponseData> => {
   try {
+    console.log('创建目标数据:321', createTargetRequestData)
     const res = await post<UserTargetsResponseData>({
       url: API_CONFIG.url,
       data: createTargetRequestData,
