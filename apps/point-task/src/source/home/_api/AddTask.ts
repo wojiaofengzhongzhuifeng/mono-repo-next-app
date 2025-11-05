@@ -25,7 +25,7 @@ export type CreateAddTaskResponseItemData = {
   created_at: number
 }
 
-export type UserTargetsResponseData = CreateAddTaskResponseItemData[]
+export type UserAddTaskResponseData = CreateAddTaskResponseItemData[]
 
 const API_CONFIG = {
   url: '/api/tasks',
@@ -35,10 +35,10 @@ const API_CONFIG = {
 
 export const postUserTasks = async (
   createTaskRequestData: CreateAddTaskRequestData
-): Promise<UserTargetsResponseData> => {
+): Promise<UserAddTaskResponseData> => {
   try {
     console.log('创建目标数据:321', createTaskRequestData)
-    const res = await post<UserTargetsResponseData>({
+    const res = await post<UserAddTaskResponseData>({
       url: API_CONFIG.url,
       data: createTaskRequestData,
     })
