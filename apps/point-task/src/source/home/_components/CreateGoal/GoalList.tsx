@@ -9,11 +9,10 @@ interface GoalListProps {
 
 function GoalList({ onBack }: GoalListProps) {
   const [goalState, setGoalState] = useState('进行中') // 目标状态：进行中、已完成、未完成
-  const { userInfo, goalsCard, userTargets, updateUserPoints } = useAppStore()
+  const { userInfo, userTargets, updateUserPoints } = useAppStore()
   const [exchangeable, setExchangeable] = useState(false)
 
   console.log('用户目标数据:', userTargets)
-  // 计算还需多少积分
   const calculateRemainingPoints = (card: { need_points: string | number }) => {
     if (!userInfo?.totalPoints) return Number(card.need_points)
     const neededPoints = Number(card.need_points)
@@ -80,8 +79,8 @@ function GoalList({ onBack }: GoalListProps) {
           </div>
 
           <div className='space-y-4'>
-            {goalsCard && goalsCard.length > 0 ? (
-              goalsCard.map((card, index) => (
+            {userTargets && userTargets.length > 0 ? (
+              userTargets.map((card, index) => (
                 <div
                   key={index}
                   className='p-4 border border-gray-200 rounded-lg'

@@ -3,7 +3,6 @@ import { useAppStore } from '../../_store'
 
 function DashboardHeader() {
   const { userInfo, userTargets } = useAppStore()
-  console.log('userTargets in DashboardHeader:', userTargets)
   return (
     <div className=' flex justify-center items-center mb-6'>
       <div className='flex justify-center items-center h-[45vh] w-[90vh] bg-blue-700/100 text-white px-4 rounded-lg mb-6'>
