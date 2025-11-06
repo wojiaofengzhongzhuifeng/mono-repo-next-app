@@ -34,7 +34,7 @@ export const postUserTasks = async (
   userId: string
 ): Promise<UserAddTaskResponseData> => {
   try {
-    console.log('创建目标数据:321', createTaskRequestData)
+    console.log('创建目标数据:createTaskRequestData', createTaskRequestData)
     const url = API_CONFIG.url.replace(':userId', userId)
     const res = await post<UserAddTaskResponseData>({
       url: url,
