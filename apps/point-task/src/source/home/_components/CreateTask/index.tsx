@@ -3,7 +3,10 @@ import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
 import { useAppStore } from '../../_store'
-import { useAddTask, useAddTaskHooks } from '../../_hooks/useAddTask'
+import {
+  useCreateTargetsHooks,
+  useCreateTargets,
+} from '../../_hooks/useCreateTargets'
 interface CreateTaskProps {
   onBack: () => void
 }
@@ -14,7 +17,7 @@ function CreateTask({ onBack }: CreateTaskProps) {
   const [taskType, setTaskType] = useState<string | null>(null)
   const [open, setOpen] = useState<boolean>(false)
   const { userInfo, userAddTask, setUserAddTask } = useAppStore()
-  const { createAddTask } = useAddTaskHooks()
+  const { createAddTask } = useCreateTargetsHooks()
 
   const advisePoints = (value: string | null) => {
     if (value === 'study') {

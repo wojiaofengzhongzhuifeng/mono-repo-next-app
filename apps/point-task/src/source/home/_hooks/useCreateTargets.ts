@@ -6,7 +6,7 @@ import {
   CreateAddTaskRequestData,
 } from '@/source/home/_api/AddTask'
 
-export function useAddTask() {
+export function useCreateTargets() {
   const { data, error, loading, run } = useRequest(
     (taskData: CreateAddTaskRequestData, userId: string) =>
       postUserTasks(taskData, userId),
@@ -25,9 +25,9 @@ export function useAddTask() {
 }
 
 // 统一的目标创建管理hook
-export function useAddTaskHooks() {
-  const { run, data, error, loading } = useAddTask()
-  const { userInfo, userAddTask, setUserAddTask } = useAppStore()
+export function useCreateTargetsHooks() {
+  const { run, data, error, loading } = useCreateTargets()
+  const { userInfo, userTargets, setUserTargets } = useAppStore()
   const processedDataRef = useRef<any[]>([])
 
   // 创建任务
@@ -78,20 +78,20 @@ export function useAddTaskHooks() {
 
       processedDataRef.current.push(dataId)
 
-      const currentTasks = userAddTask || []
-      const newTasks = data.map(item => ({
+      const currentTargets = userTargets || []
+      const newTargets = data.map(item => ({
         name: item.name,
         create_point: item.create_point,
         task_type: item.task_type,
         is_repeatable: item.is_repeatable,
         user_id: item.user_id,
       }))
-      setUserAddTask([...currentTasks, ...newTasks])
+      setUserTargets([...currentTargets, ...newTargets])
     }
-  }, [data, error, setUserAddTask, userInfo, userAddTask])
+  }, [data, error, setUserTargets, userInfo, userTargets])
 
   return { createAddTask, loading, error, data }
 }
 
 // 导出默认hook，保持向后兼容
-export default useAddTaskHooks
+export default useCreateTargetsHooks
