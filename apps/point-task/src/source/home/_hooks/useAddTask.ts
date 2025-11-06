@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
 import {
@@ -31,12 +31,34 @@ export function useAddTaskHooks() {
   const processedDataRef = useRef<any[]>([])
 
   // 创建任务
-  const createAddTask = async (taskData: CreateAddTaskRequestData) => {
+  const createAddTask = async (
+    taskData: CreateAddTaskRequestData,
+    onSuccess?: () => void,
+    onError?: () => void
+  ) => {
     try {
       const result = await run(taskData, userInfo?.user_id || '')
+
+      // 成功提示
+      alert('任务创建成功！')
+
+      // 调用成功回调
+      if (onSuccess) {
+        onSuccess()
+      }
+
       return result
     } catch (error) {
       console.error('创建任务失败:', error)
+
+      // 失败提示
+      alert('创建任务失败，请重试')
+
+      // 调用失败回调
+      if (onError) {
+        onError()
+      }
+
       throw error
     }
   }
@@ -44,7 +66,6 @@ export function useAddTaskHooks() {
   // 更新任务列表
   useEffect(() => {
     if (!error && data && userInfo) {
-      // 使用多个字段组合生成唯一标识符，因为任务数据中没有id字段
       const dataId = data
         .map(
           item =>

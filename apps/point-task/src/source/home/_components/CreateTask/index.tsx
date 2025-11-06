@@ -16,8 +16,6 @@ function CreateTask({ onBack }: CreateTaskProps) {
   const { userInfo, userAddTask, setUserAddTask } = useAppStore()
   const { createAddTask } = useAddTaskHooks()
 
-  console.log('userAddTask当前添加的任务：', userAddTask)
-
   const advisePoints = (value: string | null) => {
     if (value === 'study') {
       return (
@@ -74,10 +72,25 @@ function CreateTask({ onBack }: CreateTaskProps) {
       user_id: userId,
     }
 
-    // 请求添加任务
+    // 立即更新本地状态，让用户立即看到任务被添加
     setUserAddTask([...(userAddTask || []), newTask])
-    console.log('userAddTask当前添加的任务：', userAddTask)
-    return { newTask }
+
+    // 成功回调：清空表单并返回首页
+    const onSuccess = () => {
+      setTaskWordNumber('')
+      setGetPoints('')
+      setTaskType(null)
+      setOpen(false)
+      onBack()
+    }
+
+    // 失败回调：返回首页
+    const onError = () => {
+      onBack()
+    }
+
+    // 请求添加任务
+    await createAddTask([newTask], onSuccess, onError)
   }
 
   return (
@@ -198,11 +211,6 @@ function CreateTask({ onBack }: CreateTaskProps) {
               className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
               onClick={() => {
                 handleAddNewTask()
-                setTaskWordNumber('')
-                setGetPoints('')
-                setTaskType(null)
-                setOpen(false)
-                onBack() // 回到 SetGoals 组件
               }}
             >
               创建任务
