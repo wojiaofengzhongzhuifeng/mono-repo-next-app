@@ -1,6 +1,7 @@
 import { post } from '@mono-repo/utils'
 import { USER_TARGETS } from './mockData'
 
+// 这个是post请求的数据结构
 export type UserAddTaskRequestDataItem = {
   name: string
   create_point: number
@@ -11,6 +12,7 @@ export type UserAddTaskRequestDataItem = {
 
 export type CreateAddTaskRequestData = UserAddTaskRequestDataItem[]
 
+// 对照Apifox文档生成代码 响应数据 响应数据最好统一方便更改
 export type CreateAddTaskResponseItemData = {
   name: string
   create_point: number

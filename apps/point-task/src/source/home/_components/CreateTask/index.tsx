@@ -3,15 +3,15 @@ import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Switch } from 'antd'
 import { useAppStore } from '../../_store'
-import { useAddTaskHooks } from '../../_hooks/useAddTask'
+import { useAddTask, useAddTaskHooks } from '../../_hooks/useAddTask'
 interface CreateTaskProps {
   onBack: () => void
 }
 
 function CreateTask({ onBack }: CreateTaskProps) {
-  const [goalswordNumber, setGoalsWordNumber] = useState('')
+  const [taskwordNumber, setTaskWordNumber] = useState('')
   const [getPoints, setGetPoints] = useState<string | number>('')
-  const [goalType, setGoalType] = useState<string | null>(null)
+  const [taskType, setTaskType] = useState<string | null>(null)
   const [open, setOpen] = useState<boolean>(false)
   const { userInfo, userAddTask, setUserAddTask } = useAppStore()
   const { createAddTask } = useAddTaskHooks()
@@ -60,29 +60,25 @@ function CreateTask({ onBack }: CreateTaskProps) {
   const handleAddNewTask = async () => {
     const userId = generateUserId()
 
-    if (goalswordNumber === '') {
+    if (taskwordNumber === '') {
       return alert('任务名称不能为空！')
     } else if (getPoints === '') {
       return alert('获得积分不能为空！')
     }
 
     const newTask = {
-      name: goalswordNumber,
-      create_point: getPoints,
-      task_type: goalType,
+      name: taskwordNumber,
+      create_point: Number(getPoints),
+      task_type: taskType || 'other',
       is_repeatable: open,
       user_id: userId,
     }
 
     // 请求添加任务
-    console.log('准备添加新任务：', newTask)
-    const result = await createAddTask([newTask])
-    console.log('添加任务结果：', result)
-
+    setUserAddTask([...(userAddTask || []), newTask])
+    console.log('userAddTask当前添加的任务：', userAddTask)
     return { newTask }
   }
-  console.log('添加的新任务：', userAddTask)
-  console.log('userInfo当前用户信息：', userInfo)
 
   return (
     <>
@@ -105,15 +101,15 @@ function CreateTask({ onBack }: CreateTaskProps) {
                 任务名称 <span className='text-red-500'>*</span>
               </label>
               <input
-                value={goalswordNumber}
-                onChange={e => setGoalsWordNumber(e.target.value)}
+                value={taskwordNumber}
+                onChange={e => setTaskWordNumber(e.target.value)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 '
                 placeholder='请输入任务名称'
                 maxLength={50}
               />
               {
                 <div className='text-gray-500 mt-1 text-xs text-right'>
-                  {<div>{goalswordNumber.length} /50</div>}
+                  {<div>{taskwordNumber.length} /50</div>}
                 </div>
               }
             </div>
@@ -168,14 +164,14 @@ function CreateTask({ onBack }: CreateTaskProps) {
                   { value: 'life', label: '生活' },
                   { value: 'other', label: '其他' },
                 ]}
-                value={goalType}
+                value={taskType}
                 onChange={value => {
-                  setGoalType(value)
+                  setTaskType(value)
                   advisePoints(value)
                 }}
               />
               <div className='text-blue-500 mt-1  text-[14px]'>
-                {advisePoints(goalType)}
+                {advisePoints(taskType)}
               </div>
             </div>
           </form>
@@ -202,9 +198,9 @@ function CreateTask({ onBack }: CreateTaskProps) {
               className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors'
               onClick={() => {
                 handleAddNewTask()
-                setGoalsWordNumber('')
+                setTaskWordNumber('')
                 setGetPoints('')
-                setGoalType(null)
+                setTaskType(null)
                 setOpen(false)
                 onBack() // 回到 SetGoals 组件
               }}

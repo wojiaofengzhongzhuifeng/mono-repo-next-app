@@ -12,7 +12,6 @@ function GoalList({ onBack }: GoalListProps) {
   const { userInfo, userTargets, updateUserPoints } = useAppStore()
   const [exchangeable, setExchangeable] = useState(false)
 
-  console.log('用户目标数据:', userTargets)
   const calculateRemainingPoints = (card: { need_points: string | number }) => {
     if (!userInfo?.totalPoints) return Number(card.need_points)
     const neededPoints = Number(card.need_points)
