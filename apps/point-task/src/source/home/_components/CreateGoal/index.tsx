@@ -54,17 +54,6 @@ function SetGoals({ onBack }: SetGoalsProps) {
       // 调用API创建目标
       await createTargets(targetData)
 
-      // 同时更新本地状态（为了立即显示）
-      const newCard = {
-        name: wordNumber,
-        need_points: points,
-        user_id: generateUserId(),
-        is_redeemed: false,
-        created_at: Date.now(),
-        description: goatNumber || null,
-      }
-      setUserTargets([...userTargets, newCard])
-
       alert('目标创建成功！')
       setShowMyGoals(true)
       setGoatNumber('')

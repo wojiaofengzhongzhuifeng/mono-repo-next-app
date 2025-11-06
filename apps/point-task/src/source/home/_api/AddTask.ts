@@ -1,4 +1,4 @@
-import { post } from '@mono-repo/utils'
+import { post, get } from '@mono-repo/utils'
 import { USER_TARGETS } from './mockData'
 
 // 这个是post请求的数据结构
@@ -49,5 +49,32 @@ export const postUserTasks = async (
   } catch (error) {
     console.error('获取数据失败：', error)
     throw new Error('获取数据失败： httpcode 非200')
+  }
+}
+
+// 获取用户任务列表的API
+const GET_TASKS_API_CONFIG = {
+  url: '/api/tasks?user_id=:userId',
+  useMock: false,
+  mockData: USER_TARGETS,
+}
+
+export const getUserTasks = async (
+  userId: string
+): Promise<UserAddTaskResponseData> => {
+  try {
+    const url = GET_TASKS_API_CONFIG.url.replace(':userId', userId)
+    const res = await get<UserAddTaskResponseData>({
+      url: url,
+    })
+
+    if (res.code === 0) {
+      return res.data
+    } else {
+      throw new Error('获取任务列表失败： 业务错误')
+    }
+  } catch (error) {
+    console.error('获取任务列表失败：', error)
+    throw new Error('获取任务列表失败： httpcode 非200')
   }
 }
