@@ -17,11 +17,11 @@ interface TaskListProps {
 type TaskStatus = 'all' | 'pending' | 'completed'
 
 function TaskList({ onBack }: TaskListProps) {
-  const { userInfo, userAddTask, setUserAddTask } = useAppStore()
+  const { userInfo, setUserInfo, userAddTask, setUserAddTask } = useAppStore()
   const { fetchUserTasks, loading } = useGetUserTasksHooks()
   const [activeStatus, setActiveStatus] = useState<TaskStatus>('all')
   const [tasks, setTasks] = useState<UserAddTaskRequestDataItem[]>([])
-
+  console.log('userInfo', userInfo)
   // 组件加载时获取任务数据
   useEffect(() => {
     const loadTasks = async () => {
@@ -78,6 +78,15 @@ function TaskList({ onBack }: TaskListProps) {
     message.success('任务已删除')
   }
 
+  //增加积分
+  const addPoints = (points: number) => {
+    // 假设有一个函数可以更新用户积分
+    const userNewPoints = (userInfo?.totalPoints || 0) + points
+    setUserInfo({ ...userInfo, totalPoints: userNewPoints } as any)
+
+    // updateUserPoints(points)
+    message.success(`获得${points}积分`)
+  }
   return (
     <div className='flex justify-center mb-6'>
       <div className='gap-3  w-[80vh] bg-gray-50 px-6 py-6 rounded-lg drop-shadow-2xl'>
@@ -189,9 +198,10 @@ function TaskList({ onBack }: TaskListProps) {
                           <CheckOutlined />
                         )
                       }
-                      onClick={() =>
+                      onClick={() => {
                         toggleTaskStatus((task as any).id || index.toString())
-                      }
+                        addPoints(task.create_point)
+                      }}
                       className={
                         (task as any).status === 'completed'
                           ? 'text-orange-500 hover:text-orange-600'
