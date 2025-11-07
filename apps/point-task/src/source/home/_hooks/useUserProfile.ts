@@ -20,25 +20,16 @@ export function useGetUserInfo() {
 }
 
 // 更新用户积分的API调用函数
+// 注意：现在积分更新是通过完成任务API (/api/tasks/complete-batch) 自动处理的
+// 这个函数现在只用于本地状态同步
 const updateUserPointsToDB = async (userId: string, points: number) => {
   try {
-    const url = `/api/users/${userId}`
-    const res = await post({
-      url: url,
-      data: {
-        user_id: userId,
-        totalPoints: points,
-      },
-    })
-
-    if (res.code === 0) {
-      return res.data
-    } else {
-      throw new Error('更新用户积分失败： 业务错误')
-    }
+    // 积分现在通过完成任务API自动更新，这里只需要返回成功
+    console.log(`用户 ${userId} 的积分已更新为: ${points}`)
+    return { user_id: userId, totalPoints: points }
   } catch (error) {
     console.error('更新用户积分失败：', error)
-    throw new Error('更新用户积分失败： httpcode 非200')
+    throw new Error('更新用户积分失败')
   }
 }
 
@@ -90,7 +81,7 @@ export function useUserInfoHooks() {
     }
   }, [data, error, userInfo, setUserInfo])
 
-  // 更新用户积分到数据库
+  // 更新用户积分到本地状态
   const updateUserInfoWithPoints = async (userNewPoints: number) => {
     if (!userInfo?.user_id) {
       console.error('用户信息不存在，无法更新积分')
@@ -98,25 +89,19 @@ export function useUserInfoHooks() {
     }
 
     try {
-      // 先更新本地状态
+      // 更新本地状态
       updateUserPoints(userNewPoints)
 
-      // 然后更新到数据库
-      const result = await updateUserPointsToDB(userInfo.user_id, userNewPoints)
-
-      // 更新本地状态以保持同步
+      // 同步到用户信息状态
       setUserInfo({
         ...userInfo,
         totalPoints: userNewPoints,
       } as any)
 
-      return result
+      console.log(`用户 ${userInfo.user_id} 积分已更新为: ${userNewPoints}`)
+      return { user_id: userInfo.user_id, totalPoints: userNewPoints }
     } catch (error) {
       console.error('更新用户积分失败:', error)
-      // 如果数据库更新失败，回滚本地状态
-      if (userInfo) {
-        updateUserPoints(userInfo.totalPoints)
-      }
       throw error
     }
   }

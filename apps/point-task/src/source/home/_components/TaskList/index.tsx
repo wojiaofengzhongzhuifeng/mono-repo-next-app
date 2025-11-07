@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppStore } from '../../_store'
 import useGetUserTasksHooks from '../../_hooks/useGetUserTasks'
 import useUserInfoHooks from '../../_hooks/useUserProfile'
+import { completeTasks } from '../../_api/completeTasks'
 import { UserAddTaskRequestDataItem } from '../../_api/AddTask'
 
 interface TaskListProps {
@@ -80,23 +81,32 @@ function TaskList({ onBack }: TaskListProps) {
     message.success('任务已删除')
   }
 
-  //增加积分
-  const addPoints = async (points: number) => {
+  // 完成任务并获得积分
+  const completeTaskAndEarnPoints = async (taskId: string, points: number) => {
     if (!userInfo) {
-      message.error('用户信息不存在，无法获得积分')
+      message.error('用户信息不存在，无法完成任务')
       return
     }
 
     try {
-      const userNewPoints = userInfo?.totalPoints + points
+      // 调用后端API完成任务
+      const result = await completeTasks({
+        user_id: userInfo.user_id,
+        task_ids: [parseInt(taskId)],
+      })
 
-      // 更新积分到数据库和本地状态
+      // 更新本地积分状态
+      const userNewPoints =
+        (userInfo?.totalPoints || 0) + result.totalEarnedPoints
       await updateUserInfoWithPoints(userNewPoints)
 
-      message.success(`获得${points}积分`)
+      message.success(`任务完成！获得${result.totalEarnedPoints}积分`)
+
+      // 刷新任务列表
+      await fetchUserTasks()
     } catch (error) {
-      console.error('更新积分失败:', error)
-      message.error('更新积分失败，请重试')
+      console.error('完成任务失败:', error)
+      message.error('完成任务失败，请重试')
     }
   }
 
@@ -201,8 +211,10 @@ function TaskList({ onBack }: TaskListProps) {
                           )
                         }
                         onClick={() => {
-                          toggleTaskStatus((task as any).id || index.toString())
-                          addPoints(task.create_point)
+                          completeTaskAndEarnPoints(
+                            (task as any).id || index.toString(),
+                            task.create_point
+                          )
                         }}
                         className={
                           (task as any).status === 'completed'
