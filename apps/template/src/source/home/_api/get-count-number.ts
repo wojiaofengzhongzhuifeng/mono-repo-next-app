@@ -1,5 +1,8 @@
 import { get } from '@mono-repo/utils'
 import { GET_COUNT_NUMBER } from '@/source/home/_api/mock'
+import { useEffect } from 'react'
+import { useRequest } from 'ahooks'
+import { useAppStore } from '@/source/home/_store'
 
 /**
  * 0. 定义请求与响应的数据结构
@@ -54,3 +57,33 @@ export const getCountNumberRequest =
       throw new Error('获取数据失败： httpcode 非200')
     }
   }
+
+// 凡是以 get or submit 开头，表示请求数据
+export function useGetCountNumber() {
+  const { data, error, loading, run } = useRequest(getCountNumberRequest, {
+    manual: true,
+  })
+
+  useEffect(() => {
+    if (error) {
+    }
+  }, [error])
+
+  return { error, loading, data, run }
+}
+
+// 使用 hooks
+export function useGetCountNumberHooks() {
+  const { run, data, error } = useGetCountNumber()
+  const { setCountNumber } = useAppStore()
+
+  useEffect(() => {
+    run()
+  }, [])
+
+  useEffect(() => {
+    if (!error && data) {
+      setCountNumber(data.number)
+    }
+  }, [error, data])
+}
