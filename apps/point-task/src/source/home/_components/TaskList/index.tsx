@@ -11,7 +11,7 @@ import useGetUserTasksHooks from '../../_hooks/useGetUserTasks'
 import useUserInfoHooks from '../../_hooks/useUserProfile'
 import { completeTasks } from '../../_api/completeTasks'
 import { UserAddTaskRequestDataItem } from '../../_api/AddTask'
-
+import useDeletedTasks from '../../_hooks/useDeletedTasks'
 interface TaskListProps {
   onBack: () => void
 }
@@ -22,6 +22,7 @@ function TaskList({ onBack }: TaskListProps) {
   const { userInfo, setUserInfo, userAddTask, setUserAddTask } = useAppStore()
   const { fetchUserTasks, loading } = useGetUserTasksHooks()
   const { updateUserInfoWithPoints } = useUserInfoHooks()
+  const { deleteTask: deleteTaskApi } = useDeletedTasks()
   const [activeStatus, setActiveStatus] = useState<TaskStatus>('all')
   const [tasks, setTasks] = useState<UserAddTaskRequestDataItem[]>([])
   console.log('userInfo', userInfo)
@@ -75,10 +76,21 @@ function TaskList({ onBack }: TaskListProps) {
   }
 
   // 删除任务
-  const deleteTask = (taskId: string) => {
-    setTasks(prevTasks => prevTasks.filter(task => (task as any).id !== taskId))
-    setUserAddTask(tasks.filter(task => (task as any).id !== taskId))
-    message.success('任务已删除')
+  const handleDeleteTask = async (taskId: string) => {
+    try {
+      const success = await deleteTaskApi(taskId)
+      if (success) {
+        // 从本地状态中移除已删除的任务
+        const updatedTasks = tasks.filter(
+          (task: any) => task.id?.toString() !== taskId
+        )
+        setTasks(updatedTasks)
+        setUserAddTask(updatedTasks)
+      }
+    } catch (error) {
+      console.error('删除任务失败:', error)
+      message.error('删除任务失败，请重试')
+    }
   }
 
   // 完成任务并获得积分
@@ -227,7 +239,7 @@ function TaskList({ onBack }: TaskListProps) {
                         size='small'
                         icon={<DeleteOutlined />}
                         onClick={() =>
-                          deleteTask((task as any).id || index.toString())
+                          handleDeleteTask((task as any).id || index.toString())
                         }
                         className='text-red-500 hover:text-red-600'
                       />

@@ -64,4 +64,24 @@ export const post = async <T>(
   }
 }
 
+export const del = async <T>(
+  opt: Pick<requestOpt, 'url' | 'params' | 'headers'>
+) => {
+  try {
+    const headers: AxiosRequestConfig['headers'] = Object.assign(
+      {},
+      { 'Content-Type': 'application/json' },
+      opt.headers
+    )
+
+    const ret = await instance.delete<IServiceObject<T>>(opt.url, {
+      params: opt.params,
+      headers,
+    })
+    return ret.data
+  } catch (e) {
+    throw '请求数据报错，请稍后'
+  }
+}
+
 export default instance
