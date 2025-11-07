@@ -161,8 +161,21 @@ function TaskList({ onBack }: TaskListProps) {
                     >
                       {task.name}
                     </div>
-                    <div className='text-sm text-gray-500 mt-1'>
-                      积分: {task.create_point} | 类型: {task.task_type}
+                    <div className='text-sm text-gray-500 mt-1  flex gap-5'>
+                      <div className='border rounded-lg px-1 bg-green-100'>
+                        +{task.create_point}
+                      </div>
+                      <div className='border rounded-lg px-1 '>
+                        {' '}
+                        {task.task_type ? task.task_type : 'other'}
+                      </div>
+                      <div className='border '>
+                        {task.created_at
+                          ? new Date(task.created_at).toLocaleDateString(
+                              'zh-CN'
+                            )
+                          : '刚刚'}
+                      </div>
                     </div>
                   </div>
                   <div className='flex space-x-2'>
