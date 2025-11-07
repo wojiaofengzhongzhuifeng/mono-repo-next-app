@@ -1,4 +1,4 @@
-import { post } from '@mono-repo/utils'
+import { del } from '@mono-repo/utils'
 
 // 删除任务响应数据类型（根据API规范更新）
 export type DeletedTasksResponseData = {
@@ -25,11 +25,11 @@ export const deletedTask = async (
   const url = `/api/tasks/${taskId}`
 
   try {
-    // 由于@mono-repo/utils没有提供delete方法，我们使用post方法
-    // 并在URL中包含任务ID，在请求体中包含用户ID
-    const res = await post<DeletedTasksResponseData>({
+    // 使用del方法发送DELETE请求
+    // 在URL中包含任务ID，在params中包含用户ID
+    const res = await del<DeletedTasksResponseData>({
       url: url,
-      data: { user_id: userId },
+      params: { user_id: userId },
     })
 
     if (res.code === 0) {

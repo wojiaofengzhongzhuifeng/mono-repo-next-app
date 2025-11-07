@@ -25,6 +25,7 @@ function TaskList({ onBack }: TaskListProps) {
   const { deleteTask: deleteTaskApi } = useDeletedTasks()
   const [activeStatus, setActiveStatus] = useState<TaskStatus>('all')
   const [tasks, setTasks] = useState<UserAddTaskRequestDataItem[]>([])
+  const [deletedTaskIds, setDeletedTaskIds] = useState<Set<string>>(new Set())
   console.log('userInfo', userInfo)
   // 组件加载时获取任务数据
   useEffect(() => {
@@ -80,12 +81,9 @@ function TaskList({ onBack }: TaskListProps) {
     try {
       const success = await deleteTaskApi(taskId)
       if (success) {
-        // 从本地状态中移除已删除的任务
-        const updatedTasks = tasks.filter(
-          (task: any) => task.id?.toString() !== taskId
-        )
-        setTasks(updatedTasks)
-        setUserAddTask(updatedTasks)
+        // 将任务标记为已删除状态，而不是从列表中移除
+        setDeletedTaskIds(prev => new Set(prev).add(taskId))
+        message.success('任务已删除')
       }
     } catch (error) {
       console.error('删除任务失败:', error)
@@ -175,77 +173,79 @@ function TaskList({ onBack }: TaskListProps) {
               </div>
             ) : (
               <div className='space-y-2'>
-                {filteredTasks.map((task, index) => (
-                  <div
-                    key={(task as any).id || index}
-                    className={`flex items-center justify-between p-3 border rounded-lg ${
-                      (task as any).status === 'completed'
-                        ? 'bg-green-50 border-green-200'
-                        : 'bg-white border-gray-200'
-                    }`}
-                  >
-                    <div className='flex-1'>
-                      <div
-                        className={`font-medium ${
-                          (task as any).status === 'completed'
-                            ? 'line-through text-gray-500'
-                            : 'text-gray-800'
-                        }`}
-                      >
-                        {task.name}
+                {filteredTasks.map((task, index) => {
+                  const taskId = (task as any).id || index.toString()
+                  const isDeleted = deletedTaskIds.has(taskId)
+
+                  return (
+                    <div
+                      key={taskId}
+                      className={`flex items-center justify-between p-3 border rounded-lg ${
+                        (task as any).status === 'completed'
+                          ? 'bg-green-50 border-green-200'
+                          : 'bg-white border-gray-200'
+                      } ${isDeleted ? 'bg-gray-100 border-gray-300' : ''}`}
+                    >
+                      <div className='flex-1'>
+                        <div
+                          className={`font-medium ${
+                            (task as any).status === 'completed'
+                              ? 'line-through text-gray-500'
+                              : 'text-gray-800'
+                          } ${isDeleted ? 'line-through text-gray-400' : ''}`}
+                        >
+                          {task.name}
+                        </div>
+                        <div className='text-sm text-gray-500 mt-1  flex gap-5'>
+                          <div className='border rounded-lg px-1 bg-green-100'>
+                            +{task.create_point}
+                          </div>
+                          <div className='border rounded-lg px-1 '>
+                            {' '}
+                            {task.task_type ? task.task_type : 'other'}
+                          </div>
+                          <div className='border '>
+                            {task.created_at
+                              ? new Date(task.created_at).toLocaleDateString(
+                                  'zh-CN'
+                                )
+                              : '刚刚'}
+                          </div>
+                        </div>
                       </div>
-                      <div className='text-sm text-gray-500 mt-1  flex gap-5'>
-                        <div className='border rounded-lg px-1 bg-green-100'>
-                          +{task.create_point}
-                        </div>
-                        <div className='border rounded-lg px-1 '>
-                          {' '}
-                          {task.task_type ? task.task_type : 'other'}
-                        </div>
-                        <div className='border '>
-                          {task.created_at
-                            ? new Date(task.created_at).toLocaleDateString(
-                                'zh-CN'
-                              )
-                            : '刚刚'}
-                        </div>
+                      <div className='flex space-x-2'>
+                        <Button
+                          type='text'
+                          size='small'
+                          icon={
+                            (task as any).status === 'completed' ? (
+                              <UndoOutlined />
+                            ) : (
+                              <CheckOutlined />
+                            )
+                          }
+                          onClick={() => {
+                            completeTaskAndEarnPoints(taskId, task.create_point)
+                          }}
+                          className={
+                            (task as any).status === 'completed'
+                              ? 'text-orange-500 hover:text-orange-600'
+                              : 'text-green-500 hover:text-green-600'
+                          }
+                          disabled={isDeleted}
+                        />
+                        <Button
+                          type='text'
+                          size='small'
+                          icon={<DeleteOutlined />}
+                          onClick={() => handleDeleteTask(taskId)}
+                          className='text-red-500 hover:text-red-600'
+                          disabled={isDeleted}
+                        />
                       </div>
                     </div>
-                    <div className='flex space-x-2'>
-                      <Button
-                        type='text'
-                        size='small'
-                        icon={
-                          (task as any).status === 'completed' ? (
-                            <UndoOutlined />
-                          ) : (
-                            <CheckOutlined />
-                          )
-                        }
-                        onClick={() => {
-                          completeTaskAndEarnPoints(
-                            (task as any).id || index.toString(),
-                            task.create_point
-                          )
-                        }}
-                        className={
-                          (task as any).status === 'completed'
-                            ? 'text-orange-500 hover:text-orange-600'
-                            : 'text-green-500 hover:text-green-600'
-                        }
-                      />
-                      <Button
-                        type='text'
-                        size='small'
-                        icon={<DeleteOutlined />}
-                        onClick={() =>
-                          handleDeleteTask((task as any).id || index.toString())
-                        }
-                        className='text-red-500 hover:text-red-600'
-                      />
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )}
           </div>
