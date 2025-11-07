@@ -1,0 +1,43 @@
+{
+  "name": "count-number-backend-admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3011",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "clean": "rm -rf .next out"
+  },
+  "dependencies": {
+    "@mono-repo/common-tailwind": "workspace:*",
+    "@mono-repo/ui": "workspace:*",
+    "@mono-repo/utils": "^1.4.4",
+    "@supabase/supabase-js": "^2.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.1.0",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "postcss": "^8",
+    "prettier": "3.4.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

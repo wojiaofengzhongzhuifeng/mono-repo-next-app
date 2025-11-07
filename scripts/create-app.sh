@@ -17,7 +17,7 @@ APP_NAME=$1
 APP_DIR="apps/$APP_NAME"
 TEMPLATE_DIR="apps/template"
 
-# 检查 template 项目是否存在
+# 检查 count-number 项目是否存在
 if [ ! -d "$TEMPLATE_DIR" ]; then
     echo "❌ 错误: template 项目不存在 ($TEMPLATE_DIR)"
     exit 1
@@ -31,7 +31,7 @@ fi
 
 echo "🚀 开始创建新应用: $APP_NAME"
 
-# 复制 template 项目
+# 复制 count-number 项目
 echo "📁 复制 template 项目..."
 cp -r "$TEMPLATE_DIR" "$APP_DIR"
 
