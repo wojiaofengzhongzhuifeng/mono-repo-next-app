@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { UserInfoResponseData } from '../_api/getUserProfile'
-import { UserTargetsResponseData } from '../_api/getUserGoals'
+import { UserTargetsResponseData } from '../_api/getUserTargets'
 import { UserAddTaskRequestDataItem } from '../_api/AddTask'
 import { RedeemAwardResponseData } from '../_api/redeemAward'
 

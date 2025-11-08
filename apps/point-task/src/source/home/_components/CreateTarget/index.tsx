@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import GoalList from './GoalList'
+import TargetList from './TargetList'
 import { useAppStore } from '../../_store'
-import { useCreateTargetsHooks } from '../../_hooks/useCreateGoals'
+import { useCreateTargetsHooks } from '../../_hooks/useCreateTargets'
 
-interface SetGoalsProps {
+interface SetTargetsProps {
   onBack: () => void
 }
 
-function SetGoals({ onBack }: SetGoalsProps) {
-  const [showMyGoals, setShowMyGoals] = useState<boolean>(false)
+function SetTargets({ onBack }: SetTargetsProps) {
+  const [showMyTargets, setShowMyTargets] = useState<boolean>(false)
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
@@ -25,8 +25,8 @@ function SetGoals({ onBack }: SetGoalsProps) {
     return '极难'
   }
 
-  if (showMyGoals) {
-    return <GoalList onBack={() => setShowMyGoals(false)} />
+  if (showMyTargets) {
+    return <TargetList onBack={() => setShowMyTargets(false)} />
   }
 
   const generateUserId = () => {
@@ -55,7 +55,7 @@ function SetGoals({ onBack }: SetGoalsProps) {
       await createTargets(targetData)
 
       alert('目标创建成功！')
-      setShowMyGoals(true)
+      setShowMyTargets(true)
       setGoatNumber('')
       setWordNumber('')
       setPoints('')
@@ -172,4 +172,4 @@ function SetGoals({ onBack }: SetGoalsProps) {
     </div>
   )
 }
-export default SetGoals
+export default SetTargets

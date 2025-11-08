@@ -5,12 +5,12 @@ import { useAppStore } from '../../_store'
 import useRedeemAwardHooks from '../../_hooks/useRedeemAward'
 import { completeTasks } from '../../_api/completeTasks'
 
-interface GoalListProps {
+interface TargetListProps {
   onBack: () => void
 }
 
-function GoalList({ onBack }: GoalListProps) {
-  const [goalState, setGoalState] = useState('进行中') // 目标状态：进行中、已完成、未完成
+function TargetList({ onBack }: TargetListProps) {
+  const [targetState, setTargetState] = useState('进行中') // 目标状态：进行中、已完成、未完成
   const { userInfo, userTargets, updateUserPoints } = useAppStore()
   const [exchangeable, setExchangeable] = useState(false)
   const { redeemAward, loading, error } = useRedeemAwardHooks()
@@ -72,7 +72,7 @@ function GoalList({ onBack }: GoalListProps) {
         setCompletedTaskIds(prev => new Set(prev).add(taskId))
 
         // 更新目标状态为已完成
-        setGoalState('已完成')
+        setTargetState('已完成')
 
         console.log('兑换成功，剩余积分：', updatedPoints)
         alert('兑换成功！恭喜你完成目标！')
@@ -84,8 +84,8 @@ function GoalList({ onBack }: GoalListProps) {
   }
 
   // 目标状态更新
-  const updateGoalState = (state: '进行中' | '已完成' | '未完成') => {
-    setGoalState(state)
+  const updateTargetState = (state: '进行中' | '已完成' | '未完成') => {
+    setTargetState(state)
   }
 
   return (
@@ -144,7 +144,7 @@ function GoalList({ onBack }: GoalListProps) {
                           : 'bg-blue-500 text-white' // 进行中：蓝色背景
                       }`}
                     >
-                      {isCompleted ? '已完成' : goalState}
+                      {isCompleted ? '已完成' : targetState}
                     </div>
 
                     {/* 目标描述 */}
@@ -228,4 +228,4 @@ function GoalList({ onBack }: GoalListProps) {
   )
 }
 
-export default GoalList
+export default TargetList
