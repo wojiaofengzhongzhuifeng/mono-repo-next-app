@@ -42,8 +42,6 @@ export async function PUT(
     const body = await request.json()
     const updateData: UpdateNumberRequest = body
 
-    console.log('Updating number with id:', params.id, 'data:', updateData)
-
     const { data, error } = await supabaseAdmin
       .from('numbers')
       .update(updateData)

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import { ApiResponse, NumberItem, StatsResponse } from '@/types/number'
+import { ApiResponse, NumberItem, CreateNumberRequest } from '@/types/number'
 
 export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
   try {
@@ -34,7 +34,7 @@ export async function POST(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<NumberItem>>> {
   try {
-    const body = await request.json()
+    const body: CreateNumberRequest = await request.json()
     const { value, label, description, status } = body
 
     if (!value || !label) {
@@ -43,20 +43,6 @@ export async function POST(
         { status: 400 }
       )
     }
-
-    console.log('Creating number with data:', {
-      value,
-      label,
-      description,
-      status,
-    })
-    console.log(
-      'Using supabaseAdmin with role key type:',
-      process.env.SUPABASE_SERVICE_ROLE_KEY?.startsWith('eyJ') &&
-        process.env.SUPABASE_SERVICE_ROLE_KEY?.includes('service')
-        ? 'service'
-        : 'anon'
-    )
 
     const { data, error } = await supabaseAdmin
       .from('numbers')
