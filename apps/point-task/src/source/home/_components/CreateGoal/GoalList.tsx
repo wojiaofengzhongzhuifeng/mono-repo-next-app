@@ -18,20 +18,20 @@ function GoalList({ onBack }: GoalListProps) {
     new Set()
   ) // 跟踪已完成的任务ID
 
-  console.log(userInfo)
+  console.log('userTargets', userTargets)
 
-  const calculateRemainingPoints = (card: { need_points: string | number }) => {
-    if (!userInfo?.totalPoints) return Number(card.need_points)
-    const neededPoints = Number(card.need_points)
+  const calculateRemainingPoints = (card: { need_point: string | number }) => {
+    if (!userInfo?.totalPoints) return Number(card.need_point)
+    const neededPoints = Number(card.need_point)
     const userPoints = Number(userInfo.totalPoints)
     const remaining = neededPoints - userPoints
     return remaining > 0 ? remaining : 0 // 如果积分足够，返回0
   }
 
   // 计算进度百分比
-  const calculateProgress = (card: { need_points: string | number }) => {
+  const calculateProgress = (card: { need_point: string | number }) => {
     if (!userInfo?.totalPoints) return 0
-    const neededPoints = Number(card.need_points)
+    const neededPoints = Number(card.need_point)
     const userPoints = Number(userInfo.totalPoints)
     const progress = (userPoints / neededPoints) * 100
     return Math.min(progress, 100) // 不超过100%
@@ -39,7 +39,7 @@ function GoalList({ onBack }: GoalListProps) {
 
   //兑换功能
   const handleExchange = async (card: {
-    need_points: string | number
+    need_point: string | number
     id: number | string
   }) => {
     if (!userInfo?.totalPoints) {
@@ -57,18 +57,12 @@ function GoalList({ onBack }: GoalListProps) {
       // 调用兑换API
       await redeemAward({
         user_id: String(userInfo.user_id),
-        task_ids: [Number(card.id)],
-      })
-
-      // 调用完成任务API，更新后端目标状态
-      await completeTasks({
-        user_id: String(userInfo.user_id),
-        task_ids: [Number(card.id)],
+        target_id: Number(card.id),
       })
 
       // 进行兑换操作
       const updatedPoints =
-        Number(userInfo.totalPoints) - Number(card.need_points)
+        Number(userInfo.totalPoints) - Number(card.need_point)
       if (updatedPoints >= 0) {
         updateUserPoints(updatedPoints)
         setExchangeable(true)
@@ -173,7 +167,7 @@ function GoalList({ onBack }: GoalListProps) {
                             isCompleted ? 'text-green-500' : 'text-blue-500'
                           }`}
                         >
-                          {userInfo?.totalPoints}/{card.need_points}积分
+                          {userInfo?.totalPoints}/{card.need_point}积分
                         </div>
                       </div>
                       <div>
@@ -197,9 +191,9 @@ function GoalList({ onBack }: GoalListProps) {
                       <div>
                         {!isCompleted &&
                         userInfo?.totalPoints &&
-                        card?.need_points &&
+                        card?.need_point &&
                         Number(userInfo.totalPoints) >=
-                          Number(card.need_points) ? (
+                          Number(card.need_point) ? (
                           <button
                             className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
                             onClick={() => handleExchange(card)}

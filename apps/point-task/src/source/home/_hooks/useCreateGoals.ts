@@ -54,7 +54,7 @@ export function useCreateTargetsHooks() {
       const currentTargets = userTargets || []
       // 将CreateTargetResponseItemData转换为UserTargetsResponseData格式
       const newTargets = data.map(item => ({
-        need_points: item.need_point,
+        need_point: item.need_point,
         id: item.id,
         name: item.name,
         description: Number(item.description) || item.need_point, // 将string转换为number，如果转换失败则使用need_point

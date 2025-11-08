@@ -26,9 +26,7 @@ function GoalDisplay() {
                 </div>
                 <div>
                   <p className='text-gray-600'>描述: {target.description}</p>
-                  <p className='text-gray-600'>
-                    需要积分: {target.need_points}
-                  </p>
+                  <p className='text-gray-600'>需要积分: {target.need_point}</p>
                   <p className='text-gray-600'>
                     状态: {target.is_redeemed ? '已兑换' : '未兑换'}
                   </p>

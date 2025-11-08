@@ -3,7 +3,7 @@ import { post } from '@mono-repo/utils'
 // 请求参数类型
 export type UserRedeemAwardRequestData = {
   user_id: string //user123
-  task_ids: number[] //任务ID列表
+  target_id: number //任务ID列表
 }
 
 // 单个已完成任务的信息
@@ -20,7 +20,7 @@ export type RedeemAwardResponseData = {
 }
 
 const API_CONFIG = {
-  url: '/api/tasks/complete-batch',
+  url: '/api/redeem',
 }
 
 export const postRedeemAward = async (
