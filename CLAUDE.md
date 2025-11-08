@@ -1,81 +1,87 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 在此代码库中工作时提供指导说明。
 
-## Project Structure
+## 项目结构
 
-This is a monorepo using pnpm workspaces and Turbo for build orchestration. The repository contains:
+这是一个使用 pnpm workspaces 和 Turbo 进行构建编排的 monorepo 项目。代码库包含：
 
-- **apps/**: Next.js applications (ai-headshot-generator, mbti, shop, template)
-- **packages/**: Shared packages (common-tailwind, test-utils, ui, utils)
-- **Root**: Contains monorepo configuration and shared dependencies
+- **apps/**: Next.js 应用程序 (ai-headshot-generator, count-number, mbti, shop, template)
+- **packages/**: 共享包 (common-tailwind, test-utils, ui, utils)
+- **Root**: 包含 monorepo 配置和共享依赖
 
-## Development Commands
+## 开发命令
 
-### Building & Development
+### 构建和开发
 
-- `pnpm dev` - Start all apps in development mode via Turbo
-- `pnpm build` - Build all packages and apps
-- `pnpm build:ui` - Build only the UI package
-- `pnpm dev:home` - Start specific app (replace 'home' with app name)
-- `pnpm dev:all` - Start all apps concurrently
+- `pnpm dev` - 通过 Turbo 在开发模式下启动所有应用
+- `pnpm build` - 构建所有包和应用
+- `pnpm build:ui` - 仅构建 UI 包
+- `pnpm dev:count-number` - 启动特定应用（将 'count-number' 替换为应用名称）
+- `pnpm dev:all` - 同时启动所有应用
 
-### Code Quality
+### 代码质量
 
-- `pnpm lint` - Run linting across all packages
-- `pnpm format` - Format code with Prettier across all packages
-- `pnpm clean` - Clean build artifacts and node_modules
-- `pnpm test` - Run tests across all packages
+- `pnpm lint` - 在所有包中运行代码检查
+- `pnpm format` - 在所有包中使用 Prettier 格式化代码
+- `pnpm clean` - 清理构建产物和 node_modules
+- `pnpm test` - 在所有包中运行测试
 
-### Individual App Development
+### 单独应用开发
 
-Navigate to specific app directories and run:
+导航到特定应用目录并运行：
 
-- `pnpm dev` - Start development server (ports vary by app)
-- `pnpm build` - Build the app
-- `pnpm lint` - Lint the app
-- `pnpm format` - Format the app
+- `pnpm dev` - 启动开发服务器（端口因应用而异）
+- `pnpm build` - 构建应用
+- `pnpm lint` - 检查应用代码
+- `pnpm format` - 格式化应用代码
 
-## Architecture Notes
+## 架构说明
 
-### Monorepo Configuration
+### Monorepo 配置
 
-- Uses **pnpm workspaces** for package management
-- Uses **Turbo** for build orchestration and caching
-- Shared packages use `workspace:*` protocol for internal dependencies
-- All apps run on different ports (e.g., ai-headshot-generator on 3008)
+- 使用 **pnpm workspaces** 进行包管理
+- 使用 **Turbo** 进行构建编排和缓存
+- 共享包使用 `workspace:*` 协议进行内部依赖
+- 所有应用运行在不同端口上（例如：count-number admin 后端在 3011）
 
-### Key Technologies
+### 关键技术
 
-- **Next.js 14.2.5** for applications
-- **TypeScript** throughout
-- **Tailwind CSS** for styling
-- **shadcn/ui** components (via shared ui package)
-- **Zustand** for state management
-- **ESLint + Prettier** for code quality
-- **Husky + lint-staged** for pre-commit hooks
+- **Next.js 14.2.5** 用于应用程序
+- 全面使用 **TypeScript**
+- **Tailwind CSS** 用于样式
+- **shadcn/ui** 组件（通过共享 ui 包）
+- **Zustand** 用于状态管理
+- **ESLint + Prettier** 用于代码质量
+- **Husky + lint-staged** 用于提交前钩子
 
-### Shared Packages
+### 共享包
 
-- `@mono-repo/ui` - Shared React components
-- `@mono-repo/utils` - Utility functions
-- `@mono-repo/common-tailwind` - Shared Tailwind configuration
-- `@mono-repo/test-utils` - Testing utilities
+- `@mono-repo/ui` - 共享 React 组件
+- `@mono-repo/utils` - 工具函数
+- `@mono-repo/common-tailwind` - 共享 Tailwind 配置
+- `@mono-repo/test-utils` - 测试工具
 
-### Proxy Server
+### 代理服务器
 
-Some apps (like ai-headshot-generator) include proxy servers for API calls to handle CORS and environment variable management.
+某些应用（如 ai-headshot-generator）包含用于 API 调用的代理服务器，以处理 CORS 和环境变量管理。
 
-## Package Management
+## 包管理
 
-- Package manager: **pnpm@9.0.0**
-- Node version requirement: **>=18**
-- Workspace configuration in `pnpm-workspace.yaml`
-- Turbo configuration in `turbo.json`
+- 包管理器：**pnpm@9.0.0**
+- Node 版本要求：**>=18**
+- 工作区配置在 `pnpm-workspace.yaml` 中
+- Turbo 配置在 `turbo.json` 中
 
-## Code Quality Tools
+## 代码质量工具
 
-- Pre-commit hooks via Husky
-- Automatic import cleanup with eslint-plugin-unused-imports
-- Formatting with Prettier
-- Linting with ESLint and Next.js lint rules
+- 通过 Husky 进行提交前钩子
+- 使用 eslint-plugin-unused-imports 自动清理未使用的导入
+- 使用 Prettier 格式化
+- 使用 ESLint 和 Next.js 代码检查规则
+
+## API 文档规范
+
+- 如果需要创建 API 接口文档，请生成 **OpenAPI 3.0 YAML 格式**文件
+- 文档应包含完整的 CRUD 操作说明、请求/响应示例和数据模型定义
+- YAML 文件可以直接导入到 Postman、Insomnia 等 API 开发工具中使用

@@ -42,6 +42,8 @@ export async function PUT(
     const body = await request.json()
     const updateData: UpdateNumberRequest = body
 
+    console.log('Updating number with id:', params.id, 'data:', updateData)
+
     const { data, error } = await supabaseAdmin
       .from('numbers')
       .update(updateData)
@@ -51,8 +53,24 @@ export async function PUT(
 
     if (error) {
       console.error('Supabase error:', error)
+      console.error(
+        'Error details - Code:',
+        error.code,
+        'Message:',
+        error.message
+      )
+
+      // 提供更具体的错误信息
+      let errorMessage = 'Failed to update number'
+      if (error.code === '42501') {
+        errorMessage =
+          'Permission denied: You may be using anon key instead of service role key, or RLS policy is blocking the operation'
+      } else if (error.code === 'PGRST116') {
+        errorMessage = 'Number not found or update failed due to permissions'
+      }
+
       return NextResponse.json(
-        { success: false, error: 'Failed to update number' },
+        { success: false, error: errorMessage, details: error.message },
         { status: 500 }
       )
     }

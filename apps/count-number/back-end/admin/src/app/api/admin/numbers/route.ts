@@ -44,6 +44,20 @@ export async function POST(
       )
     }
 
+    console.log('Creating number with data:', {
+      value,
+      label,
+      description,
+      status,
+    })
+    console.log(
+      'Using supabaseAdmin with role key type:',
+      process.env.SUPABASE_SERVICE_ROLE_KEY?.startsWith('eyJ') &&
+        process.env.SUPABASE_SERVICE_ROLE_KEY?.includes('service')
+        ? 'service'
+        : 'anon'
+    )
+
     const { data, error } = await supabaseAdmin
       .from('numbers')
       .insert([
@@ -59,8 +73,22 @@ export async function POST(
 
     if (error) {
       console.error('Supabase error:', error)
+      console.error(
+        'Error details - Code:',
+        error.code,
+        'Message:',
+        error.message
+      )
+
+      // 提供更具体的错误信息
+      let errorMessage = 'Failed to create number'
+      if (error.code === '42501') {
+        errorMessage =
+          'Permission denied: You may be using anon key instead of service role key, or RLS policy is blocking the operation'
+      }
+
       return NextResponse.json(
-        { success: false, error: 'Failed to create number' },
+        { success: false, error: errorMessage, details: error.message },
         { status: 500 }
       )
     }
