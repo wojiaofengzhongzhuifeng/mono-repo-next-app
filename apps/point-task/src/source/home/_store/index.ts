@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { UserInfoResponseData } from '../_api/getUserProfile'
 import { UserTargetsResponseData } from '../_api/getUserGoals'
 import { UserAddTaskRequestDataItem } from '../_api/AddTask'
+import { UserRedeemAwardRequestData } from '../_api/redeemAward'
 
 interface AppStore {
   countNumber: number
@@ -16,6 +17,9 @@ interface AppStore {
 
   userAddTask: UserAddTaskRequestDataItem[] | null
   setUserAddTask: (tasks: UserAddTaskRequestDataItem[]) => void
+
+  userRedeemAward: UserRedeemAwardRequestData[] | null
+  setUserRedeemAwardRequestData: (award: UserRedeemAwardRequestData[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -35,4 +39,7 @@ export const useAppStore = create<AppStore>(set => ({
 
   userAddTask: null,
   setUserAddTask: tasks => set({ userAddTask: tasks }),
+
+  userRedeemAward: null,
+  setUserRedeemAwardRequestData: award => set({ userRedeemAward: award }),
 }))

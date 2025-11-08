@@ -1,7 +1,7 @@
 import { post } from '@mono-repo/utils'
 
 // 请求参数类型
-export type RedeemAwardRequestData = {
+export type UserRedeemAwardRequestData = {
   user_id: string //user123
   task_ids: number //21
 }
@@ -24,7 +24,7 @@ const API_CONFIG = {
 }
 
 export const redeemAward = async (
-  requestData: RedeemAwardRequestData
+  requestData: UserRedeemAwardRequestData
 ): Promise<RedeemAwardResponseData> => {
   try {
     const res = await post<RedeemAwardResponseData>({
