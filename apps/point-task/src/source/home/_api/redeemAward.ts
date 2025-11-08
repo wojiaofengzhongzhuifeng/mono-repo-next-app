@@ -23,7 +23,7 @@ const API_CONFIG = {
   url: '/api/tasks/complete-batch',
 }
 
-export const redeemAward = async (
+export const postRedeemAward = async (
   requestData: UserRedeemAwardRequestData
 ): Promise<RedeemAwardResponseData> => {
   try {
