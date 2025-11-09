@@ -9,6 +9,7 @@ import {
   getHttpStatusFromCode,
 } from '@mono-repo/utils'
 
+// GET /api/user/numbers - 获取所有活跃记录
 export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
   try {
     const { data, error } = await supabase
@@ -46,6 +47,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
   }
 }
 
+// POST /api/user/numbers - 创建新记录
 export async function POST(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<NumberItem>>> {

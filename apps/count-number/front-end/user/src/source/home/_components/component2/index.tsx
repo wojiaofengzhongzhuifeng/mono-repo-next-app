@@ -1,7 +1,6 @@
 import React from 'react'
 import { useAppStore } from '@/source/home/_store'
 function Component2() {
-  const { setCountNumber, countNumber } = useAppStore()
   return (
     <div>
       <button

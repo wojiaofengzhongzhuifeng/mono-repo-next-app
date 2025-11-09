@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppStore } from '@/source/home/_store'
 function Component1() {
-  const { countNumber } = useAppStore()
-  return <div>Component1: {countNumber}</div>
+  const { numbers } = useAppStore()
+  return <div>Component1: {numbers.map(number => number.value).join(',')}</div>
 }
 export default Component1

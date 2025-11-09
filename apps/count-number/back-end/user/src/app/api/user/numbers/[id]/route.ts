@@ -9,6 +9,7 @@ import {
   getHttpStatusFromCode,
 } from '@mono-repo/utils'
 
+// GET /api/user/numbers/[id] - 获取单个活跃记录
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -50,6 +51,7 @@ export async function GET(
   }
 }
 
+// PUT /api/user/numbers/[id] - 更新记录
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -127,6 +129,7 @@ export async function PUT(
   }
 }
 
+// PATCH /api/user/numbers/[id] - 更新记录（与 PUT 相同）
 export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -135,6 +138,7 @@ export async function PATCH(
   return PUT(request, { params })
 }
 
+// DELETE /api/user/numbers/[id] - 删除记录
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }

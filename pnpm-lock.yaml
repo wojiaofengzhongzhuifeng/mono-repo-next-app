@@ -186,6 +186,9 @@ importers:
 
   apps/count-number/back-end/admin:
     dependencies:
+      '@mono-repo/utils':
+        specifier: workspace:*
+        version: link:../../../../packages/utils
       '@supabase/supabase-js':
         specifier: ^2.39.0
         version: 2.80.0
@@ -215,8 +218,8 @@ importers:
         specifier: workspace:*
         version: link:../../../../packages/ui
       '@mono-repo/utils':
-        specifier: ^1.4.4
-        version: 1.4.4
+        specifier: workspace:*
+        version: link:../../../../packages/utils
       '@supabase/supabase-js':
         specifier: ^2.39.0
         version: 2.80.0

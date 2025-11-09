@@ -14,7 +14,7 @@
   "dependencies": {
     "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
-    "@mono-repo/utils": "^1.4.4",
+    "@mono-repo/utils": "workspace:*",
     "@supabase/supabase-js": "^2.39.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
