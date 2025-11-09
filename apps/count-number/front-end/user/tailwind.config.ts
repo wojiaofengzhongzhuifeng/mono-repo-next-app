@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { centerContainerPlugin } from '@mono-repo/common-tailwind'
+import centerContainerPlugin from '@mono-repo/common-tailwind/dist/plugins/centerContainer'
 
 const config: Config = {
   darkMode: ['class'],
