@@ -1,9 +1,9 @@
 import React from 'react'
 import Component1 from '@/source/home/_components/component1'
-import { useGetCountNumber } from '@/source/home/_api/get-count-number'
+import { useGetNumbers } from '@/source/home/_api/get-count-number-1'
 
 function Page() {
-  useGetCountNumber()
+  useGetNumbers()
   return (
     <div>
       <Component1 />

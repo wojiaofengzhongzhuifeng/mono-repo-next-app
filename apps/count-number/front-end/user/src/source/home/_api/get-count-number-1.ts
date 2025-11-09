@@ -11,7 +11,7 @@ export type GetCountNumberResponseData = NumberItem[]
 const API_CONFIG = {
   url: '/api/user/numbers',
   method: 'GET',
-  manual: true,
+  manual: false,
   showError: true,
 }
 
@@ -19,11 +19,12 @@ const API_CONFIG = {
 export const getNumbersRequest =
   async (): Promise<GetCountNumberResponseData> => {
     try {
-      const res = await get<ApiResponse<GetCountNumberResponseData>>({
+      console.log('getNumbersRequest')
+      const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
       if (res.code === STATUS_CODE.SUCCESS) {
-        return res.data?.data || []
+        return res.data || []
       } else {
         throw new Error(res.message || '获取数据失败')
       }
