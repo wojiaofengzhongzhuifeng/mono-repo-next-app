@@ -67,4 +67,38 @@ export const post = async <T>(
   }
 }
 
+export const put = async <T>(
+  opt: Pick<requestOpt, 'url' | 'data' | 'headers'>
+) => {
+  try {
+    const headers: AxiosRequestConfig['headers'] = Object.assign(
+      { 'Content-Type': 'application/json' },
+      opt.headers
+    )
+
+    const ret = await instance.put<IServiceObject<T>>(opt.url, opt.data, {
+      headers,
+    })
+    return ret.data
+  } catch (e) {
+    throw '请求数据报错，请稍后'
+  }
+}
+
+export const del = async <T>(opt: Pick<requestOpt, 'url' | 'headers'>) => {
+  try {
+    const headers: AxiosRequestConfig['headers'] = Object.assign(
+      {},
+      opt.headers
+    )
+
+    const ret = await instance.delete<IServiceObject<T>>(opt.url, {
+      headers,
+    })
+    return ret.data
+  } catch (e) {
+    throw '请求数据报错，请稍后'
+  }
+}
+
 export default instance

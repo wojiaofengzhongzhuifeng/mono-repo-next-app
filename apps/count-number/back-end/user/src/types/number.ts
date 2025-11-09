@@ -1,23 +1,2 @@
-export interface NumberItem {
-  id: number
-  value: number
-  label: string
-  description?: string
-  status: 'active' | 'inactive'
-  created_at: string
-  updated_at: string
-}
-
-export interface CreateNumberRequest {
-  value: number
-  label: string
-  description?: string
-  status: 'active' | 'inactive'
-}
-
-export interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-  message?: string
-}
+// 重新导出公共类型，保持向后兼容
+export * from '../../../../common/types'

@@ -17,10 +17,12 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@mono-repo/ui": ["../../packages/ui/src"],
-      "@mono-repo/utils": ["../../packages/utils/src"]
+      "@mono-repo/utils": ["../../packages/utils/src"],
+      "@count-number-types": ["../../common/types"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

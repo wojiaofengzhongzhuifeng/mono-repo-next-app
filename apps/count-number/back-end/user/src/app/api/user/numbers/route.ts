@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { ApiResponse, NumberItem } from '@/types/number'
+import {
+  ApiResponse,
+  NumberItem,
+  CreateNumberRequest,
+} from '@count-number-types'
 
 export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
   try {
@@ -35,7 +39,7 @@ export async function POST(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<NumberItem>>> {
   try {
-    const body = await request.json()
+    const body: CreateNumberRequest = await request.json()
     const { value, label, description, status } = body
 
     if (!value || !label) {
