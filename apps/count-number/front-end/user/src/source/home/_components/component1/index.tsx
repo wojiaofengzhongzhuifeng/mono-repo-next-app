@@ -1,8 +1,13 @@
 import React from 'react'
 import { useAppStore } from '@/source/home/_store'
 function Component1() {
-  const { numbers } = useAppStore()
-  console.log('numbers', numbers)
-  return <div>Component1: {numbers.map(number => number.value).join(',')}</div>
+  const { numbers, getNumbersLoading } = useAppStore()
+
+  return (
+    <div>
+      {getNumbersLoading ? '加载中...' : '加载完成'}
+      <div>Component1: {numbers.map(number => number.value).join(',')}</div>
+    </div>
+  )
 }
 export default Component1

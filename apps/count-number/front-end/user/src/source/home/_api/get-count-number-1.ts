@@ -41,7 +41,7 @@ export function useGetNumbers(params?: {
   const { data, error, loading, run } = useRequest(getNumbersRequest, {
     manual,
   })
-  const { setNumbers } = useAppStore()
+  const { setNumbers, setGetNumbersLoading } = useAppStore()
 
   useEffect(() => {
     if (error && showError) {
@@ -55,5 +55,8 @@ export function useGetNumbers(params?: {
     }
   }, [error, data])
 
+  useEffect(() => {
+    setGetNumbersLoading(loading)
+  }, [loading])
   return { data, error, loading, run }
 }
