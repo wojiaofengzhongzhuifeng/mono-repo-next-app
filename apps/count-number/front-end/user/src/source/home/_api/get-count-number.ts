@@ -20,7 +20,7 @@ export type GetCountNumberResponseData = {
 const API_CONFIG = {
   url: '/api/get-count',
   method: 'GET',
-  manual: true,
+  manual: false,
   showError: true,
 }
 
@@ -49,13 +49,13 @@ export const getCountNumberRequest =
   }
 
 // 凡是以 get or submit 开头，表示请求数据
-export function useGetCountNumber({
-  manual = API_CONFIG.manual,
-  showError = API_CONFIG.showError,
-}: {
+export function useGetCountNumber(params?: {
   manual?: boolean
   showError?: boolean
 }) {
+  const manual = params?.manual ?? API_CONFIG.manual
+  const showError = params?.showError ?? API_CONFIG.showError
+
   const { data, error, loading, run } = useRequest(getCountNumberRequest, {
     manual,
   })
