@@ -35,37 +35,5 @@ export interface UpdateNumberRequest {
   status?: 'active' | 'inactive'
 }
 
-/**
- * API 通用响应结构
- */
-export interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-  message?: string
-}
-
-/**
- * 获取 Number 列表响应
- */
-export type GetNumbersResponse = ApiResponse<NumberItem[]>
-
-/**
- * 获取单个 Number 响应
- */
-export type GetNumberResponse = ApiResponse<NumberItem>
-
-/**
- * 创建 Number 响应
- */
-export type CreateNumberResponse = ApiResponse<NumberItem>
-
-/**
- * 更新 Number 响应
- */
-export type UpdateNumberResponse = ApiResponse<NumberItem>
-
-/**
- * 删除 Number 响应
- */
-export type DeleteNumberResponse = ApiResponse<{ id: number }>
+// 响应类型从 @mono-repo/utils 导入
+// import { ApiResponse } from '@mono-repo/utils'

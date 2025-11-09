@@ -1,5 +1,12 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import {
+  ApiResponse,
+  STATUS_CODE,
+  createSuccessResponse,
+  createErrorResponse,
+  getHttpStatusFromCode,
+} from '@mono-repo/utils'
 
 // GET /api/admin/stats - 获取统计信息
 export async function GET() {
@@ -8,10 +15,14 @@ export async function GET() {
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to fetch numbers' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '获取统计数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
     const totalCount = data?.length || 0
@@ -26,15 +37,19 @@ export async function GET() {
       inactiveCount,
     }
 
-    return NextResponse.json({
-      success: true,
-      data: stats,
+    const successResponse = createSuccessResponse(stats)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }

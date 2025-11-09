@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import {
+  ApiResponse,
+  STATUS_CODE,
+  createSuccessResponse,
+  createErrorResponse,
+  getHttpStatusFromCode,
+} from '@mono-repo/utils'
 
 // GET /api/admin/numbers/[id] - 获取单个记录
 export async function GET(
@@ -15,22 +22,30 @@ export async function GET(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Number not found' },
-        { status: 404 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '数据不存在',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data,
+    const successResponse = createSuccessResponse(data)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
 
@@ -52,23 +67,30 @@ export async function PUT(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to update number' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '更新数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data,
-      message: 'Number updated successfully',
+    const successResponse = createSuccessResponse(data)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
 
@@ -85,22 +107,31 @@ export async function DELETE(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to delete number' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '删除数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data: null,
-      message: 'Number deleted successfully',
+    const successResponse = createSuccessResponse({
+      id: parseInt(params.id, 10),
     })
-  } catch (error) {
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
+    })
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }

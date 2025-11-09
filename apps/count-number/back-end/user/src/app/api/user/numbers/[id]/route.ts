@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { NumberItem, UpdateNumberRequest } from '@count-number-types'
 import {
   ApiResponse,
-  NumberItem,
-  UpdateNumberRequest,
-} from '@count-number-types'
+  STATUS_CODE,
+  createSuccessResponse,
+  createErrorResponse,
+  getHttpStatusFromCode,
+} from '@mono-repo/utils'
 
 export async function GET(
   request: NextRequest,
@@ -20,22 +23,30 @@ export async function GET(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Number not found' },
-        { status: 404 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '数据不存在',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data,
+    const successResponse = createSuccessResponse(data)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
 
@@ -56,10 +67,14 @@ export async function PUT(
 
     // 如果没有提供任何更新字段
     if (Object.keys(updateData).length === 0) {
-      return NextResponse.json(
-        { success: false, error: 'At least one field is required for update' },
-        { status: 400 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.CLIENT_ERROR,
+        '请求数据出错：至少需要提供一个更新字段',
+        { requiredFields: ['value', 'label', 'description', 'status'] }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
     const { data, error } = await supabase
@@ -74,30 +89,41 @@ export async function PUT(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to update number' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '更新数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
     if (!data) {
-      return NextResponse.json(
-        { success: false, error: 'Number not found' },
-        { status: 404 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '数据不存在',
+        { id: params.id }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data,
-      message: 'Number updated successfully',
+    const successResponse = createSuccessResponse(data)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
 
@@ -122,10 +148,14 @@ export async function DELETE(
       .single()
 
     if (fetchError || !existingData) {
-      return NextResponse.json(
-        { success: false, error: 'Number not found' },
-        { status: 404 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '数据不存在',
+        { id: params.id }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
     // 执行删除（物理删除）
@@ -136,22 +166,31 @@ export async function DELETE(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to delete number' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '删除数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data: { id: parseInt(params.id, 10) },
-      message: 'Number deleted successfully',
+    const successResponse = createSuccessResponse({
+      id: parseInt(params.id, 10),
     })
-  } catch (error) {
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
+    })
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }

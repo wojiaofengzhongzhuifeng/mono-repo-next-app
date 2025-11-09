@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { NumberItem, CreateNumberRequest } from '@count-number-types'
 import {
   ApiResponse,
-  NumberItem,
-  CreateNumberRequest,
-} from '@count-number-types'
+  STATUS_CODE,
+  createSuccessResponse,
+  createErrorResponse,
+  getHttpStatusFromCode,
+} from '@mono-repo/utils'
 
 export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
   try {
@@ -16,22 +19,30 @@ export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to fetch numbers' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '获取数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data: data || [],
+    const successResponse = createSuccessResponse(data || [])
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
 
@@ -43,10 +54,17 @@ export async function POST(
     const { value, label, description, status } = body
 
     if (!value || !label) {
-      return NextResponse.json(
-        { success: false, error: 'Value and label are required' },
-        { status: 400 }
+      const missingFields: string[] = []
+      if (!value) missingFields.push('value')
+      if (!label) missingFields.push('label')
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.CLIENT_ERROR,
+        '请求数据出错：缺少必填字段 value 或 label',
+        { missingFields }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
     const { data, error } = await supabase
@@ -64,22 +82,29 @@ export async function POST(
 
     if (error) {
       console.error('Supabase error:', error)
-      return NextResponse.json(
-        { success: false, error: 'Failed to create number' },
-        { status: 500 }
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '创建数据失败',
+        { error: error.message }
       )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
     }
 
-    return NextResponse.json({
-      success: true,
-      data,
-      message: 'Number created successfully',
+    const successResponse = createSuccessResponse(data)
+    return NextResponse.json(successResponse, {
+      status: getHttpStatusFromCode(successResponse.code),
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('API error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+    const errorResponse = createErrorResponse(
+      STATUS_CODE.BUSINESS_ERROR,
+      '系统内部错误',
+      { error: error.message }
     )
+    return NextResponse.json(errorResponse, {
+      status: getHttpStatusFromCode(errorResponse.code),
+    })
   }
 }
