@@ -1,65 +1,47 @@
-import { useAppStore } from '@/source/home/_store'
-import { get } from '@mono-repo/utils'
+import { NumberItem } from '@count-number-types'
+import { get, STATUS_CODE } from '@mono-repo/utils'
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
+import { useAppStore } from '@/source/home/_store'
 
-/**
- * 0. 定义请求与响应的数据结构
- */
+// 1. 定义请求与响应的数据结构
+export type GetCountNumberResponseData = NumberItem[]
 
-// 接口返回数据
-export type GetCountNumberResponseData = {
-  number: number
-  id: number
-  testList: number[]
-}
-
-/**
- * 1. 配置请求代码
- */
+// 2. 配置请求代码
 const API_CONFIG = {
-  url: '/api/get-count',
+  url: '/api/user/numbers',
   method: 'GET',
   manual: false,
   showError: true,
 }
 
-/**
- * 2. 请求代码 + 通用逻辑 + 错误处理
- */
-export const getCountNumberRequest =
+// 3. 请求代码 + 通用逻辑 + 错误处理
+export const getNumbersRequest =
   async (): Promise<GetCountNumberResponseData> => {
     try {
       const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
-
-      console.log('res', res)
-      if (res.code === 200) {
-        // 正常获取数据
-        return res.data
+      if (res.code === STATUS_CODE.SUCCESS) {
+        return res.data || []
       } else {
-        throw new Error('获取数据失败： 业务错误')
+        throw new Error(res.message || '获取数据失败')
       }
     } catch (error) {
-      console.error('获取数据失败：', error)
-      // 获取数据失败： httpcode 非200
-      throw new Error('获取数据失败： httpcode 非200')
+      console.error('获取数据失败:', error)
+      throw new Error('获取数据失败')
     }
   }
-
-// 凡是以 get or submit 开头，表示请求数据
-export function useGetCountNumber(params?: {
+export function useGetNumbers(params?: {
   manual?: boolean
   showError?: boolean
 }) {
   const manual = params?.manual ?? API_CONFIG.manual
   const showError = params?.showError ?? API_CONFIG.showError
-
-  const { data, error, loading, run } = useRequest(getCountNumberRequest, {
+  const { data, error, loading, run } = useRequest(getNumbersRequest, {
     manual,
   })
-  const { setCountNumber } = useAppStore()
+  const { setNumbers, setGetNumbersLoading } = useAppStore()
 
   useEffect(() => {
     if (error && showError) {
@@ -69,8 +51,12 @@ export function useGetCountNumber(params?: {
 
   useEffect(() => {
     if (!error && data) {
-      setCountNumber(data.number)
+      setNumbers(data || [])
     }
   }, [error, data])
-  return { error, loading, data, run }
+
+  useEffect(() => {
+    setGetNumbersLoading(loading)
+  }, [loading])
+  return { data, error, loading, run }
 }
