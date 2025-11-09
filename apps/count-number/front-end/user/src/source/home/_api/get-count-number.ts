@@ -1,8 +1,7 @@
-import { get } from '@mono-repo/utils'
-import { GET_COUNT_NUMBER } from '@/source/home/_api/mock'
-import { useEffect } from 'react'
-import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
+import { get } from '@mono-repo/utils'
+import { useRequest } from 'ahooks'
+import { useEffect } from 'react'
 
 /**
  * 0. 定义请求与响应的数据结构
@@ -20,8 +19,9 @@ export type GetCountNumberResponseData = {
  */
 const API_CONFIG = {
   url: '/api/get-count',
-  useMock: true,
-  mockData: GET_COUNT_NUMBER,
+  method: 'GET',
+  manual: true,
+  showError: true,
 }
 
 /**
@@ -30,16 +30,6 @@ const API_CONFIG = {
 export const getCountNumberRequest =
   async (): Promise<GetCountNumberResponseData> => {
     try {
-      if (API_CONFIG.useMock) {
-        const res = API_CONFIG.mockData
-        if (res.code === 200) {
-          // 正常获取数据
-          return res.data
-        } else {
-          throw new Error('获取数据失败： 业务错误')
-        }
-      }
-
       const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
@@ -59,31 +49,28 @@ export const getCountNumberRequest =
   }
 
 // 凡是以 get or submit 开头，表示请求数据
-export function useGetCountNumber() {
+export function useGetCountNumber({
+  manual = API_CONFIG.manual,
+  showError = API_CONFIG.showError,
+}: {
+  manual?: boolean
+  showError?: boolean
+}) {
   const { data, error, loading, run } = useRequest(getCountNumberRequest, {
-    manual: true,
+    manual,
   })
-
-  useEffect(() => {
-    if (error) {
-    }
-  }, [error])
-
-  return { error, loading, data, run }
-}
-
-// 使用 hooks
-export function useGetCountNumberHooks() {
-  const { run, data, error } = useGetCountNumber()
   const { setCountNumber } = useAppStore()
 
   useEffect(() => {
-    run()
-  }, [])
+    if (error && showError) {
+      alert('获取数据失败')
+    }
+  }, [error, showError])
 
   useEffect(() => {
     if (!error && data) {
       setCountNumber(data.number)
     }
   }, [error, data])
+  return { error, loading, data, run }
 }
