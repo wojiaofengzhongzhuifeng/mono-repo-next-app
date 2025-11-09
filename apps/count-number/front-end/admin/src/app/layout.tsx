@@ -1,6 +1,6 @@
 'use client'
 
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, Layout as AntLayout } from 'antd'
 import { Inter } from 'next/font/google'
 import './globals.css'
 

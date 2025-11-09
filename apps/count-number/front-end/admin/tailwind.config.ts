@@ -1,5 +1,4 @@
 import { type Config } from 'tailwindcss'
-import commonTailwind from '@mono-repo/common-tailwind'
 
 const config: Config = {
   content: [
@@ -9,7 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      ...commonTailwind,
+      colors: {
+        primary: '#1890ff',
+      },
     },
   },
   plugins: [],

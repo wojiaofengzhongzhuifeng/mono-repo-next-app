@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: [
+    '@mono-repo/ui',
+    '@mono-repo/utils',
+    '@mono-repo/common-tailwind',
+  ],
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
-      '@mono-repo': require('path').resolve(__dirname, '../../packages'),
       '@ai-count-number': require('path').resolve(__dirname, 'src'),
     }
 

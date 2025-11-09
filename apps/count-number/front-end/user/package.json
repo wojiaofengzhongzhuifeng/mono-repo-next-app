@@ -16,7 +16,7 @@
     "@google/generative-ai": "^0.24.1",
     "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
-    "@mono-repo/utils": "^1.4.4",
+    "@mono-repo/utils": "workspace:*",
     "ahooks": "^3.9.5",
     "axios": "^1.6.2",
     "next": "14.2.5",
