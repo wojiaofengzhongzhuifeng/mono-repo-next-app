@@ -1,5 +1,5 @@
 import { NumberItem } from '@count-number-types'
-import { ApiResponse, get, STATUS_CODE } from '@mono-repo/utils'
+import { get, STATUS_CODE } from '@mono-repo/utils'
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { useAppStore } from '@/source/home/_store'
@@ -19,7 +19,6 @@ const API_CONFIG = {
 export const getNumbersRequest =
   async (): Promise<GetCountNumberResponseData> => {
     try {
-      console.log('getNumbersRequest')
       const res = await get<GetCountNumberResponseData>({
         url: API_CONFIG.url,
       })
