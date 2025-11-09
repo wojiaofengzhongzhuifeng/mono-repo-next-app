@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "count-number-admin-frontend",
+  "buildCommand": "cd .. && turbo run build --filter='@mono-repo/*' --filter=count-number-admin-frontend",
+  "installCommand": "cd .. && pnpm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@admin-backend-url",
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_API_URL": "$NEXT_PUBLIC_API_URL"
+    }
+  },
+  "regions": ["sin1"],
+  "functions": {
+    "src/app/**/*.ts": {
+      "maxDuration": 30
+    },
+    "src/app/**/*.tsx": {
+      "maxDuration": 30
+    }
+  }
+}

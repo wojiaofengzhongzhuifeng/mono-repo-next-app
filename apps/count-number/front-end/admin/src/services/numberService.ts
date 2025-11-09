@@ -4,37 +4,32 @@ import {
   CreateNumberRequest,
   UpdateNumberRequest,
 } from '@/types/number'
+import { getEnv } from '@/lib/env'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3010'
+const { NEXT_PUBLIC_API_URL } = getEnv()
+const API_BASE_URL = NEXT_PUBLIC_API_URL
 
 export const numberService = {
   async getNumbers(): Promise<NumberItem[]> {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/admin/numbers`)
-      return response.data
+
+      // 验证响应格式
+      if (response.data.success) {
+        return response.data.data || []
+      } else {
+        throw new Error(response.data.error || 'Failed to fetch numbers')
+      }
     } catch (error) {
       console.error('Failed to fetch numbers:', error)
-      // 返回模拟数据
-      return [
-        {
-          id: 1,
-          value: 100,
-          label: '第一个数字',
-          description: '这是一个描述',
-          status: 'active',
-          createdAt: '2024-01-01T00:00:00Z',
-          updatedAt: '2024-01-01T00:00:00Z',
-        },
-        {
-          id: 2,
-          value: 200,
-          label: '第二个数字',
-          description: '另一个描述',
-          status: 'inactive',
-          createdAt: '2024-01-02T00:00:00Z',
-          updatedAt: '2024-01-02T00:00:00Z',
-        },
-      ]
+
+      // 开发环境下显示详细错误，生产环境返回空数组
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('API 调用失败，请确保后端服务正在运行在', API_BASE_URL)
+      }
+
+      // 抛出错误让调用方处理
+      throw new Error('无法获取数字列表，请检查网络连接或稍后重试')
     }
   },
 
@@ -44,17 +39,18 @@ export const numberService = {
         `${API_BASE_URL}/api/admin/numbers`,
         data
       )
-      return response.data
+
+      if (response.data.success) {
+        return response.data.data
+      } else {
+        throw new Error(response.data.error || 'Failed to create number')
+      }
     } catch (error) {
       console.error('Failed to create number:', error)
-      // 返回模拟数据
-      const newNumber: NumberItem = {
-        id: Date.now(),
-        ...data,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('API 调用失败，请确保后端服务正在运行在', API_BASE_URL)
       }
-      return newNumber
+      throw new Error('无法创建数字，请检查网络连接或稍后重试')
     }
   },
 
@@ -67,29 +63,36 @@ export const numberService = {
         `${API_BASE_URL}/api/admin/numbers/${id}`,
         data
       )
-      return response.data
+
+      if (response.data.success) {
+        return response.data.data
+      } else {
+        throw new Error(response.data.error || 'Failed to update number')
+      }
     } catch (error) {
       console.error('Failed to update number:', error)
-      // 返回模拟数据
-      const updatedNumber: NumberItem = {
-        id,
-        value: data.value || 0,
-        label: data.label || '',
-        description: data.description,
-        status: data.status || 'active',
-        createdAt: '2024-01-01T00:00:00Z',
-        updatedAt: new Date().toISOString(),
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('API 调用失败，请确保后端服务正在运行在', API_BASE_URL)
       }
-      return updatedNumber
+      throw new Error('无法更新数字，请检查网络连接或稍后重试')
     }
   },
 
   async deleteNumber(id: number): Promise<void> {
     try {
-      await axios.delete(`${API_BASE_URL}/api/admin/numbers/${id}`)
+      const response = await axios.delete(
+        `${API_BASE_URL}/api/admin/numbers/${id}`
+      )
+
+      if (!response.data.success) {
+        throw new Error(response.data.error || 'Failed to delete number')
+      }
     } catch (error) {
       console.error('Failed to delete number:', error)
-      // 模拟删除成功
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('API 调用失败，请确保后端服务正在运行在', API_BASE_URL)
+      }
+      throw new Error('无法删除数字，请检查网络连接或稍后重试')
     }
   },
 }
