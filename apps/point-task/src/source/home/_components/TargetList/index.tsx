@@ -33,7 +33,8 @@ function TargetList({ onBack }: TargetListProps) {
     const neededPoints = Number(card.need_point)
     const userPoints = Number(userInfo.totalPoints)
     const progress = (userPoints / neededPoints) * 100
-    return Math.min(progress, 100) // 不超过100%
+    const limitedProgress = Math.min(progress, 100) // 不超过100%
+    return Number(limitedProgress.toFixed(2)) // 保留两位小数
   }
 
   //兑换功能
