@@ -3,7 +3,6 @@ import { ArrowLeftOutlined, CheckSquareOutlined } from '@ant-design/icons'
 import { Divider, Flex, Progress } from 'antd'
 import { useAppStore } from '../../_store'
 import useRedeemAwardHooks from '../../_hooks/useRedeemAward'
-import { completeTasks } from '../../_api/completeTasks'
 
 interface TargetListProps {
   onBack: () => void
@@ -81,11 +80,6 @@ function TargetList({ onBack }: TargetListProps) {
       console.error('兑换失败:', error)
       alert('兑换失败，请重试')
     }
-  }
-
-  // 目标状态更新
-  const updateTargetState = (state: '进行中' | '已完成' | '未完成') => {
-    setTargetState(state)
   }
 
   return (

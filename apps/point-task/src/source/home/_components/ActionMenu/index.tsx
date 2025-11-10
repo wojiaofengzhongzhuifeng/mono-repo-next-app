@@ -3,12 +3,13 @@ import { FaPlus, FaBullseye, FaCheck, FaGift } from 'react-icons/fa'
 import CreateTarget from '../CreateTarget'
 import CreateTask from '../CreateTask'
 import TaskList from '../TaskList'
+import TargetList from '../TargetList'
 
 function ActionMenu() {
   const [showSetTargets, setShowSetTargets] = useState(false)
   const [showAddTargets, setShowAddTargets] = useState(false)
   const [showMyTask, setShowMyTask] = useState(false)
-
+  const [showTargetList, setShowTargetList] = useState(false)
   if (showSetTargets) {
     return <CreateTarget onBack={() => setShowSetTargets(false)} />
   }
@@ -20,7 +21,9 @@ function ActionMenu() {
   if (showMyTask) {
     return <TaskList onBack={() => setShowMyTask(false)} />
   }
-
+  if (showTargetList) {
+    return <TargetList onBack={() => setShowTargetList(false)} />
+  }
   return (
     <>
       <div className='flex justify-center items-center mb-6'>
@@ -46,7 +49,9 @@ function ActionMenu() {
             <FaCheck className='text-white text-xl mb-2' />
             <div>完成任务</div>
           </div>
-          <div className='bg-purple-500/100  flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-purple-600/100 transition-colors '>
+          <div className='bg-purple-500/100  flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-purple-600/100 transition-colors '
+          onClick={() => setShowTargetList(true)}
+          >
             <FaGift className='text-white text-xl mb-2' />
             <div>兑换奖励</div>
           </div>

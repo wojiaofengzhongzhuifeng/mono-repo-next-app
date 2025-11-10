@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TargetList from './TargetList'
+import TargetList from '../TargetList'
 import { useAppStore } from '../../_store'
 import { useCreateTargetsHooks } from '../../_hooks/useCreateTargets'
 
