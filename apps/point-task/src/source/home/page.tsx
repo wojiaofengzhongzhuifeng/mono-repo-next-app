@@ -1,8 +1,8 @@
-import React, { use } from 'react'
-import DashboardHeader from './_components/DashboardHeader'
-import useUserProfile from './_hooks/useUserProfile'
-import { useUserTargetsHooks } from './_hooks/useUserTargets'
-import ActionMenu from './_components/ActionMenu'
+import React from 'react'
+import DashboardHeader from '@/source/home/_components/DashboardHeader'
+import useUserProfile from '@/source/home/_hooks/useUserProfile'
+import { useUserTargetsHooks } from '@/source/home/_hooks/useUserTargets'
+import ActionMenu from '@/source/home/_components/ActionMenu'
 
 function Page() {
   useUserProfile()

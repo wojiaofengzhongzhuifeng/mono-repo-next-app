@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, CheckSquareOutlined } from '@ant-design/icons'
 import { Divider, Flex, Progress } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useRedeemAwardHooks from '../../_hooks/useRedeemAward'
 import { useAppStore } from '../../_store'
 
@@ -82,6 +82,8 @@ function TargetList({ onBack }: TargetListProps) {
       alert('兑换失败，请重试')
     }
   }
+
+  useEffect(() => {}, [])
 
   //根据用户is_redeemed字段判断是否已经兑换，如果已经兑换，则不显示在页面上
   const isRedeemed = (card: { is_redeemed: boolean }) => {

@@ -35,6 +35,7 @@ function ActionMenu() {
             <FaBullseye className='text-white text-xl mb-2' />
             <div>创建目标</div>
           </div>
+          ¡
           <div
             className='bg-green-500/100 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-green-600/100 transition-colors '
             onClick={() => setShowAddTargets(true)}

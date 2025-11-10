@@ -25,10 +25,6 @@ function SetTargets({ onBack }: SetTargetsProps) {
     return '极难'
   }
 
-  if (showMyTargets) {
-    return <TargetList onBack={() => setShowMyTargets(false)} />
-  }
-
   const generateUserId = () => {
     const userId = userInfo?.user_id
     return String(userId)
@@ -40,31 +36,30 @@ function SetTargets({ onBack }: SetTargetsProps) {
       return
     }
 
-    try {
-      // 构建请求数据
-      const targetData = [
-        {
-          name: wordNumber,
-          description: goatNumber || '',
-          need_point: Number(points),
-          user_id: generateUserId(),
-        },
-      ]
-      console.log('创建目标数据:', targetData)
-      // 调用API创建目标
-      await createTargets(targetData)
+    // 构建请求数据
+    const targetData = [
+      {
+        name: wordNumber,
+        description: goatNumber || '',
+        need_point: Number(points),
+        user_id: generateUserId(),
+      },
+    ]
+    console.log('创建目标数据:', targetData)
+    // 调用API创建目标
+    await createTargets(targetData)
 
-      alert('目标创建成功！')
-      setShowMyTargets(true)
-      setGoatNumber('')
-      setWordNumber('')
-      setPoints('')
-    } catch (error) {
-      console.error('创建目标失败:', error)
-      alert('创建目标失败，请重试')
-    }
+    alert('目标创建成功！')
+    setShowMyTargets(true)
+    setGoatNumber('')
+    setWordNumber('')
+    setPoints('')
   }
 
+  //
+  if (showMyTargets) {
+    return <TargetList onBack={() => setShowMyTargets(false)} />
+  }
   return (
     <div className='flex justify-center items-center mb-6'>
       <div className='w-[80vh] bg-gray-50 px-6 py-6 rounded-lg mb-6 drop-shadow-lg'>
