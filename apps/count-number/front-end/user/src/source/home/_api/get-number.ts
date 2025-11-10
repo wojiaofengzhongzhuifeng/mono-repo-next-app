@@ -3,6 +3,7 @@ import { get, STATUS_CODE } from '@mono-repo/utils'
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { useAppStore } from '@/source/home/_store'
+import { ApiConfig, prefixUrl } from '@/source/home/_api/common'
 
 // 1. 定义请求与响应的数据结构
 export type NumberStatus = 'active' | 'inactive' // 定义
@@ -19,8 +20,8 @@ export type GetCountNumberResponse = {
 }
 
 // 2. 配置请求代码
-const API_CONFIG = {
-  url: '/api/user/numbers',
+const apiConfig: ApiConfig = {
+  url: `${prefixUrl}/numbers`,
   method: 'GET',
   manual: false,
   showError: true,
@@ -32,7 +33,7 @@ export const getNumbersRequest = async (): Promise<
 > => {
   try {
     const res = await get<BackEndGetCountNumberResponse[]>({
-      url: API_CONFIG.url,
+      url: apiConfig.url,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
       return res.data || []
@@ -45,7 +46,7 @@ export const getNumbersRequest = async (): Promise<
   }
 }
 
-/* 
+/*
 在这里处理
 1. 数据请求
 2. 错误处理
@@ -71,8 +72,8 @@ export function useGetNumbers(params?: {
   manual?: boolean
   showError?: boolean
 }) {
-  const manual = params?.manual ?? API_CONFIG.manual
-  const showError = params?.showError ?? API_CONFIG.showError
+  const manual = params?.manual ?? apiConfig.manual
+  const showError = params?.showError ?? apiConfig.showError
   const { data, error, loading, run } = useRequest(getNumbersRequest, {
     manual,
   })
