@@ -1,15 +1,13 @@
-import React from 'react'
-import { useAppStore } from '../../_store'
 import useUserInfoHooks from '../../_hooks/useUserProfile'
-
+import { useAppStore } from '../../_store'
 function DashboardHeader() {
   const { userInfo, userTargets, userAddTask } = useAppStore()
   const { updateUserInfoWithPoints } = useUserInfoHooks()
 
   // 计算待完成任务数量
-  const pendingTasksCount =
-    userAddTask?.filter(task => (task as any).status !== 'completed').length ||
-    0
+  const pendingTasksCount = Array.isArray(userAddTask)
+    ? userAddTask.filter(task => (task as any).status !== 'completed').length
+    : 0
 
   return (
     <div className='flex justify-center items-center mb-6'>

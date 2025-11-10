@@ -1,5 +1,6 @@
 import {
   ArrowLeftOutlined,
+  CheckCircleFilled,
   CheckOutlined,
   DeleteOutlined,
   UndoOutlined,
@@ -168,7 +169,10 @@ function TaskList({ onBack }: TaskListProps) {
               </div>
             ) : filteredTasks.length === 0 ? (
               <div className='flex justify-center items-center min-h-[20vh] border border-gray-200 rounded-lg'>
-                <div className='text-gray-500'>暂无任务</div>
+                <div className='text-gray-500 flex flex-col items-center justify-center mt-4'>
+                  <CheckCircleFilled className='text-4xl' />
+                  <div className='mt-4'>还没有添加任何任务</div>
+                </div>
               </div>
             ) : (
               <div className='space-y-2 pb-2'>
