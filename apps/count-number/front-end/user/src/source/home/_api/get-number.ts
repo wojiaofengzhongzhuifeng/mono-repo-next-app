@@ -6,8 +6,9 @@ import { useAppStore } from '@/source/home/_store'
 
 // 1. 定义请求与响应的数据结构
 type NumberStatus = 'active' | 'inactive' // 定义
-export type BackEndGetCountNumberResponse = NumberItem // 后端返回的数据结构
+export type BackEndGetCountNumberResponse = NumberItem // get后端返回的数据结构
 export type GetCountNumberResponse = {
+  // get前端所需的数据结构
   id: number // 15,
   numberValue: number // 99129,
   title: string // "新数字",
@@ -53,6 +54,19 @@ export const getNumbersRequest = async (): Promise<
 
 */
 
+function transformBackEndToFrontEndData(
+  backEndDataList: BackEndGetCountNumberResponse[]
+): GetCountNumberResponse[] {
+  return backEndDataList.map((item: BackEndGetCountNumberResponse) => {
+    return {
+      ...item,
+      numberValue: item.value,
+      title: item.label,
+      subtitle: item.description || '',
+    }
+  })
+}
+
 export function useGetNumbers(params?: {
   manual?: boolean
   showError?: boolean
@@ -73,7 +87,8 @@ export function useGetNumbers(params?: {
   useEffect(() => {
     if (!error && data) {
       // todo 完成函数，将后端数据转化为前端数据
-      setNumbers(data || [])
+      let frontEndDataList = transformBackEndToFrontEndData(data)
+      setNumbers(frontEndDataList)
     }
   }, [error, data])
 
