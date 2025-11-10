@@ -1,8 +1,7 @@
 import React, { use } from 'react'
 import DashboardHeader from './_components/DashboardHeader'
-import GoalDisplay from './_components/GoalDisplay'
 import useUserProfile from './_hooks/useUserProfile'
-import { useUserTargetsHooks } from './_hooks/useUserGoals'
+import { useUserTargetsHooks } from './_hooks/useUserTargets'
 import ActionMenu from './_components/ActionMenu'
 
 function Page() {
@@ -12,7 +11,6 @@ function Page() {
   return (
     <div>
       <DashboardHeader></DashboardHeader>
-      {/* <GoalDisplay></GoalDisplay> */}
       <ActionMenu></ActionMenu>
     </div>
   )
