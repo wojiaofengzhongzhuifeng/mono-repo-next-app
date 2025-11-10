@@ -26,7 +26,7 @@ function TaskList({ onBack }: TaskListProps) {
   const [activeStatus, setActiveStatus] = useState<TaskStatus>('all')
   const [tasks, setTasks] = useState<UserAddTaskRequestDataItem[]>([])
   const [deletedTaskIds, setDeletedTaskIds] = useState<Set<string>>(new Set())
-  console.log('userInfo', userInfo)
+  console.log('userAddTask', userAddTask)
   // 组件加载时获取任务数据
   useEffect(() => {
     const loadTasks = async () => {
@@ -51,11 +51,10 @@ function TaskList({ onBack }: TaskListProps) {
   // 根据状态筛选任务
   const filteredTasks = tasks.filter(task => {
     if (activeStatus === 'all') return true
-    // 这里假设任务有一个status字段来标识完成状态
-    // 如果没有，可以根据业务逻辑调整
-    return activeStatus === 'completed'
-      ? (task as any).status === 'completed'
-      : (task as any).status !== 'completed'
+    // 根据 is_completed 字段判断任务是否完成（兼容布尔值和数字）
+    const isCompleted =
+      (task as any).is_completed === true || (task as any).is_completed === 1
+    return activeStatus === 'completed' ? isCompleted : !isCompleted
   })
 
   // 切换任务状态
@@ -63,10 +62,12 @@ function TaskList({ onBack }: TaskListProps) {
     setTasks(prevTasks =>
       prevTasks.map(task => {
         if ((task as any).id === taskId) {
+          const currentCompleted =
+            (task as any).is_completed === true ||
+            (task as any).is_completed === 1
           const updatedTask = {
             ...task,
-            status:
-              (task as any).status === 'completed' ? 'pending' : 'completed',
+            is_completed: !currentCompleted,
           }
           return updatedTask
         }
@@ -179,12 +180,22 @@ function TaskList({ onBack }: TaskListProps) {
                 {filteredTasks.map((task, index) => {
                   const taskId = (task as any).id || index.toString()
                   const isDeleted = deletedTaskIds.has(taskId)
+                  // 判断任务是否完成：is_completed 为 true（兼容布尔值和数字）
+                  const isCompleted =
+                    (task as any).is_completed === true ||
+                    (task as any).is_completed === 1
+                  // 判断是否可重复：is_repeatable 为 true（兼容布尔值和数字）
+                  const isRepeatable =
+                    (task as any).is_repeatable === true ||
+                    (task as any).is_repeatable === 1
+                  // 只有完成且不可重复的任务才显示完成样式
+                  const shouldShowCompletedStyle = isCompleted && !isRepeatable
 
                   return (
                     <div
                       key={taskId}
                       className={`flex items-center justify-between p-3 border rounded-lg ${
-                        (task as any).status === 'completed'
+                        shouldShowCompletedStyle
                           ? 'bg-green-50 border-green-200'
                           : 'bg-white border-gray-200'
                       } ${isDeleted ? 'bg-gray-100 border-gray-300' : ''}`}
@@ -192,7 +203,7 @@ function TaskList({ onBack }: TaskListProps) {
                       <div className='flex-1'>
                         <div
                           className={`font-medium ${
-                            (task as any).status === 'completed'
+                            shouldShowCompletedStyle
                               ? 'line-through text-gray-500'
                               : 'text-gray-800'
                           } ${isDeleted ? 'line-through text-gray-400' : ''}`}
@@ -221,17 +232,13 @@ function TaskList({ onBack }: TaskListProps) {
                           type='text'
                           size='small'
                           icon={
-                            (task as any).status === 'completed' ? (
-                              <UndoOutlined />
-                            ) : (
-                              <CheckOutlined />
-                            )
+                            isCompleted ? <UndoOutlined /> : <CheckOutlined />
                           }
                           onClick={() => {
                             completeTaskAndEarnPoints(taskId, task.create_point)
                           }}
                           className={
-                            (task as any).status === 'completed'
+                            isCompleted
                               ? 'text-orange-500 hover:text-orange-600'
                               : 'text-green-500 hover:text-green-600'
                           }
