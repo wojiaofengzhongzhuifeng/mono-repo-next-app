@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
 import { ArrowLeftOutlined, CheckSquareOutlined } from '@ant-design/icons'
 import { Divider, Flex, Progress } from 'antd'
-import { useAppStore } from '../../_store'
+import { useState } from 'react'
 import useRedeemAwardHooks from '../../_hooks/useRedeemAward'
+import { useAppStore } from '../../_store'
 
 interface TargetListProps {
   onBack: () => void
@@ -82,6 +82,11 @@ function TargetList({ onBack }: TargetListProps) {
     }
   }
 
+  //根据用户is_redeemed字段判断是否已经兑换，如果已经兑换，则不显示在页面上
+  const isRedeemed = (card: { is_redeemed: boolean }) => {
+    return card.is_redeemed
+  }
+
   return (
     <>
       <div className='flex justify-center items-center mb-6'>
@@ -99,117 +104,119 @@ function TargetList({ onBack }: TargetListProps) {
 
           <div className='space-y-4'>
             {userTargets && userTargets.length > 0 ? (
-              userTargets.map((card, index) => {
-                const taskId = Number(card.id)
-                const isCompleted = completedTaskIds.has(taskId)
+              userTargets
+                .filter(card => !isRedeemed(card))
+                .map((card, index) => {
+                  const taskId = Number(card.id)
+                  const isCompleted = completedTaskIds.has(taskId)
 
-                return (
-                  <div
-                    key={index}
-                    className={`p-4 border rounded-lg transition-all duration-300 ${
-                      isCompleted
-                        ? 'border-green-500 bg-green-50' // 已完成样式：绿色边框和背景
-                        : 'border-gray-200' // 默认样式
-                    }`}
-                  >
-                    {/* 头部 */}
-                    <div className='flex justify-between'>
-                      <div
-                        className={`text-lg font-semibold mb-2 ${
-                          isCompleted ? 'text-green-700' : ''
-                        }`}
-                      >
-                        {card.name}
-                      </div>
-                      <div>
-                        <CheckSquareOutlined
-                          className={`w-5 h-5 ${
-                            isCompleted ? 'text-green-500' : 'text-gray-400'
-                          }`}
-                        />
-                      </div>
-                    </div>
-
-                    {/* 进度状态 */}
+                  return (
                     <div
-                      className={`rounded-full text-center w-20 h-6 mb-4 mt-2 ${
+                      key={index}
+                      className={`p-4 border rounded-lg transition-all duration-300 ${
                         isCompleted
-                          ? 'bg-green-500 text-white' // 已完成：绿色背景
-                          : 'bg-blue-500 text-white' // 进行中：蓝色背景
+                          ? 'border-green-500 bg-green-50' // 已完成样式：绿色边框和背景
+                          : 'border-gray-200' // 默认样式
                       }`}
                     >
-                      {isCompleted ? '已完成' : targetState}
-                    </div>
-
-                    {/* 目标描述 */}
-                    <div>
-                      <div
-                        className={`${
-                          isCompleted ? 'text-green-700' : 'text-gray-600'
-                        }`}
-                      >
-                        {card.description}
-                      </div>
-                    </div>
-
-                    {/* 目标进度 */}
-                    <div className=' mt-8'>
-                      <div className='text-gray-600 flex justify-between'>
-                        <div className=''>进度</div>
+                      {/* 头部 */}
+                      <div className='flex justify-between'>
                         <div
-                          className={`${
-                            isCompleted ? 'text-green-500' : 'text-blue-500'
+                          className={`text-lg font-semibold mb-2 ${
+                            isCompleted ? 'text-green-700' : ''
                           }`}
                         >
-                          {userInfo?.totalPoints}/{card.need_point}积分
+                          {card.name}
+                        </div>
+                        <div>
+                          <CheckSquareOutlined
+                            className={`w-5 h-5 ${
+                              isCompleted ? 'text-green-500' : 'text-gray-400'
+                            }`}
+                          />
                         </div>
                       </div>
-                      <div>
-                        <Flex gap='small' vertical>
-                          <Progress
-                            percent={
-                              isCompleted ? 100 : calculateProgress(card)
-                            }
-                            strokeColor={isCompleted ? '#52c41a' : '#1890ff'}
-                          />
-                        </Flex>
+
+                      {/* 进度状态 */}
+                      <div
+                        className={`rounded-full text-center w-20 h-6 mb-4 mt-2 ${
+                          isCompleted
+                            ? 'bg-green-500 text-white' // 已完成：绿色背景
+                            : 'bg-blue-500 text-white' // 进行中：蓝色背景
+                        }`}
+                      >
+                        {isCompleted ? '已完成' : targetState}
                       </div>
-                    </div>
-                    <Divider />
-                    {/* 目标出创建时间 */}
-                    <div className=' text-gray-500 text-sm flex justify-between'>
+
+                      {/* 目标描述 */}
                       <div>
-                        创建时间:{' '}
-                        {new Date(card.created_at).toLocaleDateString()}
+                        <div
+                          className={`${
+                            isCompleted ? 'text-green-700' : 'text-gray-600'
+                          }`}
+                        >
+                          {card.description}
+                        </div>
                       </div>
-                      <div>
-                        {!isCompleted &&
-                        userInfo?.totalPoints &&
-                        card?.need_point &&
-                        Number(userInfo.totalPoints) >=
-                          Number(card.need_point) ? (
-                          <button
-                            className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
-                            onClick={() => handleExchange(card)}
-                          >
-                            立即兑换
-                          </button>
-                        ) : (
-                          <button
-                            className={`px-2 py-1 rounded ${
-                              isCompleted
-                                ? 'bg-green-500 text-white border border-green-500'
-                                : 'bg-red-500 text-white border border-red-500'
+
+                      {/* 目标进度 */}
+                      <div className=' mt-8'>
+                        <div className='text-gray-600 flex justify-between'>
+                          <div className=''>进度</div>
+                          <div
+                            className={`${
+                              isCompleted ? 'text-green-500' : 'text-blue-500'
                             }`}
                           >
-                            {isCompleted ? '已完成' : '不可兑换'}
-                          </button>
-                        )}
+                            {userInfo?.totalPoints}/{card.need_point}积分
+                          </div>
+                        </div>
+                        <div>
+                          <Flex gap='small' vertical>
+                            <Progress
+                              percent={
+                                isCompleted ? 100 : calculateProgress(card)
+                              }
+                              strokeColor={isCompleted ? '#52c41a' : '#1890ff'}
+                            />
+                          </Flex>
+                        </div>
+                      </div>
+                      <Divider />
+                      {/* 目标出创建时间 */}
+                      <div className=' text-gray-500 text-sm flex justify-between'>
+                        <div>
+                          创建时间:{' '}
+                          {new Date(card.created_at).toLocaleDateString()}
+                        </div>
+                        <div>
+                          {!isCompleted &&
+                          userInfo?.totalPoints &&
+                          card?.need_point &&
+                          Number(userInfo.totalPoints) >=
+                            Number(card.need_point) ? (
+                            <button
+                              className='text-white border border-green-500 px-2 py-1  bg-green-600 rounded-lg'
+                              onClick={() => handleExchange(card)}
+                            >
+                              立即兑换
+                            </button>
+                          ) : (
+                            <button
+                              className={`px-2 py-1 rounded ${
+                                isCompleted
+                                  ? 'bg-green-500 text-white border border-green-500'
+                                  : 'bg-red-500 text-white border border-red-500'
+                              }`}
+                            >
+                              {isCompleted ? '已完成' : '不可兑换'}
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )
-              })
+                  )
+                })
             ) : (
               <div className='p-4 border border-gray-200 rounded-lg text-center text-gray-500'>
                 暂无目标数据
