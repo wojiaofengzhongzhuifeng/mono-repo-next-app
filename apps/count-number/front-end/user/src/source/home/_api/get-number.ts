@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useAppStore } from '@/source/home/_store'
 
 // 1. 定义请求与响应的数据结构
-type NumberStatus = 'active' | 'inactive' // 定义
+export type NumberStatus = 'active' | 'inactive' // 定义
 export type BackEndGetCountNumberResponse = NumberItem // get后端返回的数据结构
 export type GetCountNumberResponse = {
   // get前端所需的数据结构

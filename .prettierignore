@@ -13,9 +13,16 @@ out/
 *.log
 *.lock
 
+# Environment files
+.env
+.env.*
+*.env.example
+*.env.local
+
 # Other common ignores
 .git/
 .idea/
 .claude/
 coverage/
 .nyc_output/
+.vscode/
