@@ -6,7 +6,9 @@ function Component1() {
   return (
     <div>
       {getNumbersLoading ? '加载中...' : '加载完成'}
-      <div>Component1: {numbers.map(number => number.value).join(',')}</div>
+      <div>
+        Component1: {numbers.map(number => number.numberValue).join(',')}
+      </div>
     </div>
   )
 }
