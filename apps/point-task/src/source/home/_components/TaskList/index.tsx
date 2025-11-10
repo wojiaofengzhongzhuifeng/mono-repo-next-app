@@ -1,21 +1,20 @@
 import {
   ArrowLeftOutlined,
-  DeleteOutlined,
   CheckOutlined,
+  DeleteOutlined,
   UndoOutlined,
 } from '@ant-design/icons'
 import { Button, message } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { useAppStore } from '../../_store'
+import { useEffect, useState } from 'react'
+import { UserAddTaskRequestDataItem } from '../../_api/AddTask'
+import { completeTasks } from '../../_api/completeTasks'
+import useDeletedTasks from '../../_hooks/useDeletedTasks'
 import useGetUserTasksHooks from '../../_hooks/useGetUserTasks'
 import useUserInfoHooks from '../../_hooks/useUserProfile'
-import { completeTasks } from '../../_api/completeTasks'
-import { UserAddTaskRequestDataItem } from '../../_api/AddTask'
-import useDeletedTasks from '../../_hooks/useDeletedTasks'
+import { useAppStore } from '../../_store'
 interface TaskListProps {
   onBack: () => void
 }
-
 type TaskStatus = 'all' | 'pending' | 'completed'
 
 function TaskList({ onBack }: TaskListProps) {
@@ -123,7 +122,7 @@ function TaskList({ onBack }: TaskListProps) {
   return (
     <>
       <div className='flex justify-center mb-6'>
-        <div className='gap-3 h-[45vh] w-[80vh] bg-gray-50 px-6 py-6 rounded-lg  drop-shadow-2xl'>
+        <div className='gap-3 w-[80vh] bg-gray-50 px-6 py-6 rounded-lg drop-shadow-2xl'>
           {/* 头部 */}
           <div className='flex  items-center mb-2'>
             <button
@@ -162,17 +161,17 @@ function TaskList({ onBack }: TaskListProps) {
           </div>
 
           {/* 任务列表部分 */}
-          <div className='mt-4 h-[30vh] '>
+          <div className='mt-4 max-h-[60vh] overflow-y-auto'>
             {loading ? (
-              <div className='flex justify-center items-center h-full'>
+              <div className='flex justify-center items-center min-h-[20vh]'>
                 <div className='text-gray-500'>加载中...</div>
               </div>
             ) : filteredTasks.length === 0 ? (
-              <div className='flex justify-center items-center h-full border border-gray-200 rounded-lg'>
+              <div className='flex justify-center items-center min-h-[20vh] border border-gray-200 rounded-lg'>
                 <div className='text-gray-500'>暂无任务</div>
               </div>
             ) : (
-              <div className='space-y-2'>
+              <div className='space-y-2 pb-2'>
                 {filteredTasks.map((task, index) => {
                   const taskId = (task as any).id || index.toString()
                   const isDeleted = deletedTaskIds.has(taskId)
