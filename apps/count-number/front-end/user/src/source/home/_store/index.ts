@@ -1,16 +1,17 @@
 import { create } from 'zustand'
-import { NumberItem } from '@count-number-types'
+import { GetCountNumberResponse } from '@/source/home/_api/get-number'
 
 interface AppStore {
-  numbers: NumberItem[]
-  setNumbers: (newNumbers: NumberItem[]) => void
+  numbers: GetCountNumberResponse[]
+  setNumbers: (newNumbers: GetCountNumberResponse[]) => void
   getNumbersLoading: boolean | null
   setGetNumbersLoading: (newGetNumbersLoading: boolean) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
   numbers: [],
-  setNumbers: (newNumbers: NumberItem[]) => set({ numbers: newNumbers }),
+  setNumbers: (newNumbers: GetCountNumberResponse[]) =>
+    set({ numbers: newNumbers }),
   getNumbersLoading: null,
   setGetNumbersLoading: (newGetNumbersLoading: boolean) =>
     set({ getNumbersLoading: newGetNumbersLoading }),

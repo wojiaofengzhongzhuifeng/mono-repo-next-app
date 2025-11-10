@@ -5,7 +5,17 @@ import { useEffect } from 'react'
 import { useAppStore } from '@/source/home/_store'
 
 // 1. 定义请求与响应的数据结构
-export type GetCountNumberResponseData = NumberItem[]
+type NumberStatus = 'active' | 'inactive' // 定义
+export type BackEndGetCountNumberResponse = NumberItem // 后端返回的数据结构
+export type GetCountNumberResponse = {
+  id: number // 15,
+  numberValue: number // 99129,
+  title: string // "新数字",
+  subtitle: string // "这是一个测试数字",
+  status: NumberStatus
+  created_at: string // "2025-11-09T02:23:38.312794+00:00",
+  updated_at: string // "2025-11-09T02:23:38.312794+00:00"
+}
 
 // 2. 配置请求代码
 const API_CONFIG = {
@@ -16,22 +26,33 @@ const API_CONFIG = {
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const getNumbersRequest =
-  async (): Promise<GetCountNumberResponseData> => {
-    try {
-      const res = await get<GetCountNumberResponseData>({
-        url: API_CONFIG.url,
-      })
-      if (res.code === STATUS_CODE.SUCCESS) {
-        return res.data || []
-      } else {
-        throw new Error(res.message || '获取数据失败')
-      }
-    } catch (error) {
-      console.error('获取数据失败:', error)
-      throw new Error('获取数据失败')
+export const getNumbersRequest = async (): Promise<
+  BackEndGetCountNumberResponse[]
+> => {
+  try {
+    const res = await get<BackEndGetCountNumberResponse[]>({
+      url: API_CONFIG.url,
+    })
+    if (res.code === STATUS_CODE.SUCCESS) {
+      return res.data || []
+    } else {
+      throw new Error(res.message || '获取数据失败')
     }
+  } catch (error) {
+    console.error('获取数据失败:', error)
+    throw new Error('获取数据失败')
   }
+}
+
+/* 
+在这里处理
+1. 数据请求
+2. 错误处理
+3. 数据结构转化
+4. 基本数据请求后的逻辑都放在这里
+
+*/
+
 export function useGetNumbers(params?: {
   manual?: boolean
   showError?: boolean
@@ -51,6 +72,7 @@ export function useGetNumbers(params?: {
 
   useEffect(() => {
     if (!error && data) {
+      // todo 完成函数，将后端数据转化为前端数据
       setNumbers(data || [])
     }
   }, [error, data])
