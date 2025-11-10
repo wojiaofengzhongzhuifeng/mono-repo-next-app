@@ -1,14 +1,17 @@
-import React from 'react'
-import Component1 from '@/source/home/_components/component1'
-import Component2 from '@/source/home/_components/component2'
-import { useGetCountNumberHooks } from '@/source/home/_hooks/use-get-count-number'
+import React, { use } from 'react'
+import DashboardHeader from './_components/DashboardHeader'
+import useUserProfile from './_hooks/useUserProfile'
+import { useUserTargetsHooks } from './_hooks/useUserTargets'
+import ActionMenu from './_components/ActionMenu'
 
 function Page() {
-  useGetCountNumberHooks()
+  useUserProfile()
+  useUserTargetsHooks()
+
   return (
     <div>
-      <Component1 />
-      <Component2 />
+      <DashboardHeader></DashboardHeader>
+      <ActionMenu></ActionMenu>
     </div>
   )
 }

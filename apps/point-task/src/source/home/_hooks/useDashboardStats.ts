@@ -1,4 +1,4 @@
-import { getCountNumberRequest } from '@/source/home/_api/get-count-number'
+import { getCountNumberRequest } from '@/source/home/_api/getDashboardStats'
 import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'

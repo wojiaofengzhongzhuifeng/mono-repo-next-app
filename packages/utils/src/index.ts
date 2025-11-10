@@ -1,3 +1,2 @@
 export * from './axios'
-export { get, post, put, del } from './axios'
-export * from './response'
+export { get, post, del } from './axios'

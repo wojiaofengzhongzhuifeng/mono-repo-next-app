@@ -16,7 +16,7 @@ const navigation: NavigationItem[] = [
 export function Layout({ children }: LayoutProps) {
   const router = useRouter()
   const { cartItems } = useAppStore()
-  
+
   const getTotalItems = () => {
     return cartItems.reduce((total, item) => total + (item.quantity || 1), 0)
   }
@@ -87,36 +87,6 @@ export function Layout({ children }: LayoutProps) {
       />
 
       <main className='flex-1'>{children}</main>
-
-      <Footer
-        companyName='AI Count Number'
-        sections={[
-          {
-            title: '产品特性',
-            content: '实时数字统计\n智能计数算法\n数据可视化展示',
-          },
-          {
-            title: '快速链接',
-            links: [
-              { name: '首页', href: '/' },
-              { name: '数字计数', href: '/home' },
-              { name: '使用指南', href: '#', external: true },
-            ],
-          },
-          {
-            title: '技术支持',
-            content: '基于 Next.js 构建\n使用 React Hooks\n响应式设计',
-          },
-        ]}
-        socialLinks={[
-          { name: 'GitHub', href: 'https://github.com', external: true },
-          { name: '技术博客', href: '#', external: true },
-        ]}
-        theme='dark'
-        variant='default'
-        columns={3}
-        showTopBorder={true}
-      />
     </div>
   )
 }

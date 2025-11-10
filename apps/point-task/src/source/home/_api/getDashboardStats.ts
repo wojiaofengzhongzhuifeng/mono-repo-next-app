@@ -1,5 +1,5 @@
 import { get } from '@mono-repo/utils'
-import { GET_COUNT_NUMBER } from '@/source/home/_api/mock'
+import { GET_COUNT_NUMBER } from '@/source/home/_api/mockData'
 
 /**
  * 0. 定义请求与响应的数据结构

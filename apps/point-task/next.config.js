@@ -17,7 +17,7 @@ const nextConfig = {
         options: {
           presets: [
             ['@babel/preset-env', { targets: { node: 'current' } }],
-            '@babel/preset-react',
+            ['@babel/preset-react', { runtime: 'automatic' }],
             '@babel/preset-typescript',
           ],
           plugins: ['@babel/plugin-transform-runtime'],
@@ -30,8 +30,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        // Keep the `/api` prefix when forwarding to the backend
         source: '/api/:path*',
-        destination: 'http://localhost:3000/:path*',
+        destination: 'http://localhost:3000/api/:path*',
       },
     ]
   },
