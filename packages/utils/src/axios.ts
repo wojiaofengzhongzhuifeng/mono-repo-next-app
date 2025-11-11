@@ -1,10 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-
-interface IServiceObject<T> {
-  code: number
-  data: T
-  message?: string
-}
+import type { ApiResponse } from './response'
 
 const opt: AxiosRequestConfig = {
   timeout: 20000,
@@ -38,7 +33,7 @@ const instance = axios.create(opt)
 
 export const get = async <T>(opt: requestOpt) => {
   try {
-    const ret = await instance.get<IServiceObject<T>>(opt.url, opt)
+    const ret = await instance.get<ApiResponse<T>>(opt.url, opt)
     return ret.data
   } catch (e) {
     throw '请求数据报错，请稍后'
@@ -55,7 +50,7 @@ export const post = async <T>(
       opt.headers
     )
 
-    const ret = await instance.post<IServiceObject<T>>(opt.url, opt.data, {
+    const ret = await instance.post<ApiResponse<T>>(opt.url, opt.data, {
       headers,
     })
     return ret.data
@@ -74,7 +69,7 @@ export const del = async <T>(
       opt.headers
     )
 
-    const ret = await instance.delete<IServiceObject<T>>(opt.url, {
+    const ret = await instance.delete<ApiResponse<T>>(opt.url, {
       params: opt.params,
       headers,
     })

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase, supabaseAdmin } from '@/lib/supabase'
 import { NumberItem, CreateNumberRequest } from '@count-number-types'
 import {
   ApiResponse,
@@ -69,7 +69,8 @@ export async function POST(
       })
     }
 
-    const { data, error } = await supabase
+    // 使用 supabaseAdmin 绕过 RLS，因为这是服务端 API
+    const { data, error } = await supabaseAdmin
       .from('numbers')
       .insert([
         {
