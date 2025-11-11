@@ -21,7 +21,6 @@ function CreateNumberForm() {
       status: 'active',
     })
   }
-
   const {
     run: createNumber,
     loading,
@@ -30,7 +29,6 @@ function CreateNumberForm() {
   } = useCreateNumber({
     manual: true,
   })
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     await createNumber(formData)

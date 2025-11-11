@@ -10,7 +10,7 @@ import {
 } from '@mono-repo/utils'
 
 // GET /api/user/numbers - 获取所有活跃记录
-export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
+export async function GET(): Promise<NextResponse<any>> {
   try {
     const { data, error } = await supabase
       .from('numbers')
@@ -48,9 +48,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<NumberItem[]>>> {
 }
 
 // POST /api/user/numbers - 创建新记录
-export async function POST(
-  request: NextRequest
-): Promise<NextResponse<ApiResponse<NumberItem>>> {
+export async function POST(request: NextRequest): Promise<NextResponse<any>> {
   try {
     const body: CreateNumberRequest = await request.json()
     const { value, label, description, status } = body
@@ -63,6 +61,18 @@ export async function POST(
         STATUS_CODE.CLIENT_ERROR,
         '请求数据出错：缺少必填字段 value 或 label',
         { missingFields }
+      )
+      return NextResponse.json(errorResponse, {
+        status: getHttpStatusFromCode(errorResponse.code),
+      })
+    }
+
+    // 测试错误处理：如果 value 是 1111，返回 500 错误
+    if (value === 1111) {
+      const errorResponse = createErrorResponse(
+        STATUS_CODE.BUSINESS_ERROR,
+        '测试错误：不允许使用数字 1111',
+        { testError: true, value }
       )
       return NextResponse.json(errorResponse, {
         status: getHttpStatusFromCode(errorResponse.code),
