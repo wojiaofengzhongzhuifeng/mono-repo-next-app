@@ -1,14 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCreateNumber } from '@/source/home/_api/create-number'
 import type { CreatNumberRequest } from '@/source/home/_api/create-number'
+import { useAppStore } from '@/source/home/_store'
+import { CreateNumberResponse } from '@/source/home/_api/create-number'
 
 function CreateNumberForm() {
+  const { setNumbers } = useAppStore()
   const [formData, setFormData] = useState<CreatNumberRequest>({
     numberValue: 0,
     title: '',
     subtitle: '',
     status: 'active',
   })
+
+  const resetForm = () => {
+    setFormData({
+      numberValue: 0,
+      title: '',
+      subtitle: '',
+      status: 'active',
+    })
+  }
 
   const {
     run: createNumber,
@@ -21,21 +33,21 @@ function CreateNumberForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      // ✅ 直接传入前端数据格式，useCreateNumber 会自动转换
-      const result = await createNumber(formData)
-      console.log('创建成功:', result)
-      // 重置表单
-      setFormData({
-        numberValue: 0,
-        title: '',
-        subtitle: '',
-        status: 'active',
-      })
-    } catch (err) {
-      console.error('创建失败:', err)
-    }
+    await createNumber(formData)
   }
+
+  // 监听创建结果
+  useEffect(() => {
+    // 无论成功还是失败都重置表单
+    if (data || error) {
+      resetForm()
+    }
+    // 成功：更新列表
+    if (data && !error) {
+      const currentNumbers = useAppStore.getState().numbers
+      setNumbers([data as unknown as CreateNumberResponse, ...currentNumbers])
+    }
+  }, [data, error, setNumbers])
 
   return (
     <form onSubmit={handleSubmit}>

@@ -90,7 +90,7 @@ export function useCreateNumber(params?: {
   const manual = params?.manual ?? apiConfig.manual
   const showError = params?.showError ?? apiConfig.showError
 
-  // 数据转化函数
+  // 数据转化函数，实现了请求时，前后端数据结构的转换，以及响应时，前后端数据结构的转换
   const wrappedRequest = async (
     frontData: CreatNumberRequest
   ): Promise<CreateNumberResponse> => {
