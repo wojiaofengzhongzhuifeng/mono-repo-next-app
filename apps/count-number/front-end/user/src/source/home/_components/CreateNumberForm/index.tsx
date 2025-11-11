@@ -4,7 +4,7 @@ import type { CreatNumberRequest } from '@/source/home/_api/create-number'
 import { useAppStore } from '@/source/home/_store'
 import { CreateNumberResponse } from '@/source/home/_api/create-number'
 
-function CreateNumberForm() {
+function useCreateNumberForm() {
   const { setNumbers } = useAppStore()
   const [formData, setFormData] = useState<CreatNumberRequest>({
     numberValue: 0,
@@ -36,6 +36,7 @@ function CreateNumberForm() {
 
   // 监听创建结果
   useEffect(() => {
+    console.log('1')
     // 无论成功还是失败都重置表单
     if (data || error) {
       resetForm()
@@ -47,21 +48,13 @@ function CreateNumberForm() {
     }
   }, [data, error, setNumbers])
 
+  return { formData, setFormData, handleSubmit }
+}
+
+function CreateNumberForm() {
+  const { formData, setFormData, handleSubmit } = useCreateNumberForm()
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          数字值:
-          <input
-            type='number'
-            value={formData.numberValue}
-            onChange={e =>
-              setFormData({ ...formData, numberValue: Number(e.target.value) })
-            }
-          />
-        </label>
-      </div>
-
       <div>
         <label>
           标题:
