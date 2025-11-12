@@ -20,8 +20,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@mono-repo/ui": ["../../packages/ui/src"],
-      "@mono-repo/utils": ["../../packages/utils/src"],
+      "@mono-repo/ui": ["../../packages/ui"],
+      "@mono-repo/utils": ["../../packages/utils"],
+      "@mono-repo/test-utils": ["../../packages/test-utils"],
       "@count-number-types": ["../../common/types"]
     }
   },

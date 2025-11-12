@@ -48,11 +48,12 @@ function useCreateNumberForm() {
     }
   }, [data, error, setNumbers])
 
-  return { formData, setFormData, handleSubmit }
+  return { formData, setFormData, handleSubmit, loading, error, data }
 }
 
 function CreateNumberForm() {
-  const { formData, setFormData, handleSubmit } = useCreateNumberForm()
+  const { formData, setFormData, handleSubmit, loading, error, data } =
+    useCreateNumberForm()
   return (
     <form onSubmit={handleSubmit}>
       <div>

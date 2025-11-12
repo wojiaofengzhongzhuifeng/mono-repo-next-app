@@ -59,11 +59,13 @@ function getCurrentTimestamp(): string {
  */
 export function createSuccessResponse<T>(
   data: T,
+  message: string = STATUS_CODE_MAP[STATUS_CODE.SUCCESS] || '请求成功',
   code: number = STATUS_CODE.SUCCESS
 ): ApiResponse<T> {
+  console.log('createSuccessResponse - code:', code, 'message:', message)
   return {
     code,
-    message: STATUS_CODE_MAP[code] || '请求成功',
+    message,
     data,
     timestamp: getCurrentTimestamp(),
   }

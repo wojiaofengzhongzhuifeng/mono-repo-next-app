@@ -5,16 +5,11 @@
   "scripts": {
     "build": "turbo run build",
     "build:ui": "turbo run ui:build",
-    "dev": "turbo run dev",
-    "dev:home": "cd apps/home && pnpm dev",
-    "dev:about-us": "cd apps/about-us && pnpm dev",
-    "dev:count-number": "cd apps/count-number && pnpm dev",
-    "dev:point-task": "cd apps/point-task && pnpm dev",
-    "dev:all": "concurrently \"pnpm dev:home\" \"pnpm dev:about-us\" \"pnpm dev:count-number\"",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "clean": "turbo run clean && rm -rf node_modules",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "rebuild:public-packages": "sh scripts/rebuild-public-packages.sh"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.18",

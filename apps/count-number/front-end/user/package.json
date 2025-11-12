@@ -18,6 +18,7 @@
     "@mono-repo/common-tailwind": "workspace:*",
     "@mono-repo/ui": "workspace:*",
     "@mono-repo/utils": "workspace:*",
+    "@mono-repo/test-utils": "workspace:*",
     "ahooks": "^3.9.5",
     "axios": "^1.6.2",
     "next": "14.2.5",
