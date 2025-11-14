@@ -1,8 +1,6 @@
-import useUserInfoHooks from '../../_hooks/useUserProfile'
 import { useAppStore } from '../../_store'
 function DashboardHeader() {
   const { userInfo, userTargets, userAddTask } = useAppStore()
-  const { updateUserInfoWithPoints } = useUserInfoHooks()
 
   // 计算待完成任务数量
   const pendingTasksCount = Array.isArray(userAddTask)

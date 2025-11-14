@@ -49,12 +49,18 @@ export const completeTasks = async (
     })
 
     if (res.code === 0) {
+      if (!res.data) {
+        throw new Error('完成任务失败：返回数据为空')
+      }
       return res.data
     } else {
       throw new Error(`完成任务失败：${res.message}`)
     }
   } catch (error) {
     console.error('完成任务失败：', error)
+    if (error instanceof Error) {
+      throw error
+    }
     throw new Error('完成任务失败：网络错误')
   }
 }

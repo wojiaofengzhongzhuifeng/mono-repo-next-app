@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
-import { useRequest } from 'ahooks'
-import { useAppStore } from '@/source/home/_store'
 import {
   postRedeemAward,
   UserRedeemAwardRequestData,
 } from '@/source/home/_api/redeemAward'
+import { useAppStore } from '@/source/home/_store'
+import { useRequest } from 'ahooks'
+import { useEffect, useRef } from 'react'
 
 export function useRedeemAward() {
   const { data, error, loading, run } = useRequest(postRedeemAward, {

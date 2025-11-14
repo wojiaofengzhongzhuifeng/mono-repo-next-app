@@ -1,7 +1,7 @@
 import { create } from 'zustand'
+import { UserAddTaskRequestDataItem } from '../_api/AddTask'
 import { UserInfoResponseData } from '../_api/getUserProfile'
 import { UserTargetsResponseData } from '../_api/getUserTargets'
-import { UserAddTaskRequestDataItem } from '../_api/AddTask'
 import { RedeemAwardResponseData } from '../_api/redeemAward'
 
 interface AppStore {

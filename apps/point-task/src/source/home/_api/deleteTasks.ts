@@ -33,6 +33,9 @@ export const deletedTask = async (
     })
 
     if (res.code === 0) {
+      if (!res.data) {
+        throw new Error('删除任务失败：返回数据为空')
+      }
       return res.data
     } else {
       throw new Error(`删除任务失败：${res.message}`)

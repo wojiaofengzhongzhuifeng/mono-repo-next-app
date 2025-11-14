@@ -1,7 +1,7 @@
+import useRedeemAwardHooks from '@/source/home/_hooks/useRedeemAward'
 import { ArrowLeftOutlined, CheckSquareOutlined } from '@ant-design/icons'
 import { Divider, Flex, Progress } from 'antd'
-import { useEffect, useState } from 'react'
-import useRedeemAwardHooks from '../../_hooks/useRedeemAward'
+import { useState } from 'react'
 import { useAppStore } from '../../_store'
 
 interface TargetListProps {
@@ -11,8 +11,8 @@ interface TargetListProps {
 function TargetList({ onBack }: TargetListProps) {
   const [targetState, setTargetState] = useState('进行中') // 目标状态：进行中、已完成、未完成
   const { userInfo, userTargets, updateUserPoints } = useAppStore()
-  const [exchangeable, setExchangeable] = useState(false)
-  const { redeemAward, loading, error } = useRedeemAwardHooks()
+  const [exchangeable, setExchangeable] = useState<boolean>(false)
+  const { redeemAward } = useRedeemAwardHooks()
   const [completedTaskIds, setCompletedTaskIds] = useState<Set<number>>(
     new Set()
   ) // 跟踪已完成的任务ID
@@ -82,8 +82,6 @@ function TargetList({ onBack }: TargetListProps) {
       alert('兑换失败，请重试')
     }
   }
-
-  useEffect(() => {}, [])
 
   //根据用户is_redeemed字段判断是否已经兑换，如果已经兑换，则不显示在页面上
   const isRedeemed = (card: { is_redeemed: boolean }) => {

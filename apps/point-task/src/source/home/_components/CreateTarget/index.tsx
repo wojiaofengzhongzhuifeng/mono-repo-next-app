@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import TargetList from '../TargetList'
-import { useAppStore } from '../../_store'
+import { useState } from 'react'
 import { useCreateTargetsHooks } from '../../_hooks/useCreateTargets'
+import { useAppStore } from '../../_store'
+import TargetList from '../TargetList'
 
 interface SetTargetsProps {
   onBack: () => void
@@ -12,7 +12,7 @@ function SetTargets({ onBack }: SetTargetsProps) {
   const [wordNumber, setWordNumber] = useState('')
   const [points, setPoints] = useState<string | number>('')
   const [goatNumber, setGoatNumber] = useState('')
-  const { userInfo, userTargets, setUserTargets } = useAppStore()
+  const { userInfo } = useAppStore()
   const { createTargets, loading } = useCreateTargetsHooks()
 
   const difficultyLevel = (points: number) => {

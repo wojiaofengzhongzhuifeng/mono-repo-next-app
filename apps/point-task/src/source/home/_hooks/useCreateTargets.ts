@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
-import { useRequest } from 'ahooks'
-import { useAppStore } from '@/source/home/_store'
 import {
-  postUserTargets,
   CreateTargetRequestData,
+  postUserTargets,
 } from '@/source/home/_api/createUserTargets'
+import { useAppStore } from '@/source/home/_store'
+import { useRequest } from 'ahooks'
+import { useEffect, useRef } from 'react'
 
 export function useCreateTargets() {
   const { data, error, loading, run } = useRequest(

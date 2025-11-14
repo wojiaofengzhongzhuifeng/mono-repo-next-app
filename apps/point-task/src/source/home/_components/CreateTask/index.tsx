@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import { Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Switch } from 'antd'
-import { useAppStore } from '../../_store'
+import { Select, Switch } from 'antd'
+import { useState } from 'react'
 import { useAddTaskHooks } from '../../_hooks/useAddTask'
+import { useAppStore } from '../../_store'
 interface CreateTaskProps {
   onBack: () => void
 }

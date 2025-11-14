@@ -1,5 +1,5 @@
-import { get } from '@mono-repo/utils'
 import { GET_COUNT_NUMBER } from '@/source/home/_api/mockData'
+import { get } from '@mono-repo/utils'
 
 /**
  * 0. 定义请求与响应的数据结构
@@ -44,6 +44,9 @@ export const getCountNumberRequest =
       console.log('res', res)
       if (res.code === 200) {
         // 正常获取数据
+        if (!res.data) {
+          throw new Error('获取数据失败：返回数据为空')
+        }
         return res.data
       } else {
         throw new Error('获取数据失败： 业务错误')

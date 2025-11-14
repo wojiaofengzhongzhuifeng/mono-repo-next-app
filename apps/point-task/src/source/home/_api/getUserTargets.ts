@@ -53,6 +53,9 @@ export const getUserTargets = async (
 
     if (res.code === 0) {
       // 正常获取数据
+      if (!res.data) {
+        throw new Error('获取数据失败：返回数据为空')
+      }
       return res.data
     } else {
       throw new Error('获取数据失败： 业务错误')

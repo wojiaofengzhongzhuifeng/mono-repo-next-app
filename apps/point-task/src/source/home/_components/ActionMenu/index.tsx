@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { FaPlus, FaBullseye, FaCheck, FaGift } from 'react-icons/fa'
+import { useState } from 'react'
+import { FaBullseye, FaCheck, FaGift, FaPlus } from 'react-icons/fa'
 import CreateTarget from '../CreateTarget'
 import CreateTask from '../CreateTask'
-import TaskList from '../TaskList'
 import TargetList from '../TargetList'
+import TaskList from '../TaskList'
 
 function ActionMenu() {
   const [showSetTargets, setShowSetTargets] = useState(false)

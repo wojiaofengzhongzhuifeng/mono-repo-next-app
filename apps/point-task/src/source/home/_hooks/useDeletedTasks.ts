@@ -1,6 +1,6 @@
 import { message } from 'antd'
-import { useAppStore } from '../_store'
 import { deletedTask } from '../_api/deleteTasks'
+import { useAppStore } from '../_store'
 
 export const useDeletedTasks = () => {
   const { userInfo } = useAppStore()

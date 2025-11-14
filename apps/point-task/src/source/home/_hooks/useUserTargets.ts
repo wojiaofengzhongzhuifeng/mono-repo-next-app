@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
-import { useRequest } from 'ahooks'
-import { useAppStore } from '@/source/home/_store'
 import { getUserTargets } from '@/source/home/_api/getUserTargets'
+import { useAppStore } from '@/source/home/_store'
+import { useRequest } from 'ahooks'
+import { useEffect } from 'react'
 
 export function useGetUserTargets() {
   const { data, error, loading, run } = useRequest(getUserTargets, {

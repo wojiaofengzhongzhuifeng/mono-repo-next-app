@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useRequest } from 'ahooks'
 import { useAppStore } from '@/source/home/_store'
 import { getUserInfo } from '@/source/home/_api/getUserProfile'
-import { post } from '@mono-repo/utils'
 
 export function useGetUserInfo() {
   const { data, error, loading, run } = useRequest(getUserInfo, {
