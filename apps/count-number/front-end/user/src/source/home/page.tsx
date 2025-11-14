@@ -1,7 +1,6 @@
-import React from 'react'
 import { useGetNumbers } from '@/source/home/_api/get-number'
-import { NumberList } from '@/source/home/_components/NumberList'
 import CreateNumberForm from '@/source/home/_components/CreateNumberForm'
+import { NumberList } from '@/source/home/_components/NumberList'
 
 function Page() {
   useGetNumbers()

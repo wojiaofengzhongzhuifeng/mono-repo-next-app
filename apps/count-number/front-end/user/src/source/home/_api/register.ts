@@ -1,5 +1,5 @@
-import { useRequest } from 'ahooks'
 import { post } from '@mono-repo/utils'
+import { useRequest } from 'ahooks'
 
 interface RegisterRequest {
   email: string

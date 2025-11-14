@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { post } from '@mono-repo/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { post } from '@mono-repo/utils'
+import React, { useState } from 'react'
 
 interface RegisterRequest {
   email: string

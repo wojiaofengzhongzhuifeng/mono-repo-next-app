@@ -1,10 +1,10 @@
-import axios from 'axios'
+import { getEnv } from '@/lib/env'
 import {
-  NumberItem,
   CreateNumberRequest,
+  NumberItem,
   UpdateNumberRequest,
 } from '@/types/number'
-import { getEnv } from '@/lib/env'
+import axios from 'axios'
 
 const { NEXT_PUBLIC_API_URL } = getEnv()
 const API_BASE_URL = NEXT_PUBLIC_API_URL

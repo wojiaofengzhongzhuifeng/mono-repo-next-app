@@ -1,8 +1,7 @@
 'use client'
 
-import React from 'react'
-import { Card, Row, Col, Statistic, Typography } from 'antd'
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons'
+import { Card, Col, Row, Statistic, Typography } from 'antd'
 
 const { Title } = Typography
 

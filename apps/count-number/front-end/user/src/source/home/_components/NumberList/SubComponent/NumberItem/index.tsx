@@ -1,4 +1,3 @@
-import React from 'react'
 import { GetCountNumberResponse } from '@/source/home/_api/get-number'
 
 export function NumberItem(props: GetCountNumberResponse) {
