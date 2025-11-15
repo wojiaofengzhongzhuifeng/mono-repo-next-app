@@ -22,7 +22,7 @@ export type GetUserInfoRequset = {
 }
 
 // 2. 配置请求代码
-const apiConfig: ApiConfig = {
+export const apiConfig: ApiConfig = {
   url: `${prefixUrl}/user_id`,
   method: 'GET',
   manual: false,
