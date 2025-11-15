@@ -1,5 +1,13 @@
+import GetUserInfo from './_components/UserInfo'
+
 function Page() {
-  return <div>test</div>
+  return (
+    <div>
+      <div>
+        <GetUserInfo></GetUserInfo>
+      </div>
+    </div>
+  )
 }
 
 export default Page
