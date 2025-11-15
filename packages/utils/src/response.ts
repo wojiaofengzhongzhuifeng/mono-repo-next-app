@@ -16,7 +16,7 @@ export interface ApiResponse<T> {
  * 业务状态码常量
  */
 export const STATUS_CODE = {
-  SUCCESS: 20000, // 请求成功
+  SUCCESS: 0, // 请求成功
   CLIENT_ERROR: 40001, // 请求数据出错
   BUSINESS_ERROR: 50002, // 业务逻辑错误
 } as const

@@ -1,12 +1,10 @@
-import { userInfo } from 'os'
-import {
-  useGetUserInfo,
-  useGetUserInfoHooks,
-} from '../../_hooks/getUserInfoHooks'
+import { useGetUserInfoHooks } from '@/source/home/_api/getUserInfo'
+import { useAppStore } from '../../_store'
 
 function GetUserInfo() {
-  useGetUserInfo()
+  const { userInfo } = useAppStore()
   useGetUserInfoHooks()
+
   console.log(userInfo)
   return (
     <>
