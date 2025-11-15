@@ -1,8 +1,6 @@
-import React from 'react'
+import { Header, NavigationItem } from '@mono-repo/ui'
 import { useRouter } from 'next/router'
-import { Header, Footer, NavigationItem } from '@mono-repo/ui'
-import { useAppStore } from '@/source/home/_store'
-import { Button } from '@/components/ui/button'
+import React from 'react'
 
 interface LayoutProps {
   children: React.ReactNode
