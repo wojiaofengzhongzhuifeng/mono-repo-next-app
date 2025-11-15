@@ -1,8 +1,12 @@
 import { userInfo } from 'os'
-import { useGetUserInfo } from '../../_hooks/getUserInfoHooks'
+import {
+  useGetUserInfo,
+  useGetUserInfoHooks,
+} from '../../_hooks/getUserInfoHooks'
 
 function GetUserInfo() {
   useGetUserInfo()
+  useGetUserInfoHooks()
   console.log(userInfo)
   return (
     <>

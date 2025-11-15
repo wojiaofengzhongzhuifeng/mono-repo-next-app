@@ -1,3 +1,4 @@
+import { ApiConfig, prefixUrl } from '@/source/home/_api/common'
 import { get, STATUS_CODE } from '@mono-repo/utils'
 
 // 1. 定义请求与响应的数据结构
@@ -23,19 +24,20 @@ export interface GetUserInfoRequset {
 }
 
 // 2. 配置请求代码
-
-const API_CONFIG = {
-  url: '/api/users',
+export const apiConfig: ApiConfig = {
+  url: `${prefixUrl}/users`,
   method: 'GET',
   manual: false,
   showError: true,
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const getUserInfoRequest = async (): Promise<GetUserInfoRequset> => {
+export const getUserInfoRequest = async (
+  userId: string
+): Promise<GetUserInfoRequset> => {
   try {
     const res = await get<GetUserInfoRequset>({
-      url: API_CONFIG.url,
+      url: `${apiConfig.url}/${userId}`,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
       if (!res.data) {

@@ -1,37 +1,32 @@
-import {
-  apiConfig,
-  getUserInfoRequest,
-  GetUserInfoResponse,
-} from '@/source/home/_api/getUserInfo'
+import { getUserInfoRequest } from '@/source/home/_api/getUserInfo'
 import { useAppStore } from '@/source/home/_store'
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
 
-export function useGetUserInfo(params?: {
-  manual?: boolean
-  showError?: boolean
-}) {
-  const manual = params?.manual ?? apiConfig.manual
-  const showError = params?.showError ?? apiConfig.showError
-
-  // 包装请求函数，使其兼容 useRequest
-  const wrappedGetUserInfoRequest = async (
-    userId: string
-  ): Promise<GetUserInfoResponse> => {
-    return await getUserInfoRequest(userId)
-  }
-
-  const { data, error, loading, run } = useRequest(wrappedGetUserInfoRequest, {
-    manual,
+// 凡是以 get or submit 开头，表示请求数据
+export function useGetUserInfo() {
+  const { data, error, loading, run } = useRequest(getUserInfoRequest, {
+    manual: true,
   })
 
+  useEffect(() => {
+    if (error) {
+      console.error('获取分类数据失败:', error)
+    }
+  }, [error])
+
+  return { error, loading, data, run }
+}
+
+// 使用 hooks - 自动获取用户信息
+export function useGetUserInfoHooks() {
+  const { run, data, error, loading } = useGetUserInfo()
   const { setUserInfo } = useAppStore()
 
   useEffect(() => {
-    if (error && showError) {
-      alert('获取用户信息失败')
-    }
-  }, [error, showError])
+    // 调用接口获取用户信息
+    run('user001')
+  }, [run])
 
   useEffect(() => {
     if (!error && data) {
@@ -39,5 +34,5 @@ export function useGetUserInfo(params?: {
     }
   }, [error, data, setUserInfo])
 
-  return { data, error, loading, run }
+  return { loading, error, data }
 }
