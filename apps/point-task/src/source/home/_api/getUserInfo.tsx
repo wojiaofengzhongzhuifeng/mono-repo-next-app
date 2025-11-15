@@ -4,7 +4,7 @@ import { get, STATUS_CODE } from '@mono-repo/utils'
 // 1. 定义请求与响应的数据结构
 
 // 前端所需的数据结构
-export type GetUserMsgResponse = {
+export type GetUserInfoResponse = {
   id: number //1s
   user_id: string //"user001"
   nickname: string //"测试用户"
@@ -13,7 +13,7 @@ export type GetUserMsgResponse = {
 }
 
 // 后端返回的数据结构
-export type GetUserMsgRequset = {
+export type GetUserInfoRequset = {
   id: number //1
   user_id: string //"user001"
   nickname: string //"测试用户"
@@ -23,18 +23,18 @@ export type GetUserMsgRequset = {
 
 // 2. 配置请求代码
 const apiConfig: ApiConfig = {
-  url: `${prefixUrl}/users`,
+  url: `${prefixUrl}/user_id`,
   method: 'GET',
   manual: false,
   showError: true,
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const getUserMsgRequest = async (
+export const getUserInfoRequest = async (
   userId: string
-): Promise<GetUserMsgRequset> => {
+): Promise<GetUserInfoRequset> => {
   try {
-    const res = await get<GetUserMsgRequset>({
+    const res = await get<GetUserInfoRequset>({
       url: `${apiConfig.url}/${userId}`,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
