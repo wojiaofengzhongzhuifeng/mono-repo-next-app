@@ -1,10 +1,14 @@
 import { LeftOutlined } from '@ant-design/icons'
-
+import { postPostCreactedTargetsHooks } from '../../_hooks/postCreactTargets'
+import { useAppStore } from '../../_store'
 interface CreatedTargetProps {
   onBack: () => void
 }
 
 function CreatedTarget({ onBack }: CreatedTargetProps) {
+  const { creactedTargets, setCreactedTargets } = useAppStore()
+  postPostCreactedTargetsHooks()
+  console.log('creactedTargets', creactedTargets)
   return (
     <>
       <div className='p-6 w-2/5 mx-auto rounded-lg shadow-lg mt-2'>
