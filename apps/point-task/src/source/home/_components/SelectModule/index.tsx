@@ -17,15 +17,15 @@ function SelectModule() {
             </div>
             <div className='bg-green-500 hover:bg-green-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
               <PlusOutlined className='text-2xl mb-2' />
-              <div>创建目标</div>
+              <div>添加任务</div>
             </div>
             <div className='bg-orange-500 hover:bg-orange-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
               <CheckCircleOutlined className='text-2xl mb-2' />
-              <div>创建目标</div>
+              <div>完成任务</div>
             </div>
             <div className='bg-purple-500 hover:bg-purple-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
               <GiftOutlined className='text-2xl mb-2' />
-              <div>创建目标</div>
+              <div>兑换目标</div>
             </div>
           </div>
         </div>
