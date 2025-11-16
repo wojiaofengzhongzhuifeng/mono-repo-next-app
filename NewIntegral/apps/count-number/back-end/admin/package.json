@@ -1,0 +1,22 @@
+{
+  "name": "count-number-backend-admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3011",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mono-repo/utils": "workspace:*",
+    "@supabase/supabase-js": "^2.39.0",
+    "next": "14.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5"
+  }
+}

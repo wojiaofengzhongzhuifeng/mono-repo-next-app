@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "ai-count-number",
+  "installCommand": "cd .. && pnpm install",
+  "buildCommand": "cd .. && turbo run build --filter='@mono-repo/*' --filter=ai-count-number",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@mono-repo/utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --dts",
+    "dev": "tsup src/index.ts --format cjs --dts --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "prettier": "3.4.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
