@@ -5,13 +5,20 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 
-function SelectModule() {
+interface SelectModuleProps {
+  onCreateTarget: () => void
+}
+
+function SelectModule({ onCreateTarget }: SelectModuleProps) {
   return (
     <>
       <div>
         <div className='  p-6 w-2/5 mx-auto rounded-lg shadow-lg mt-2'>
           <div className='grid grid-cols-2 grid-rows-2 gap-4 h-64'>
-            <div className='bg-blue-500 hover:bg-blue-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
+            <div
+              className='bg-blue-500 hover:bg-blue-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'
+              onClick={onCreateTarget}
+            >
               <IssuesCloseOutlined className='text-2xl mb-2' />
               <div>创建目标</div>
             </div>
