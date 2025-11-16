@@ -1,3 +1,4 @@
+import SelectModule from './_components/SelectModule'
 import GetUserInfo from './_components/UserInfo'
 
 function Page() {
@@ -5,6 +6,7 @@ function Page() {
     <div>
       <div>
         <GetUserInfo></GetUserInfo>
+        <SelectModule></SelectModule>
       </div>
     </div>
   )

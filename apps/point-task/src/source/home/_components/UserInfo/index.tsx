@@ -15,6 +15,8 @@ function GetUserInfo() {
       <div className='text-center text-2xl font-bold mb-4'>
         {userInfo?.totalPoints ?? '加载中...'}
       </div>
+
+      {/* todo 等待task和target完成*/}
       <div className='text-center text-blue-200'>0个目标，0个待完成任务</div>
     </div>
   )
