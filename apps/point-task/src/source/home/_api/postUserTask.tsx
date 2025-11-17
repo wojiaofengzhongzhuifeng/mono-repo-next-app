@@ -4,35 +4,33 @@ import { post, STATUS_CODE } from '@mono-repo/utils'
 // 1. 定义请求与响应的数据结构
 
 // 后端返回的数据结构
-export interface PostUserCreatedTargetsRequset {
-  id: number //58
-  name: string //'买一台新电脑'
-  need_point: number //100
-  user_id: string
-  is_redeemed: boolean //false
-  created_at: string //'2025-11-16T04:58:30.604Z'
-  description: string //'用于学习和编程'
+export interface PostUserCreatedTasksRequset {
+  name: string //'完成作业'
+  create_point: number //10
+  task_type: string //'study'
+  is_repeatable: boolean //false
+  user_id: string //'user001'
 }
 
 // 2. 配置请求代码
 export const apiConfig: ApiConfig = {
-  url: `${prefixUrl}/targets`,
+  url: `${prefixUrl}/tasks`,
   method: 'POST',
   manual: false,
   showError: true,
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const postUserCreatedTargetsRequest = async (
-  targetData: Omit<
-    PostUserCreatedTargetsRequset,
+export const postUserCreatedTasksRequest = async (
+  tasksData: Omit<
+    PostUserCreatedTasksRequset,
     'id' | 'is_redeemed' | 'created_at'
   >
-): Promise<PostUserCreatedTargetsRequset> => {
+): Promise<PostUserCreatedTasksRequset> => {
   try {
-    const res = await post<PostUserCreatedTargetsRequset>({
+    const res = await post<PostUserCreatedTasksRequset>({
       url: `${apiConfig.url}`,
-      data: [targetData], // 发送数组格式的请求体
+      data: [tasksData], // 发送数组格式的请求体
     })
     if (res.code === STATUS_CODE.SUCCESS) {
       if (!res.data) {
