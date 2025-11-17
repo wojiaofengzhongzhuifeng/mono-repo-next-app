@@ -5,11 +5,15 @@ import { post, STATUS_CODE } from '@mono-repo/utils'
 
 // 后端返回的数据结构
 export interface PostUserCreatedTasksRequset {
+  id: number // 12
   name: string //'完成作业'
   create_point: number //10
   task_type: string //'study'
   is_repeatable: boolean //false
+  is_completed: boolean
+  comleted_at: null //null
   user_id: string //'user001'
+  created_at: string //"2025-11-17T13:50:20.075z"
 }
 
 // 2. 配置请求代码
