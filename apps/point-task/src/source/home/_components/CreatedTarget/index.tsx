@@ -35,6 +35,21 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
       console.error('创建目标失败:', error)
     }
   }
+
+  // 积分提示
+  const pointAdvise = () => {
+    if (targetPoint === 0) return null
+    if (targetPoint > 0) {
+      if (targetPoint > 100) {
+        return <div className='text-red-500 mb-4'>难度等级：困难</div>
+      } else if (targetPoint > 50) {
+        return <div className='text-orange-500 mb-4'>难度等级：中等</div>
+      } else if (targetPoint > 0) {
+        return <div className='text-green-500 mb-4'>难度等级：简单</div>
+      }
+    }
+    return <></>
+  }
   return (
     <>
       <div className='p-6 w-2/5 mx-auto rounded-lg shadow-lg mt-2'>
@@ -88,8 +103,6 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   { type: 'number', min: 1, message: '积分数量必须大于0' },
                   {
                     type: 'number',
-                    max: 999999,
-                    message: '积分数量不能超过999999!',
                   },
                 ]}
               >
@@ -97,19 +110,25 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   className='bg-gray-200 w-full'
                   placeholder='输入需要的积分数量'
                   min={1}
-                  max={999999}
                   value={targetPoint}
                   onChange={value => {
                     setTargetPoint(value || 1)
                   }}
                   parser={value => {
-                    // 移除非数字字符，只保留数字（不允许小数点）
+                    // 严格限制只能输入大于0的数字，禁止任何其他字符
                     if (!value) return 1
+                    // 移除所有非数字字符
                     const numStr = value.replace(/[^\d]/g, '')
-                    return numStr ? parseInt(numStr, 10) : 1
+                    // 如果结果为空或0，返回1（确保大于0）
+                    if (!numStr || numStr === '0') return 1
+                    // 转换为数字并确保在有效范围内
+                    const num = parseInt(numStr, 10)
+                    // 确保数字大于0且不超过最大值
+                    return Math.min(Math.max(num, 1))
                   }}
                 />
               </Form.Item>
+              <div>{pointAdvise()}</div>
             </div>
           </div>
           {/* 目标描述 */}
@@ -118,7 +137,7 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
               <div className='flex mb-2'>
                 目标描述
                 <div
-                  className='text-gray-500 mx-1 text-sm mt-0.5
+                  className='text-gray-500 mx-1 text-sm
                 '
                 >
                   (可选)
@@ -151,7 +170,9 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
             >
               创建目标
             </Button>
-            <Button className='w-full'>取消</Button>
+            <Button onClick={onBack} className='mt-2'>
+              取消
+            </Button>
           </div>
         </Form>
       </div>
