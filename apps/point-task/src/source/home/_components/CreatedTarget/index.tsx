@@ -1,26 +1,41 @@
 import { LeftOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber } from 'antd'
 import { useState } from 'react'
-import { postPostCreactedTargetsHooks } from '../../_hooks/postCreactTargets'
+import { postPostCreatedTargetsHooks } from '../../_hooks/postCreactTargets'
 import { useAppStore } from '../../_store'
 interface CreatedTargetProps {
   onBack: () => void
 }
 
 function CreatedTarget({ onBack }: CreatedTargetProps) {
-  const { creactedTargets, setCreactedTargets, userInfo } = useAppStore()
-  const [targetName, setTargetName] = useState()
-  const [targetPoint, setTargetPoint] = useState()
-  const [targetDescription, setTargetDescription] = useState()
+  const { createdTargets, setCreatedTargets, userInfo } = useAppStore()
+  const [targetName, setTargetName] = useState<string>('')
+  const [targetPoint, setTargetPoint] = useState<number>(0)
+  const [targetDescription, setTargetDescription] = useState<string>('')
   const [form] = Form.useForm()
-  const { createTarget, loading } = postPostCreactedTargetsHooks()
+  const { createTarget, loading } = postPostCreatedTargetsHooks()
 
   const generateUserId = () => {
     const userId = userInfo?.user_id
     return String(userId)
   }
-  console.log(creactedTargets)
+  console.log(createdTargets)
 
+  const handleSubmit = async (values: any) => {
+    try {
+      const targetData = {
+        name: values.targetName,
+        description: values.description || '',
+        need_point: Number(values.points),
+        user_id: generateUserId(),
+      }
+
+      await createTarget(targetData)
+      // onBack()
+    } catch (error) {
+      console.error('创建目标失败:', error)
+    }
+  }
   return (
     <>
       <div className='p-6 w-2/5 mx-auto rounded-lg shadow-lg mt-2'>
@@ -33,7 +48,7 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
         </div>
 
         {/* body */}
-        <Form form={form} layout='vertical'>
+        <Form form={form} layout='vertical' onFinish={handleSubmit}>
           {/* 目标名称 */}
           <div>
             <div>
@@ -53,9 +68,12 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   showCount
                   maxLength={100}
                   value={targetName}
+                  onChange={e => {
+                    setTargetName(e.target.value || '')
+                    console.log(e.target.value)
+                  }}
                 />
               </Form.Item>
-              <div className='text-gray-400 text-sm text-right'>{}/100</div>
             </div>
           </div>
 
@@ -82,6 +100,10 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   placeholder='输入需要的积分数量'
                   min={1}
                   max={999999}
+                  value={targetPoint}
+                  onChange={value => {
+                    setTargetPoint(value || 1)
+                  }}
                   parser={value => {
                     // 移除非数字字符，只保留数字（不允许小数点）
                     if (!value) return 1
@@ -113,9 +135,12 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   className='bg-gray-200'
                   showCount
                   maxLength={200}
+                  value={targetDescription}
+                  onChange={e => {
+                    setTargetDescription(e.target.value || '')
+                  }}
                 />
               </Form.Item>
-              <div className='text-gray-400 text-sm text-right'>{}/200</div>
             </div>
           </div>
           {/* button */}
@@ -128,9 +153,7 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
             >
               创建目标
             </Button>
-            <Button onClick={onBack} className='w-full'>
-              取消
-            </Button>
+            <Button className='w-full'>取消</Button>
           </div>
         </Form>
       </div>

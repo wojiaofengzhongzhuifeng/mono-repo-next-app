@@ -4,7 +4,7 @@ import { post, STATUS_CODE } from '@mono-repo/utils'
 // 1. 定义请求与响应的数据结构
 
 // 前端所需的数据结构
-export interface PostUserCreactedTargetsResponse {
+export interface PostUserCreatedTargetsResponse {
   id: number //58
   name: string //'买一台新电脑'
   need_point: number //100
@@ -14,11 +14,11 @@ export interface PostUserCreactedTargetsResponse {
   description: string //'用于学习和编程'
 }
 
-export type PostUserCreactedTargetsResponseData =
-  PostUserCreactedTargetsResponse[]
+export type PostUserCreatedTargetsResponseData =
+  PostUserCreatedTargetsResponse[]
 
 // 后端返回的数据结构
-export interface PostUserCreactedTargetsRequset {
+export interface PostUserCreatedTargetsRequset {
   id: number //58
   name: string //'买一台新电脑'
   need_point: number //100
@@ -37,14 +37,14 @@ export const apiConfig: ApiConfig = {
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const postUserCreactedTargetsRequest = async (
+export const postUserCreatedTargetsRequest = async (
   targetData: Omit<
-    PostUserCreactedTargetsRequset,
+    PostUserCreatedTargetsRequset,
     'id' | 'is_redeemed' | 'created_at'
   >
-): Promise<PostUserCreactedTargetsRequset> => {
+): Promise<PostUserCreatedTargetsRequset> => {
   try {
-    const res = await post<PostUserCreactedTargetsRequset>({
+    const res = await post<PostUserCreatedTargetsRequset>({
       url: `${apiConfig.url}`,
       data: [targetData], // 发送数组格式的请求体
     })
