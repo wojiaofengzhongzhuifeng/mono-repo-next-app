@@ -1,6 +1,7 @@
 import { GetUserInfoResponse } from '@/source/home/_api/getUserInfo'
 import { create } from 'zustand'
 import { PostUserCreatedTargetsRequset } from '../_api/postUserTarget'
+import { PostUserCreatedTasksRequset } from '../_api/postUserTask'
 
 interface AppStore {
   countNumber: number
@@ -11,6 +12,9 @@ interface AppStore {
 
   createdTargets: PostUserCreatedTargetsRequset[]
   setCreatedTargets: (newTargets: PostUserCreatedTargetsRequset[]) => void
+
+  createdTasks: PostUserCreatedTasksRequset[]
+  setCreatedTasks: (createdTasks: PostUserCreatedTasksRequset[]) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -22,4 +26,7 @@ export const useAppStore = create<AppStore>(set => ({
 
   createdTargets: [],
   setCreatedTargets: newTargets => set({ createdTargets: newTargets }),
+
+  createdTasks: [],
+  setCreatedTasks: newTasks => set({ createdTasks: newTasks }),
 }))
