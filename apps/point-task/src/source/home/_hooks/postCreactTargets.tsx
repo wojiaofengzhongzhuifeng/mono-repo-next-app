@@ -21,15 +21,10 @@ export function postPostCreactedTargets() {
   return { error, loading, data, run }
 }
 
-// 使用 hooks - 自动获取用户信息
+// 使用 hooks - 手动调用创建目标
 export function postPostCreactedTargetsHooks() {
   const { run, data, error, loading } = postPostCreactedTargets()
   const { setCreactedTargets } = useAppStore()
-
-  useEffect(() => {
-    // 调用接口获取用户信息
-    run()
-  }, [run])
 
   useEffect(() => {
     if (!error && data) {
@@ -37,5 +32,5 @@ export function postPostCreactedTargetsHooks() {
     }
   }, [error, data, setCreactedTargets])
 
-  return { loading, error, data }
+  return { loading, error, data, run }
 }
