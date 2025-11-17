@@ -1,5 +1,6 @@
 import { LeftOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber } from 'antd'
+import { useState } from 'react'
 import { postPostCreactedTargetsHooks } from '../../_hooks/postCreactTargets'
 import { useAppStore } from '../../_store'
 interface CreatedTargetProps {
@@ -7,9 +8,18 @@ interface CreatedTargetProps {
 }
 
 function CreatedTarget({ onBack }: CreatedTargetProps) {
-  const { creactedTargets, setCreactedTargets } = useAppStore()
-  postPostCreactedTargetsHooks()
-  console.log('creactedTargets', creactedTargets)
+  const { creactedTargets, setCreactedTargets, userInfo } = useAppStore()
+  const [targetName, setTargetName] = useState()
+  const [targetPoint, setTargetPoint] = useState()
+  const [targetDescription, setTargetDescription] = useState()
+  const [form] = Form.useForm()
+  const { createTarget, loading } = postPostCreactedTargetsHooks()
+
+  const generateUserId = () => {
+    const userId = userInfo?.user_id
+    return String(userId)
+  }
+  console.log(creactedTargets)
 
   return (
     <>
@@ -23,7 +33,7 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
         </div>
 
         {/* body */}
-        <div>
+        <Form form={form} layout='vertical'>
           {/* 目标名称 */}
           <div>
             <div>
@@ -31,12 +41,18 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                 目标名称<div className='text-red-500 mx-1'>*</div>
               </div>
               <Form.Item
-                name='TextArea'
-                rules={[{ required: true, message: 'Please input!' }]}
+                name='targetName'
+                rules={[
+                  { required: true, message: '请输入目标名称!' },
+                  { max: 100, message: '目标名称不能超过100个字符!' },
+                ]}
               >
                 <Input.TextArea
                   placeholder='请输入目标名称'
                   className='bg-gray-200'
+                  showCount
+                  maxLength={100}
+                  value={targetName}
                 />
               </Form.Item>
               <div className='text-gray-400 text-sm text-right'>{}/100</div>
@@ -50,24 +66,27 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                 所需积分<div className='text-red-500 mx-1'>*</div>
               </div>
               <Form.Item
-                name='InputNumber'
-                rules={[{ required: true, message: 'Please input!' }]}
+                name='points'
+                rules={[
+                  { required: true, message: '请输入积分数量!' },
+                  { type: 'number', min: 1, message: '积分数量必须大于0' },
+                  {
+                    type: 'number',
+                    max: 999999,
+                    message: '积分数量不能超过999999!',
+                  },
+                ]}
               >
                 <InputNumber
                   className='bg-gray-200 w-full'
-                  type='number'
                   placeholder='输入需要的积分数量'
+                  min={1}
+                  max={999999}
                   parser={value => {
                     // 移除非数字字符，只保留数字（不允许小数点）
-                    if (!value) return ''
-                    return value.replace(/[^\d]/g, '')
-                  }}
-                  onKeyPress={e => {
-                    // 阻止输入 e, E, +, -, . 等非数字字符
-                    const char = String.fromCharCode(e.which)
-                    if (!/[0-9]/.test(char)) {
-                      e.preventDefault()
-                    }
+                    if (!value) return 1
+                    const numStr = value.replace(/[^\d]/g, '')
+                    return numStr ? parseInt(numStr, 10) : 1
                   }}
                 />
               </Form.Item>
@@ -86,12 +105,14 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                 </div>
               </div>
               <Form.Item
-                name='TextArea'
-                rules={[{ required: true, message: 'Please input!' }]}
+                name='description'
+                rules={[{ max: 200, message: '目标描述不能超过200个字符!' }]}
               >
                 <Input.TextArea
                   placeholder='详细描述你的目标...'
                   className='bg-gray-200'
+                  showCount
+                  maxLength={200}
                 />
               </Form.Item>
               <div className='text-gray-400 text-sm text-right'>{}/200</div>
@@ -99,12 +120,19 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
           </div>
           {/* button */}
           <div>
-            <Button type='primary' className='w-full mt-8 mb-2 h-10'>
+            <Button
+              type='primary'
+              className='w-full mt-8 mb-2 h-10'
+              htmlType='submit'
+              loading={loading}
+            >
               创建目标
             </Button>
-            <Button>取消</Button>
+            <Button onClick={onBack} className='w-full'>
+              取消
+            </Button>
           </div>
-        </div>
+        </Form>
       </div>
     </>
   )
