@@ -8,7 +8,7 @@ interface CreatedTargetProps {
 }
 
 function CreatedTarget({ onBack }: CreatedTargetProps) {
-  const { createdTargets, setCreatedTargets, userInfo } = useAppStore()
+  const { userInfo } = useAppStore()
   const [targetName, setTargetName] = useState<string>('')
   const [targetPoint, setTargetPoint] = useState<number>(0)
   const [targetDescription, setTargetDescription] = useState<string>('')
@@ -19,7 +19,6 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
     const userId = userInfo?.user_id
     return String(userId)
   }
-  console.log(createdTargets)
 
   const handleSubmit = async (values: any) => {
     try {
@@ -70,7 +69,6 @@ function CreatedTarget({ onBack }: CreatedTargetProps) {
                   value={targetName}
                   onChange={e => {
                     setTargetName(e.target.value || '')
-                    console.log(e.target.value)
                   }}
                 />
               </Form.Item>

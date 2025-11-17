@@ -22,7 +22,7 @@ export function postPostCreatedTargets() {
   return { error, loading, data, run }
 }
 
-// 使用 hooks - 手动调用创建目标
+// 使用 hooks - 调用创建目标
 export function postPostCreatedTargetsHooks() {
   const { run, data, error, loading } = postPostCreatedTargets()
   const { userInfo, createdTargets, setCreatedTargets } = useAppStore()
