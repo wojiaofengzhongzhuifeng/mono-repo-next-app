@@ -3,8 +3,8 @@ import { useAppStore } from '../../_store'
 
 function GetUserInfo() {
   const { userInfo } = useAppStore()
-  useGetUserInfoHooks()
 
+  useGetUserInfoHooks()
   return (
     <div className='bg-blue-700 text-white p-6 w-2/5 mx-auto rounded-lg shadow-lg'>
       {/* head */}
