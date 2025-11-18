@@ -3,6 +3,7 @@ import { get, STATUS_CODE } from '@mono-repo/utils'
 
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
+import { useAppStore } from '../_store'
 
 // 1. 定义请求与响应的数据结构
 
@@ -51,13 +52,13 @@ export const apiConfig: ApiConfig = {
 // 3. 请求代码 + 通用逻辑 + 错误处理
 export const getUserTasksListRequest = async (
   userId: string
-): Promise<GetUserTasksListRequset> => {
+): Promise<GetUserTasksListRequset[]> => {
   try {
-    const res = await get<GetUserTasksListRequset>({
+    const res = await get<GetUserTasksListRequset[]>({
       url: `${apiConfig.url}/${userId}`,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
-      if (!res.data) {
+      if (!res.data || !Array.isArray(res.data)) {
         throw new Error('获取用户信息失败：返回数据为空')
       }
       return res.data
@@ -88,7 +89,7 @@ export function useGetUserTasksList() {
 // 使用 hooks - 自动获取用户信息
 export function useGetUserTasksListHooks() {
   const { run, data, error, loading } = useGetUserTasksList()
-  // const { setUserInfo } = useAppStore()
+  const { setGetUserTasksList } = useAppStore()
 
   useEffect(() => {
     // 调用接口获取用户信息
@@ -97,9 +98,9 @@ export function useGetUserTasksListHooks() {
 
   useEffect(() => {
     if (!error && data) {
-      // setUserInfo(data)
+      setGetUserTasksList(data)
     }
   }, [error, data])
 
-  return { loading, error, data }
+  return { loading, error, data, setGetUserTasksList }
 }
