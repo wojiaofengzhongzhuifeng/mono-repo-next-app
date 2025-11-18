@@ -7,9 +7,10 @@ import {
 
 interface SelectModuleProps {
   onCreateTarget: () => void
+  onCreateTask: () => void
 }
 
-function SelectModule({ onCreateTarget }: SelectModuleProps) {
+function SelectModule({ onCreateTarget, onCreateTask }: SelectModuleProps) {
   return (
     <>
       <div>
@@ -22,8 +23,12 @@ function SelectModule({ onCreateTarget }: SelectModuleProps) {
               <IssuesCloseOutlined className='text-2xl mb-2' />
               <div>创建目标</div>
             </div>
-            <div className='bg-green-500 hover:bg-green-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
+            <div
+              className='bg-green-500 hover:bg-green-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'
+              onClick={onCreateTask}
+            >
               <PlusOutlined className='text-2xl mb-2' />
+
               <div>添加任务</div>
             </div>
             <div className='bg-orange-500 hover:bg-orange-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
@@ -37,7 +42,6 @@ function SelectModule({ onCreateTarget }: SelectModuleProps) {
           </div>
         </div>
       </div>
-      green
     </>
   )
 }
