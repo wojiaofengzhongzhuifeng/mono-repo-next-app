@@ -1,10 +1,11 @@
+import CreatedTarget from '@/source/home/_components/CreatedTarget'
+import CreatedTask from '@/source/home/_components/CreatedTask'
+import GetUserTasksList from '@/source/home/_components/GetUserTasksList'
+import SelectModule from '@/source/home/_components/SelectModule'
+import GetUserInfo from '@/source/home/_components/UserInfo'
 import { useState } from 'react'
-import CreatedTarget from './_components/CreatedTarget'
-import CreatedTask from './_components/CreatedTask'
-import SelectModule from './_components/SelectModule'
-import GetUserInfo from './_components/UserInfo'
 
-type ViewType = 'select' | 'createTarget' | 'createTask'
+type ViewType = 'select' | 'createTarget' | 'createTask' | 'getTasksList'
 
 function Page() {
   const [currentView, setCurrentView] = useState<ViewType>('select')
@@ -21,6 +22,9 @@ function Page() {
     setCurrentView('select')
   }
 
+  const handleGetTasksList = () => {
+    setCurrentView('getTasksList')
+  }
   return (
     <div>
       <div>
@@ -33,7 +37,11 @@ function Page() {
           <SelectModule
             onCreateTarget={handleCreateTarget}
             onCreateTask={handleCreateTask}
+            onGetTasksList={handleGetTasksList}
           />
+        )}
+        {currentView === 'getTasksList' && (
+          <GetUserTasksList onBack={handleBack} />
         )}
       </div>
     </div>

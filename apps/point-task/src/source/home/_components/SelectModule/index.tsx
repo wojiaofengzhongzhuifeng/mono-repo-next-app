@@ -8,9 +8,14 @@ import {
 interface SelectModuleProps {
   onCreateTarget: () => void
   onCreateTask: () => void
+  onGetTasksList: () => void
 }
 
-function SelectModule({ onCreateTarget, onCreateTask }: SelectModuleProps) {
+function SelectModule({
+  onCreateTarget,
+  onCreateTask,
+  onGetTasksList,
+}: SelectModuleProps) {
   return (
     <>
       <div>
@@ -31,7 +36,10 @@ function SelectModule({ onCreateTarget, onCreateTask }: SelectModuleProps) {
 
               <div>添加任务</div>
             </div>
-            <div className='bg-orange-500 hover:bg-orange-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
+            <div
+              className='bg-orange-500 hover:bg-orange-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'
+              onClick={onGetTasksList}
+            >
               <CheckCircleOutlined className='text-2xl mb-2' />
               <div>完成任务</div>
             </div>

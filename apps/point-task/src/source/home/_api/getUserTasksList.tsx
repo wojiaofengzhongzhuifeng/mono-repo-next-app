@@ -55,7 +55,7 @@ export const getUserTasksListRequest = async (
 ): Promise<GetUserTasksListRequset[]> => {
   try {
     const res = await get<GetUserTasksListRequset[]>({
-      url: `${apiConfig.url}/${userId}`,
+      url: `${apiConfig.url}?user_id=${userId}`,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
       if (!res.data || !Array.isArray(res.data)) {
