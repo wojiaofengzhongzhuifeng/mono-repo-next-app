@@ -1,5 +1,6 @@
 import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Button, Checkbox } from 'antd'
+import { useGetUserTasksListHooks } from '../../_api/getUserTasksList'
 import { usePostCompleteTask } from '../../_hooks/postCompleteTask'
 import { useAppStore } from '../../_store'
 
@@ -21,6 +22,7 @@ const formatDate = (value?: string) => {
 
 function GetUserTasksList({ onBack }: GetTaskListProps) {
   const { getUserTasksList } = useAppStore()
+  const { setGetUserTasksList } = useGetUserTasksListHooks()
   const { completeTask } = usePostCompleteTask()
   console.log('getUserTasksList', getUserTasksList)
   return (
