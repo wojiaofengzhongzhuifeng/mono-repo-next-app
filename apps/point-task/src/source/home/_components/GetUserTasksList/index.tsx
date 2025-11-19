@@ -1,6 +1,7 @@
 import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Button, Checkbox } from 'antd'
 import { useGetUserTasksListHooks } from '../../_api/getUserTasksList'
+import { usePostCompleteTask } from '../../_hooks/postCompleteTask'
 import { useAppStore } from '../../_store'
 
 interface GetTaskListProps {
@@ -22,59 +23,7 @@ const formatDate = (value?: string) => {
 function GetUserTasksList({ onBack }: GetTaskListProps) {
   const { getUserTasksList } = useAppStore()
   const { setGetUserTasksList } = useGetUserTasksListHooks()
-
-  const renderUserTasksList = () => {
-    return (
-      <>
-        <div>
-          <div>
-            {getUserTasksList.map(item => {
-              return (
-                <div
-                  key={item.id}
-                  className='border-2 mb-2 flex items-center rounded-2xl p-3'
-                >
-                  <div className='pr-4 pt-1'>
-                    <Checkbox className='scale-150 transition-transform hover:scale-[1.6]' />
-                  </div>
-                  {/* item */}
-                  <div className='flex w-full items-center justify-between text-base'>
-                    <div className='flex flex-col gap-1'>
-                      <div className='font-medium text-base'>{item.name}</div>
-                      <div className='flex items-center gap-2'>
-                        <div className='inline-flex items-center rounded-2xl border border-green-200 bg-green-50 px-3 py-1 text-xs text-green-500 shadow-sm'>
-                          +{item.create_point} 积分
-                        </div>
-                        <div className='text-[10px] text-gray-400 space-x-1'>
-                          {item.task_type && (
-                            <span className='rounded-full bg-blue-50 px-2 py-px text-[10px] text-blue-600'>
-                              {item.task_type}
-                            </span>
-                          )}
-                          {repeatableLabel(item.is_repeatable) && (
-                            <span className='rounded-full bg-yellow-50 px-2 py-px text-[10px] text-yellow-600'>
-                              {repeatableLabel(item.is_repeatable)}
-                            </span>
-                          )}
-                          <span>{formatDate(item.created_at)}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      className='text-gray-400 transition-colors hover:text-red-500'
-                      aria-label='删除任务'
-                    >
-                      <DeleteOutlined className='text-red-500' />
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </>
-    )
-  }
+  const { completeTask, completeTaskLoading } = usePostCompleteTask()
   console.log('getUserTasksList', getUserTasksList)
   return (
     <>
@@ -105,7 +54,65 @@ function GetUserTasksList({ onBack }: GetTaskListProps) {
 
         {/* taskList */}
         <div className='mt-4'>
-          <div className=''>{renderUserTasksList()}</div>
+          <div className=''>
+            <div>
+              <div>
+                {getUserTasksList.map(item => {
+                  return (
+                    <div
+                      key={item.id}
+                      className='border-2 mb-2 flex items-center rounded-2xl p-3'
+                    >
+                      <div className='pr-4 pt-1'>
+                        <Checkbox
+                          className='scale-150 transition-transform hover:scale-[1.6]'
+                          checked={item.is_completed}
+                          disabled={item.is_completed || completeTaskLoading}
+                          onClick={() => {
+                            if (!item.is_completed) {
+                              completeTask(item)
+                            }
+                          }}
+                        />
+                      </div>
+                      {/* item */}
+                      <div className='flex w-full items-center justify-between text-base'>
+                        <div className='flex flex-col gap-1'>
+                          <div className='font-medium text-base'>
+                            {item.name}
+                          </div>
+                          <div className='flex items-center gap-2'>
+                            <div className='inline-flex items-center rounded-2xl border border-green-200 bg-green-50 px-3 py-1 text-xs text-green-500 shadow-sm'>
+                              +{item.create_point} 积分
+                            </div>
+                            <div className='text-[10px] text-gray-400 space-x-1'>
+                              {item.task_type && (
+                                <span className='rounded-full bg-blue-50 px-2 py-px text-[10px] text-blue-600'>
+                                  {item.task_type}
+                                </span>
+                              )}
+                              {repeatableLabel(item.is_repeatable) && (
+                                <span className='rounded-full bg-yellow-50 px-2 py-px text-[10px] text-yellow-600'>
+                                  {repeatableLabel(item.is_repeatable)}
+                                </span>
+                              )}
+                              <span>{formatDate(item.created_at)}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          className='text-gray-400 transition-colors hover:text-red-500'
+                          aria-label='删除任务'
+                        >
+                          <DeleteOutlined className='text-red-500' />
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
