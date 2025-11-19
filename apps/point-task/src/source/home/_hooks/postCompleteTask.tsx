@@ -3,10 +3,12 @@ import {
   completeUserTaskRequest,
   CompleteUserTaskResponse,
 } from '../_api/completeUserTask'
+import { updateUserPointsRequest } from '../_api/updateUserPoints'
 import { useAppStore } from '../_store'
 
 export function usePostCompleteTask() {
-  const { getUserTasksList, setGetUserTasksList } = useAppStore()
+  const { getUserTasksList, setGetUserTasksList, userInfo, setUserInfo } =
+    useAppStore()
 
   const completeTask = async (task: any) => {
     try {
@@ -20,7 +22,10 @@ export function usePostCompleteTask() {
         })
 
       if (result) {
-        message.success(`成功完成任务！获得 ${result.totalEarnedPoints} 积分`)
+        const earnedPoints = result.totalEarnedPoints
+
+        // 显示成功消息
+        message.success(`成功完成任务！获得 ${earnedPoints} 积分`)
 
         // 更新任务列表状态
         const updatedTasks = getUserTasksList.map(t =>
@@ -33,6 +38,33 @@ export function usePostCompleteTask() {
             : t
         )
         setGetUserTasksList(updatedTasks)
+
+        // 获取当前用户积分
+        if (userInfo) {
+          try {
+            // 调用获取用户积分API
+            const pointsResult = await updateUserPointsRequest(
+              userInfo.user_id || 'user001'
+            )
+
+            if (pointsResult) {
+              // 计算新的积分总额
+              const currentPoints = pointsResult.points || 0
+              const newTotalPoints = currentPoints + earnedPoints
+
+              // 更新store中的用户信息
+              setUserInfo({
+                ...userInfo,
+                totalPoints: newTotalPoints,
+              })
+
+              console.log('用户积分更新成功:', newTotalPoints)
+            }
+          } catch (updateError) {
+            console.error('获取用户积分失败:', updateError)
+            // 即使积分更新失败，任务完成仍然成功，所以不显示错误给用户
+          }
+        }
       }
     } catch (error) {
       console.error('完成任务失败:', error)
@@ -42,6 +74,5 @@ export function usePostCompleteTask() {
 
   return {
     completeTask,
-    completeTaskLoading: false,
   }
 }
