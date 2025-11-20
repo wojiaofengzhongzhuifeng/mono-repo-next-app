@@ -118,7 +118,7 @@ function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
           <div className=''>
             <div>
               <div>
-                {filteredTasksList.length === 0 ? (
+                {getUserTasksList.length === 0 ? (
                   <>
                     <div className='flex justify-center items-center min-h-[20vh] border border-gray-200 rounded-lg'>
                       <div className='text-gray-500 flex flex-col items-center justify-center mt-4'>
@@ -132,6 +132,28 @@ function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
                           className='mt-4 w-full mt-10 mb-8'
                         >
                           添加第一个任务
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                ) : filteredTasksList.length === 0 ? (
+                  <>
+                    <div className='flex justify-center items-center min-h-[20vh] border border-gray-200 rounded-lg'>
+                      <div className='text-gray-500 flex flex-col items-center justify-center mt-4'>
+                        <CheckCircleOutlined className='text-4xl' />
+                        <div className='mt-4 text-gray-300'>
+                          {activeStatus === 'pending'
+                            ? '暂无待完成的任务'
+                            : activeStatus === 'completed'
+                              ? '暂无已完成的任务'
+                              : '暂无任务'}
+                        </div>
+                        <Button
+                          type='primary'
+                          onClick={onCreateTask}
+                          className='mt-4 w-full mt-10 mb-8'
+                        >
+                          添加任务
                         </Button>
                       </div>
                     </div>
@@ -155,30 +177,44 @@ function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
                             }}
                           />
                         </div>
+
                         {/* item */}
                         <div className='flex w-full items-center justify-between text-base'>
                           <div className='flex flex-col gap-1'>
-                            <div className='font-medium text-base'>
+                            <div
+                              className={`font-medium text-base ${
+                                item.is_completed
+                                  ? 'text-gray-400 line-through'
+                                  : ''
+                              }`}
+                            >
                               {item.name}
                             </div>
-                            <div className='flex items-center gap-2'>
+                            <div className='flex items-center gap-2 flex-wrap'>
                               <div className='inline-flex items-center rounded-2xl border border-green-200 bg-green-50 px-3 py-1 text-xs text-green-500 shadow-sm'>
                                 +{item.create_point} 积分
                               </div>
-                              <div className='text-[10px] text-gray-400 space-x-1'>
-                                {item.task_type && (
-                                  <span className='rounded-full bg-blue-50 px-2 py-px text-[10px] text-blue-600'>
-                                    {item.task_type}
-                                  </span>
-                                )}
-                                {repeatableLabel(item.is_repeatable) && (
-                                  <span className='rounded-full bg-yellow-50 px-2 py-px text-[10px] text-yellow-600'>
-                                    {repeatableLabel(item.is_repeatable)}
-                                  </span>
-                                )}
-                                <span>{formatDate(item.created_at)}</span>
-                              </div>
+                              {item.task_type && (
+                                <span className='rounded-full bg-blue-50 px-2 py-px text-[10px] text-blue-600'>
+                                  {item.task_type}
+                                </span>
+                              )}
+                              {repeatableLabel(item.is_repeatable) && (
+                                <span className='rounded-full bg-yellow-50 px-2 py-px text-[10px] text-yellow-600'>
+                                  {repeatableLabel(item.is_repeatable)}
+                                </span>
+                              )}
+                              <span className='text-[10px] text-gray-400'>
+                                {formatDate(item.created_at)}
+                              </span>
                             </div>
+                            {item.is_completed && item.completed_at && (
+                              <div>
+                                <span className='text-[10px] text-green-500'>
+                                  已完成于{formatDate(item.completed_at)}
+                                </span>
+                              </div>
+                            )}
                           </div>
                           <Popconfirm
                             title='确定要删除这个任务吗？'
