@@ -1,7 +1,8 @@
 import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Button, Checkbox } from 'antd'
+import { Button, Checkbox, Popconfirm } from 'antd'
 import { useGetUserTasksListHooks } from '../../_api/getUserTasksList'
 import { usePostCompleteTask } from '../../_hooks/postCompleteTask'
+import { usePostDeleteTasks } from '../../_hooks/postDeleteTasks'
 import { useAppStore } from '../../_store'
 
 interface GetTaskListProps {
@@ -24,6 +25,7 @@ function GetUserTasksList({ onBack }: GetTaskListProps) {
   const { getUserTasksList } = useAppStore()
   const { setGetUserTasksList } = useGetUserTasksListHooks()
   const { completeTask } = usePostCompleteTask()
+  const { deleteTask } = usePostDeleteTasks()
   console.log('getUserTasksList', getUserTasksList)
   return (
     <>
@@ -100,12 +102,21 @@ function GetUserTasksList({ onBack }: GetTaskListProps) {
                             </div>
                           </div>
                         </div>
-                        <button
-                          className='text-gray-400 transition-colors hover:text-red-500'
-                          aria-label='删除任务'
+                        <Popconfirm
+                          title='确定要删除这个任务吗？'
+                          description='删除后无法恢复，请谨慎操作。'
+                          onConfirm={() => deleteTask(item)}
+                          okText='确定'
+                          cancelText='取消'
+                          okType='danger'
                         >
-                          <DeleteOutlined className='text-red-500' />
-                        </button>
+                          <button
+                            className='text-gray-400 transition-colors hover:text-red-500'
+                            aria-label='删除任务'
+                          >
+                            <DeleteOutlined className='text-red-500' />
+                          </button>
+                        </Popconfirm>
                       </div>
                     </div>
                   )

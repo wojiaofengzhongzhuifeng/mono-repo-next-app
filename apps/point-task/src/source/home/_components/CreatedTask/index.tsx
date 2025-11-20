@@ -16,7 +16,6 @@ function CreatedTask({ onBack }: CreatedTaskProps) {
   const [isRepeatable, setIsRepeatable] = useState<boolean>(false)
   const [form] = Form.useForm()
   const { createTasks, loading } = postPostCreatedTasksHooks()
-
   const generateUserId = () => {
     const userId = userInfo?.user_id
     return String(userId)
