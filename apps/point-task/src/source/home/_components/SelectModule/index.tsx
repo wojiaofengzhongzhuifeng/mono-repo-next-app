@@ -9,12 +9,14 @@ interface SelectModuleProps {
   onCreateTarget: () => void
   onCreateTask: () => void
   onGetTasksList: () => void
+  onAdvancedTargets: () => void
 }
 
 function SelectModule({
   onCreateTarget,
   onCreateTask,
   onGetTasksList,
+  onAdvancedTargets,
 }: SelectModuleProps) {
   return (
     <>
@@ -43,7 +45,10 @@ function SelectModule({
               <CheckCircleOutlined className='text-2xl mb-2' />
               <div>完成任务</div>
             </div>
-            <div className='bg-purple-500 hover:bg-purple-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'>
+            <div
+              className='bg-purple-500 hover:bg-purple-600 rounded-lg flex flex-col items-center justify-center text-xl shadow-md text-white transition-colors duration-200 cursor-pointer'
+              onClick={onAdvancedTargets}
+            >
               <GiftOutlined className='text-2xl mb-2' />
               <div>兑换目标</div>
             </div>
