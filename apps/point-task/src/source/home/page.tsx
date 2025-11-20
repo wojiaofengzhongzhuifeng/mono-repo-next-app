@@ -1,17 +1,17 @@
 import CreatedTarget from '@/source/home/_components/CreatedTarget'
 import CreatedTask from '@/source/home/_components/CreatedTask'
+import GetUserTargetList from '@/source/home/_components/GetUserTargetList'
 import GetUserTasksList from '@/source/home/_components/GetUserTasksList'
 import SelectModule from '@/source/home/_components/SelectModule'
 import GetUserInfo from '@/source/home/_components/UserInfo'
 import { useState } from 'react'
-import AdvancedTarget from './_components/AdvancedTarget'
 
 type ViewType =
   | 'select'
   | 'createTarget'
   | 'createTask'
   | 'getTasksList'
-  | 'advanced'
+  | 'getUserTargetList'
 
 function Page() {
   const [currentView, setCurrentView] = useState<ViewType>('select')
@@ -31,8 +31,13 @@ function Page() {
   const handleGetTasksList = () => {
     setCurrentView('getTasksList')
   }
+
+  const handleGetUserTargetList = () => {
+    setCurrentView('getUserTargetList')
+  }
+
   const advancedTargets = () => {
-    setCurrentView('advanced')
+    setCurrentView('getUserTargetList')
   }
   return (
     <div>
@@ -48,6 +53,7 @@ function Page() {
             onCreateTask={handleCreateTask}
             onGetTasksList={handleGetTasksList}
             onAdvancedTargets={advancedTargets}
+            onGetUserTargetList={handleGetUserTargetList}
           />
         )}
         {currentView === 'getTasksList' && (
@@ -56,7 +62,9 @@ function Page() {
             onCreateTask={handleCreateTask}
           />
         )}
-        {currentView === 'advanced' && <AdvancedTarget onBack={handleBack} />}
+        {currentView === 'getUserTargetList' && (
+          <GetUserTargetList onBack={handleBack} />
+        )}
       </div>
     </div>
   )

@@ -8,11 +8,11 @@ import {
 } from '../../_api/getUserTargetList'
 import { useAppStore } from '../../_store'
 
-interface AdvancedTargetProps {
+interface GetUserTargetListProps {
   onBack: () => void
 }
 
-function AdvancedTarget({ onBack }: AdvancedTargetProps) {
+function GetUserTargetList({ onBack }: GetUserTargetListProps) {
   const { getUserTargetList } = useAppStore()
   const { loading } = useGetUserTargetListHooks()
   const { userInfo } = useAppStore()
@@ -37,7 +37,7 @@ function AdvancedTarget({ onBack }: AdvancedTargetProps) {
     <>
       <div className='bg-white-200 p-6 w-2/5 mx-auto rounded-lg shadow-lg mt-4'>
         {/* head */}
-        <div className='flex items-center '>
+        <div className='flex items-center mb-4'>
           <ArrowLeftOutlined className='text-2xl mr-2' onClick={onBack} />
           <div>兑换目标</div>
         </div>
@@ -113,4 +113,4 @@ function AdvancedTarget({ onBack }: AdvancedTargetProps) {
   )
 }
 
-export default AdvancedTarget
+export default GetUserTargetList

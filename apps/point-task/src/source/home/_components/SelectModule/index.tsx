@@ -10,6 +10,7 @@ interface SelectModuleProps {
   onCreateTask: () => void
   onGetTasksList: () => void
   onAdvancedTargets: () => void
+  onGetUserTargetList: () => void
 }
 
 function SelectModule({
@@ -17,6 +18,7 @@ function SelectModule({
   onCreateTask,
   onGetTasksList,
   onAdvancedTargets,
+  onGetUserTargetList,
 }: SelectModuleProps) {
   return (
     <>
