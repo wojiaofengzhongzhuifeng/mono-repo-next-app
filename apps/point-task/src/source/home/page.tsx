@@ -41,7 +41,7 @@ function Page() {
           />
         )}
         {currentView === 'getTasksList' && (
-          <GetUserTasksList onBack={handleBack} />
+          <GetUserTasksList onBack={handleBack} onCreateTask={handleCreateTask} />
         )}
       </div>
     </div>
