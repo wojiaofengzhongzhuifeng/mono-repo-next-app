@@ -1,16 +1,31 @@
 import { useGetUserInfoHooks } from '@/source/home/_api/getUserInfo'
+import { useEffect } from 'react'
+import { useGetUserTargetListHooks } from '../../_api/getUserTargetList'
 import { useAppStore } from '../../_store'
 
 function GetUserInfo() {
   const { userInfo } = useAppStore()
   useGetUserInfoHooks()
+  useGetUserTargetListHooks()
+  const { getUserTargetList } = useAppStore()
   const { getUserTasksList } = useAppStore()
 
+  const targetCount = getUserTargetList.filter(item => item.is_redeemed).length
   const pendingTasksCount = getUserTasksList.filter(
     item => !item.is_completed
   ).length
 
-  console.log('pendingTasksCount', pendingTasksCount)
+  useEffect(() => {
+    if (getUserTargetList.length > 0 && getUserTasksList.length > 0) {
+      const targetCount = getUserTargetList.filter(
+        item => item.is_redeemed
+      ).length
+      const pendingTasksCount = getUserTasksList.filter(
+        item => !item.is_completed
+      ).length
+    }
+  }, [getUserTargetList, getUserTasksList])
+
   return (
     <div className='bg-blue-700 text-white p-6 w-2/5 mx-auto rounded-lg shadow-lg'>
       {/* head */}
@@ -24,7 +39,8 @@ function GetUserInfo() {
 
       {/* todo 等待task和target完成*/}
       <div className='text-center text-blue-200'>
-        {}个目标，{pendingTasksCount ? pendingTasksCount : 0}个待完成任务
+        {targetCount}个目标，{pendingTasksCount ? pendingTasksCount : 0}
+        个待完成任务
       </div>
     </div>
   )
