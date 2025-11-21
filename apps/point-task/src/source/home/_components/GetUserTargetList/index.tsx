@@ -4,12 +4,8 @@ import {
   ClockCircleOutlined,
 } from '@ant-design/icons'
 import { Button, Progress, Spin } from 'antd'
-import { useState } from 'react'
 import { GetUserInfoResponse } from '../../_api/getUserInfo'
-import {
-  GetUserTargetListResponse,
-  useGetUserTargetListHooks,
-} from '../../_api/getUserTargetList'
+import { useGetUserTargetListHooks } from '../../_api/getUserTargetList'
 import { usePostAchieveTarget } from '../../_hooks/postAchieveTarget'
 import { useAppStore } from '../../_store'
 
@@ -21,11 +17,7 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
   const { getUserTargetList } = useAppStore()
   const { loading } = useGetUserTargetListHooks()
   const { userInfo } = useAppStore()
-  const [advancedTargets, setAdvancedTargets] = useState('')
-  const { setAchieveTarget } = useAppStore()
   const { achieveTarget } = usePostAchieveTarget()
-  console.log('getUserTargetList', getUserTargetList)
-  console.log('userInfo', userInfo)
 
   //计算进度百分比
   const calculateProgress = (

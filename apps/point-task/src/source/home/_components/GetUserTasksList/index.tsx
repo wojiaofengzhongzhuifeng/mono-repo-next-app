@@ -5,10 +5,7 @@ import {
 } from '@ant-design/icons'
 import { Button, Checkbox, Popconfirm } from 'antd'
 import { useState } from 'react'
-import {
-  GetUserTasksListResponse,
-  useGetUserTasksListHooks,
-} from '../../_api/getUserTasksList'
+import { GetUserTasksListResponse } from '../../_api/getUserTasksList'
 import { usePostCompleteTask } from '../../_hooks/postCompleteTask'
 import { usePostDeleteTasks } from '../../_hooks/postDeleteTasks'
 import { useAppStore } from '../../_store'
@@ -44,7 +41,6 @@ const footerCount = (getUserTasksList: GetUserTasksListResponse[]) => {
 
 function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
   const { getUserTasksList } = useAppStore()
-  const { setGetUserTasksList } = useGetUserTasksListHooks()
   const { completeTask } = usePostCompleteTask()
   const { deleteTask } = usePostDeleteTasks()
   const [activeStatus, setActiveStatus] = useState<
@@ -151,7 +147,7 @@ function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
                         <Button
                           type='primary'
                           onClick={onCreateTask}
-                          className='mt-4 w-full mt-10 mb-8'
+                          className=' w-full mt-10 mb-8'
                         >
                           添加任务
                         </Button>
