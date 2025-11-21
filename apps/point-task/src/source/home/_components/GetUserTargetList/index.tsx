@@ -1,4 +1,8 @@
-import { ArrowLeftOutlined } from '@ant-design/icons'
+import {
+  ArrowLeftOutlined,
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+} from '@ant-design/icons'
 import { Button, Progress, Spin } from 'antd'
 import { useState } from 'react'
 import { GetUserInfoResponse } from '../../_api/getUserInfo'
@@ -6,6 +10,7 @@ import {
   GetUserTargetListResponse,
   useGetUserTargetListHooks,
 } from '../../_api/getUserTargetList'
+import { usePostAchieveTarget } from '../../_hooks/postAchieveTarget'
 import { useAppStore } from '../../_store'
 
 interface GetUserTargetListProps {
@@ -17,10 +22,10 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
   const { loading } = useGetUserTargetListHooks()
   const { userInfo } = useAppStore()
   const [advancedTargets, setAdvancedTargets] = useState('')
+  const { setAchieveTarget } = useAppStore()
+  const { achieveTarget } = usePostAchieveTarget()
   console.log('getUserTargetList', getUserTargetList)
   console.log('userInfo', userInfo)
-
-  //管理目标状态
 
   //计算进度百分比
   const calculateProgress = (
@@ -32,6 +37,10 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
   //格式化时间
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString()
+  }
+  //兑换目标
+  const handleAchieveTarget = (targetId: number, needPoints: number) => {
+    achieveTarget(targetId, needPoints)
   }
   return (
     <>
@@ -58,6 +67,11 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
                 <div key={target.id} className='border-2 mb-2 rounded-2xl p-4'>
                   <div className='flex justify-between items-center'>
                     <div className='font-medium text-base'>{target.name}</div>
+                    {target.is_redeemed ? (
+                      <CheckCircleOutlined className='text-green-500' />
+                    ) : (
+                      <ClockCircleOutlined className='text-gray-500' />
+                    )}
                   </div>
                   {/* 目标状态 */}
                   <div>
@@ -80,9 +94,17 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
                   <div>
                     <div className='flex justify-between items-center'>
                       <div>进度</div>{' '}
-                      <div className='text-sm text-gray-500 mt-2'>
-                        {userInfo?.totalPoints}/{target.need_point}
-                      </div>
+                      {target.is_redeemed &&
+                      userInfo?.totalPoints &&
+                      userInfo?.totalPoints > target.need_point ? (
+                        <div className='text-sm text-green-500 mt-2'>
+                          {userInfo?.totalPoints}/{target.need_point}
+                        </div>
+                      ) : (
+                        <div className='text-sm text-gray-500 mt-2'>
+                          {userInfo?.totalPoints}/{target.need_point}
+                        </div>
+                      )}
                     </div>
                     <Progress
                       percent={calculateProgress(target, userInfo)}
@@ -100,9 +122,33 @@ function GetUserTargetList({ onBack }: GetUserTargetListProps) {
                       创建于{formatDate(target.created_at)}
                     </div>
                     <div>
-                      <Button type='primary'>立即兑换</Button>
+                      <Button
+                        type='primary'
+                        onClick={() =>
+                          handleAchieveTarget(target.id, target.need_point)
+                        }
+                        disabled={
+                          target.is_redeemed ||
+                          (userInfo?.totalPoints ?? 0) < target.need_point
+                        }
+                      >
+                        {target.is_redeemed
+                          ? '已兑换'
+                          : (userInfo?.totalPoints ?? 0) < target.need_point
+                            ? '积分不足'
+                            : '立即兑换'}
+                      </Button>
                     </div>
                   </div>
+
+                  {/* 提示积分差 */}
+                  {target.is_redeemed &&
+                    userInfo?.totalPoints &&
+                    userInfo?.totalPoints < target.need_point && (
+                      <div className='text-blue-600  border border-bule-500 rounded-lg  py-2 mt-5 text-xs bg-blue-100 px-4'>
+                        积分差{target.need_point - userInfo?.totalPoints}
+                      </div>
+                    )}
                 </div>
               ))}
             </div>

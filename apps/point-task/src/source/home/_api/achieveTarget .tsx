@@ -1,64 +1,36 @@
 import { ApiConfig, prefixUrl } from '@/source/home/_api/common'
 import { post, STATUS_CODE } from '@mono-repo/utils'
-import { useRequest } from 'ahooks'
-import { useEffect } from 'react'
 
 // 1. 定义请求与响应的数据结构
 
 // 完成任务的请求数据结构
-export interface CompleteUserTaskRequest {
+export interface AchieveTargetRequest {
   user_id: string
-  task_ids: number[]
+  target_id: number
 }
 
-// 任务记录数据结构
-export interface TaskRecord {
-  id: number
-  user_id: string
-  task_id: number
-  completed_at: string
-}
-
-// 已完成任务数据结构
-export interface CompletedTask {
-  task: {
-    id: number
-    name: string
-    create_point: number
-    task_type: string
-    is_repeatable: boolean
-    is_completed: boolean
-    completed_at: string
-    user_id: string
-    created_at: string
-  }
-  taskRecord: TaskRecord
-  earnedPoints: number
-}
-
-// 后端返回的数据结构
-export interface CompleteUserTaskResponse {
+// 兑换目标的响应数据结构
+export interface AchieveTargetResponse {
   message: string
-  completedTasks: CompletedTask[]
-  totalEarnedPoints: number
+  achievedTarget: AchieveTargetRequest
 }
 
 // 2. 配置请求代码
 export const apiConfig: ApiConfig = {
-  url: `${prefixUrl}/tasks/complete-batch`,
+  url: `${prefixUrl}/redeem`,
   method: 'POST',
   manual: false,
   showError: true,
 }
 
 // 3. 请求代码 + 通用逻辑 + 错误处理
-export const completeUserTaskRequest = async (
-  taskData: CompleteUserTaskRequest
-): Promise<CompleteUserTaskResponse> => {
+export const achieveTargetRequest = async (
+  targetData: AchieveTargetRequest
+): Promise<AchieveTargetResponse> => {
   try {
-    const res = await post<CompleteUserTaskResponse>({
+    const res = await post<AchieveTargetResponse>({
       url: apiConfig.url,
-      data: taskData,
+      data: targetData,
     })
     if (res.code === STATUS_CODE.SUCCESS) {
       if (!res.data) {
@@ -72,19 +44,4 @@ export const completeUserTaskRequest = async (
     console.error('完成任务失败:', error)
     throw new Error('完成任务失败')
   }
-}
-
-// 凡是以 get or submit 开头，表示请求数据
-export function useCompleteUserTask() {
-  const { data, error, loading, run } = useRequest(completeUserTaskRequest, {
-    manual: true,
-  })
-
-  useEffect(() => {
-    if (error) {
-      console.error('完成任务失败:', error)
-    }
-  }, [error])
-
-  return { error, loading, data, run }
 }

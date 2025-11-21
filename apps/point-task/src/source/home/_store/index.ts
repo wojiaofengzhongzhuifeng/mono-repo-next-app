@@ -1,5 +1,6 @@
 import { GetUserInfoResponse } from '@/source/home/_api/getUserInfo'
 import { create } from 'zustand'
+import { AchieveTargetResponse } from '../_api/achieveTarget '
 import { GetUserTargetListRequset } from '../_api/getUserTargetList'
 import { GetUserTasksListRequset } from '../_api/getUserTasksList'
 import { PostUserCreatedTargetsRequset } from '../_api/postUserTarget'
@@ -23,6 +24,9 @@ interface AppStore {
 
   getUserTargetList: GetUserTargetListRequset[]
   setGetUserTargetList: (getUserTargetList: GetUserTargetListRequset[]) => void
+
+  achieveTarget: AchieveTargetResponse | null
+  setAchieveTarget: (achieveTarget: AchieveTargetResponse) => void
 }
 
 export const useAppStore = create<AppStore>(set => ({
@@ -44,4 +48,8 @@ export const useAppStore = create<AppStore>(set => ({
   getUserTargetList: [],
   setGetUserTargetList: getTargetList =>
     set({ getUserTargetList: getTargetList }),
+
+  achieveTarget: null,
+  setAchieveTarget: newAchieveTarget =>
+    set({ achieveTarget: newAchieveTarget }),
 }))
