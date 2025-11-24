@@ -5,7 +5,10 @@ import {
 } from '@ant-design/icons'
 import { Button, Checkbox, Popconfirm } from 'antd'
 import { useState } from 'react'
-import { GetUserTasksListResponse } from '../../_api/getUserTasksList'
+import {
+  GetUserTasksListResponse,
+  useGetUserTasksListHooks,
+} from '../../_api/getUserTasksList'
 import { usePostCompleteTask } from '../../_hooks/postCompleteTask'
 import { usePostDeleteTasks } from '../../_hooks/postDeleteTasks'
 import { useAppStore } from '../../_store'
@@ -43,6 +46,7 @@ function GetUserTasksList({ onBack, onCreateTask }: GetTaskListProps) {
   const { getUserTasksList } = useAppStore()
   const { completeTask } = usePostCompleteTask()
   const { deleteTask } = usePostDeleteTasks()
+  const { loading } = useGetUserTasksListHooks()
   const [activeStatus, setActiveStatus] = useState<
     'all' | 'pending' | 'completed'
   >('all')
